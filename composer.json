@@ -1,0 +1,13 @@
+{
+    "name": "azuriom/forum",
+    "type": "azuriom-plugin",
+    "description": "A nice and simple forum for Azuriom",
+    "autoload": {
+        "psr-4": {
+            "Azuriom\\Plugin\\Forum\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}

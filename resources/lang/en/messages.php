@@ -1,0 +1,73 @@
+<?php
+
+return [
+    'title' => 'Forum',
+
+    'fields' => [
+        'forum' => 'Forum',
+        'category' => 'Category',
+    ],
+
+    'actions' => [
+        'pin' => 'Pin',
+        'unpin' => 'Unpin',
+        'lock' => 'Lock',
+        'unlock' => 'Unlock',
+    ],
+
+    'forums' => [
+        'discussions-count' => ':count discussion|:count discussions',
+    ],
+
+    'discussions' => [
+        'title' => 'Discussions',
+        'title-create' => 'Create discussion',
+        'title-edit' => 'Edit discussion',
+
+        'pin' => 'Pin this discussion',
+        'lock' => 'Lock this discussion',
+
+        'respond' => 'Respond',
+
+        'locked' => 'Locked',
+        'pinned' => 'Pinned',
+
+        'info-locked' => 'This discussion is locked.',
+
+        'posts-count' => ':count post|:count posts',
+
+        'status' => [
+            'created' => 'The discussion has been created.',
+            'updated' => 'This discussion has been modified.',
+            'deleted' => 'This discussion has been deleted.',
+
+            'pinned' => 'This discussion has been pinned.',
+            'unpinned' => 'This discussion has been unpinned.',
+            'locked' => 'This discussion has been locked.',
+            'unlocked' => 'This discussion has been unlocked.',
+        ],
+    ],
+
+    'posts' => [
+        'title' => 'Posts',
+        'title-edit' => 'Edit post',
+
+        'delay' => 'You can post again in :time.',
+
+        'status' => [
+            'created' => 'The post has been created.',
+            'updated' => 'This post has been modified.',
+            'deleted' => 'This post has been deleted.',
+        ],
+    ],
+
+    'notifications' => [
+        'reply' => ':user has replied to your discussion :discussion',
+    ],
+
+    'profile' => [
+        'likes' => 'Likes',
+        'posts' => 'Posts',
+        'discussions' => 'Discussions',
+    ],
+];

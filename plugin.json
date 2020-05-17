@@ -1,0 +1,15 @@
+{
+    "id": "forum",
+    "name": "Forum",
+    "description": "A nice and simple forum for Azuriom",
+    "version": "0.1.2",
+    "url": "https://azuriom.com/market/resources/16",
+    "authors": [
+        "Azuriom"
+    ],
+    "providers": [
+        "\\Azuriom\\Plugin\\Forum\\Providers\\ForumServiceProvider",
+        "\\Azuriom\\Plugin\\Forum\\Providers\\RouteServiceProvider"
+    ],
+    "apiId": 16
+}
