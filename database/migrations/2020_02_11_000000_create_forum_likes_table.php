@@ -15,7 +15,6 @@ class CreateForumLikesTable extends Migration
     {
         Schema::create('forum_likes', function (Blueprint $table) {
             $table->increments('id');
-
             $table->unsignedInteger('post_id');
             $table->unsignedInteger('author_id');
 

@@ -3,8 +3,13 @@
 namespace Azuriom\Plugin\Forum\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
+use Azuriom\Models\User;
 use Azuriom\Plugin\Forum\Models\Category;
+use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
+use Azuriom\Plugin\Forum\Models\ForumUser;
+use Azuriom\Plugin\Forum\Models\Post;
+use Illuminate\Support\Facades\Cache;
 
 class ForumController extends Controller
 {
@@ -17,11 +22,27 @@ class ForumController extends Controller
     {
         $categories = Category::with([
             'forums' => function ($query) {
-                $query->withCount('discussions');
+                $query->withCount(['discussions', 'posts']);
             }
         ])->orderBy('position')->get();
 
-        return view('forum::home', ['categories' => $categories]);
+        $stats = Cache::remember('forum.stats', 5, function () {
+            $onlineUsers = ForumUser::online()
+                ->with(['user' => function($query) {
+                    $query->without('role');
+                }])
+                ->get()
+                ->pluck('user.name');
+
+            return [
+                'discussionsCount' => Discussion::count(),
+                'postsCount' => Post::count(),
+                'usersCount' => User::count(),
+                'onlineUsers' => $onlineUsers->all(),
+            ];
+        });
+
+        return view('forum::home', ['categories' => $categories] + $stats);
     }
 
     /**

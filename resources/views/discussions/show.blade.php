@@ -91,7 +91,7 @@
 
                         <div class="col-xl-10 col-md-9">
                             <div class="mb-3">
-                                <small>{{ format_date($post->created_at) }}</small>
+                                <small>{{ format_date($post->created_at, true) }}</small>
                             </div>
 
                             <div class="markdown-body mb-3">

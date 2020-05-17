@@ -43,9 +43,9 @@
                             </div>
 
                             <div class="col-md-2 d-none d-md-block">
-                                @if(($discussionPost = $discussion->posts()->latest()->first()) !== null)
-                                    {{ $discussionPost->author->name }},
-                                    <small>{{ format_date($discussionPost->created_at) }}</small>
+                                @if(! $discussion->posts->isEmpty())
+                                    {{ $discussion->posts->first()->author->name }},
+                                    <small>{{ format_date($discussion->posts->first()->created_at) }}</small>
                                 @endif
                             </div>
                         </div>

@@ -15,6 +15,20 @@ return [
         'unlock' => 'Déverrouiller',
     ],
 
+    'stats' => [
+        'title' => 'Stats',
+
+        'discussions' => 'Discussions: :count',
+        'posts' => 'Messages: :count',
+        'users' => 'Utilisateurs: :count',
+    ],
+
+    'online' => [
+        'title' => 'Utilisateurs en ligne',
+
+        'none' => 'Aucun utilisateur en ligne...',
+    ],
+
     'forums' => [
         'discussions-count' => ':count discussion|:count discussions',
     ],

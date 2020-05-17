@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Forum\Providers;
 
 use Azuriom\Extensions\Plugin\BaseRouteServiceProvider;
+use Azuriom\Plugin\Forum\Middleware\UpdateLastActivity;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends BaseRouteServiceProvider
@@ -24,14 +25,13 @@ class RouteServiceProvider extends BaseRouteServiceProvider
         $this->mapPluginsRoutes();
 
         $this->mapAdminRoutes();
-
         //
     }
 
     protected function mapPluginsRoutes()
     {
         Route::prefix($this->plugin->id)
-            ->middleware('web')
+            ->middleware(['web', UpdateLastActivity::class])
             ->namespace($this->namespace)
             ->name("{$this->plugin->id}.")
             ->group(plugin_path($this->plugin->id.'/routes/web.php'));

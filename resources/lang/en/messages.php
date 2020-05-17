@@ -15,6 +15,20 @@ return [
         'unlock' => 'Unlock',
     ],
 
+    'stats' => [
+        'title' => 'Stats',
+
+        'discussions' => 'Discussions: :count',
+        'posts' => 'Posts: :count',
+        'users' => 'Users: :count',
+    ],
+
+    'online' => [
+        'title' => 'Online users',
+
+        'none' => 'No online users now...',
+    ],
+
     'forums' => [
         'discussions-count' => ':count discussion|:count discussions',
     ],

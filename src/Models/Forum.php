@@ -58,6 +58,14 @@ class Forum extends Model
         return $this->hasMany(Discussion::class);
     }
 
+    /**
+     * Get all the posts in this forum.
+     */
+    public function posts()
+    {
+        return $this->hasManyThrough(Post::class, Discussion::class)->latest();
+    }
+
     public function getParentNavigation()
     {
         return $this->category;
