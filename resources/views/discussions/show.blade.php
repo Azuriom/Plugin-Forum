@@ -150,8 +150,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-reply"></i>
-                                {{ trans('messages.actions.create') }}
+                                <i class="fas fa-reply"></i> {{ trans('forum::messages.discussions.respond') }}
                             </button>
                         </form>
                     </div>

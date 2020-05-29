@@ -25,7 +25,6 @@ class RouteServiceProvider extends BaseRouteServiceProvider
         $this->mapPluginsRoutes();
 
         $this->mapAdminRoutes();
-        //
     }
 
     protected function mapPluginsRoutes()

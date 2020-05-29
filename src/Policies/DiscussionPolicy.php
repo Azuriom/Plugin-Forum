@@ -41,7 +41,7 @@ class DiscussionPolicy
      */
     public function create(User $user)
     {
-        return $user->can('forum.discussions.create');
+        return true;
     }
 
     /**
