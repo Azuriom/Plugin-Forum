@@ -50,6 +50,8 @@ return [
 
         'posts-count' => ':count message|:count messages',
 
+        'delete' => 'Êtes-vous sûr de vouloir supprimer cette discussion ?',
+
         'status' => [
             'created' => 'La discussion a été créée.',
             'updated' => 'Cette discussion a été mise à jour.',
@@ -67,6 +69,8 @@ return [
         'title-edit' => 'Éditer le message',
 
         'delay' => 'Vous pouvez poster un nouveau message dans :time.',
+
+        'delete' => 'Êtes-vous sûr de vouloir supprimer ce message ?',
 
         'status' => [
             'created' => 'Le message a été ajouté.',

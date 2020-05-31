@@ -38,8 +38,7 @@ class DiscussionController extends Controller
                 }, 'author' => function ($query) {
                     $query->withCount(['likes', 'posts', 'discussions']);
                 }
-            ])->oldest()
-            ->paginate();
+            ])->oldest()->paginate();
 
         $discussion->setRelation('posts', $posts);
 
@@ -98,10 +97,13 @@ class DiscussionController extends Controller
      */
     public function destroy(Discussion $discussion)
     {
+        $discussion->posts()->delete();
+
         $discussion->delete();
 
         ActionLog::log('forum-discussions.deleted', $discussion);
 
-        return redirect()->route('forum.home')->with('success', trans('forum::messages.posts.status.deleted'));
+        return redirect()->route('forum.home')
+            ->with('success', trans('forum::messages.discussions.status.deleted'));
     }
 }

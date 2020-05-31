@@ -82,7 +82,7 @@ class Discussion extends Model
      */
     public function posts()
     {
-        return $this->hasMany(Post::class)->latest('updated_at');
+        return $this->hasMany(Post::class);
     }
 
     public function getParentNavigation()

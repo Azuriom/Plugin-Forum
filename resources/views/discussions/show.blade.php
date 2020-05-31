@@ -39,17 +39,24 @@
                         </form>
                     @endcan
 
-                    @can('update', $discussion)
-                        <a href="{{ route('forum.discussions.edit', $discussion) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip">
-                            <i class="fas fa-edit fa-fw"></i>
-                        </a>
-                    @endcan
+                    @if(! $discussion->is_locked || optional(auth()->user())->isAdmin())
+                        @can('update', $discussion)
+                            <a href="{{ route('forum.discussions.edit', $discussion) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip">
+                                <i class="fas fa-edit fa-fw"></i>
+                            </a>
+                        @endcan
 
-                    @can('delete', $discussion)
-                        <button class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip">
-                            <i class="fas fa-trash fa-fw"></i>
-                        </button>
-                    @endcan
+                        @can('delete', $discussion)
+                            <form action="{{ route('forum.discussions.destroy', $discussion) }}" method="POST" class="d-inline-block" onsubmit="return confirm('{{ trans('forum::messages.discussions.delete') }}')">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip">
+                                    <i class="fas fa-trash fa-fw"></i>
+                                </button>
+                            </form>
+                        @endcan
+                    @endif
                 </div>
             </div>
         </div>
@@ -86,7 +93,6 @@
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
 
                         <div class="col-xl-10 col-md-9">
@@ -108,17 +114,24 @@
                         <span class="d-none spinner-border spinner-border-sm load-spinner" role="status"></span>
                     </button>
 
-                    @can('edit', $post)
-                        <a href="{{ route('forum.discussions.posts.edit', [$discussion, $post]) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip">
-                            <i class="fas fa-edit fa-fw"></i>
-                        </a>
-                    @endcan
+                    @if(! $loop->first && (! $discussion->is_locked || optional(auth()->user())->isAdmin()))
+                        @can('edit', $post)
+                            <a href="{{ route('forum.discussions.posts.edit', [$discussion, $post]) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip">
+                                <i class="fas fa-edit fa-fw"></i>
+                            </a>
+                        @endcan
 
-                    @can('delete', $post)
-                        <button class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip">
-                            <i class="fas fa-trash fa-fw"></i>
-                        </button>
-                    @endcan
+                        @can('delete', $post)
+                            <form action="{{ route('forum.discussions.posts.destroy', [$discussion, $post]) }}" method="POST" class="d-inline-block" onsubmit="return confirm('{{ trans('forum::messages.posts.delete') }}')">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip">
+                                    <i class="fas fa-trash fa-fw"></i>
+                                </button>
+                            </form>
+                        @endcan
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -130,7 +143,9 @@
                 <i class="fas fa-lock"></i>
                 {{ trans('forum::messages.discussions.info-locked') }}
             </div>
-        @else
+        @endif
+
+        @if(! $discussion->is_locked || optional(auth()->user())->isAdmin())
             @can('create', \Azuriom\Plugin\Forum\Models\Post::class)
                 <div class="card shadow-sm mb-3">
                     <div class="card-header">

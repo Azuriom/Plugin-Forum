@@ -50,6 +50,8 @@ return [
 
         'posts-count' => ':count post|:count posts',
 
+        'delete' => 'Are you sure you want to delete this discussion ?',
+
         'status' => [
             'created' => 'The discussion has been created.',
             'updated' => 'This discussion has been modified.',
@@ -67,6 +69,8 @@ return [
         'title-edit' => 'Edit post',
 
         'delay' => 'You can post again in :time.',
+
+        'delete' => 'Are you sure you want to delete this post ?',
 
         'status' => [
             'created' => 'The post has been created.',

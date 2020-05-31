@@ -21,7 +21,7 @@ class CreateForumPostsTable extends Migration
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('users');
-            $table->foreign('discussion_id')->references('id')->on('forum_discussions');
+            $table->foreign('discussion_id')->references('id')->on('forum_discussions')->onDelete('cascade');
         });
     }
 

@@ -55,8 +55,8 @@ class ForumController extends Controller
     {
         $discussions = $forum->discussions()
             ->with([
-                'author', 'posts.author' => function ($query) {
-                    $query->latest();
+                'author', 'posts' => function ($query) {
+                    $query->latest()->with('author');
                 }
             ])
             ->withCount('posts')

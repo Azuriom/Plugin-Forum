@@ -9,6 +9,7 @@ use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Requests\PostRequest;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 
 class DiscussionPostController extends Controller
 {
@@ -101,15 +102,16 @@ class DiscussionPostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request
      * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
      * @param  \Azuriom\Plugin\Forum\Models\Post  $post
      * @return \Illuminate\Http\Response
      *
      * @throws \Exception
      */
-    public function destroy(Discussion $discussion, Post $post)
+    public function destroy(Request $request, Discussion $discussion, Post $post)
     {
-        if ($discussion->is_locked) {
+        if ($discussion->is_locked && ! $request->user()->isAdmin()) {
             throw new AuthorizationException();
         }
 
