@@ -6,6 +6,7 @@ return [
     'fields' => [
         'forum' => 'Forum',
         'category' => 'Catégorie',
+        'icon' => 'Icône',
     ],
 
     'actions' => [

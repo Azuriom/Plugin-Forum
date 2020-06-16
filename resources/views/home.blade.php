@@ -20,7 +20,7 @@
                                 <div class="list-group-item">
                                     <div class="row">
                                         <div class="col-xl-1 col-md-2 col-2 forum-big-icon text-center">
-                                            <i class="fas fa-folder fa-fw"></i>
+                                            <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-fw"></i>
                                         </div>
 
                                         <div class="col-xl-8 col-md-7 col-10">

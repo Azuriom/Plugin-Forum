@@ -33,6 +33,8 @@ return [
         'create-category' => 'Create category',
         'create-forum' => 'Create forum',
 
+        'icons' => 'You can find the list of available icons on <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener noreferrer">FontAwesome</a>.',
+
         'status' => [
             'created' => 'The forums has been created.',
             'updated' => 'This forums has been modified.',

@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property string $name
+ * @property string $icon
  * @property string $slug
  * @property string $description
- * @property int|null category_id
+ * @property int|null $category_id
+ * @property int|null $parent_id
  * @property int $position
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -43,7 +45,7 @@ class Forum extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'slug', 'position', 'category_id', 'parent_id',
+        'name', 'icon', 'description', 'slug', 'position', 'category_id', 'parent_id',
     ];
 
     /**

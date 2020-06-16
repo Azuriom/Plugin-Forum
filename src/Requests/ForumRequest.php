@@ -18,6 +18,7 @@ class ForumRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50'],
+            'icon' => ['nullable', 'string', 'max:50'],
             'slug' => [
                 'required', 'string', 'max:100', new Slug(), Rule::unique(Forum::class)->ignore($this->forum, 'slug')
             ],
