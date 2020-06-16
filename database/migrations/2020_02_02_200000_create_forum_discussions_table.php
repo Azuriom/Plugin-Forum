@@ -23,7 +23,7 @@ class CreateForumDiscussionsTable extends Migration
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('users');
-            $table->foreign('forum_id')->references('id')->on('forum_forums');
+            $table->foreign('forum_id')->references('id')->on('forum_forums')->onDelete('cascade');
         });
     }
 

@@ -41,6 +41,7 @@ return [
             'order-updated' => 'Ordre des forums mis à jour.',
 
             'error-delete' => 'Ce forum contient des discussions et ne peut pas être supprimée.',
+            'delete-with-forums' => 'Un forum qui contient des sous-forums ne peut pas être supprimé.',
         ],
     ],
 

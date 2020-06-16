@@ -144,8 +144,14 @@ class ForumController extends Controller
      */
     public function destroy(Forum $forum)
     {
+        if ($forum->forums()->exists()) {
+            return redirect()->back()
+                ->with('error', trans('forum::admin.forums.status.delete-with-forums'));
+        }
+
         if ($forum->discussions()->exists()) {
-            return redirect()->back()->with('error', trans('forum::admin.forums.status.delete-not-empty'));
+            return redirect()->back()
+                ->with('error', trans('forum::admin.forums.status.delete-not-empty'));
         }
 
         $forum->delete();
