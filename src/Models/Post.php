@@ -66,7 +66,7 @@ class Post extends Model
     protected static function booted()
     {
         static::updated(function (Model $model) {
-            Cache::forget("forum.posts-content.{$model->id}");
+            Cache::forget("forum.posts-content.{$model->getKey()}");
         });
     }
 

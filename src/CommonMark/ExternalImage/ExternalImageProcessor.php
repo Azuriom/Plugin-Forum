@@ -45,7 +45,7 @@ class ExternalImageProcessor
     private function markLinkAsExternal(Image $image, string $imageProxy)
     {
         $image->data['external'] = true;
-        $image->data['attributes']['data-orginial-src'] = $image->getUrl();
+        $image->data['attributes']['data-original-src'] = $image->getUrl();
 
         if (! empty($imageProxy)) {
             $image->setUrl(str_replace('%s', rawurlencode($image->getUrl()), $imageProxy));
@@ -55,7 +55,7 @@ class ExternalImageProcessor
     private static function hostMatches(string $host, $compareTo)
     {
         foreach ((array) $compareTo as $c) {
-            if (strpos($c, '/') === 0) {
+            if (strncmp($c, '/', 1) === 0) {
                 if (preg_match($c, $host)) {
                     return true;
                 }

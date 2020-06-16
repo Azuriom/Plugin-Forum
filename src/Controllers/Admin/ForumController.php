@@ -17,8 +17,16 @@ class ForumController extends Controller
      */
     public function index()
     {
+        $categories = Category::with([
+            'forums' => function ($query) {
+                $query->scopes('parents')->with('forums');
+            },
+        ])
+            ->orderBy('position')
+            ->get();
+
         return view('forum::admin.forums.index', [
-            'categories' => Category::with('forums')->orderBy('position')->get(),
+            'categories' => $categories,
         ]);
     }
 
@@ -50,17 +58,27 @@ class ForumController extends Controller
 
             $forumPosition = 1;
 
-            foreach ($forums as $forum) {
-                Forum::whereKey($forum)->update([
-                    'position' => $forumPosition++,
-                    'category_id' => $id,
-                ]);
-            }
+            $this->updateForums($id, $forums, null, $forumPosition);
         }
 
         return response()->json([
             'message' => trans('forum::admin.forums.status.order-updated'),
         ]);
+    }
+
+    protected function updateForums(int $categoryId, array $forums, ?int $parentId, int &$position)
+    {
+        foreach ($forums as $forum) {
+            $id = $forum['id'];
+
+            Forum::whereKey($id)->update([
+                'position' => $position++,
+                'category_id' => $categoryId,
+                'parent_id' => $parentId,
+            ]);
+
+            $this->updateForums($categoryId, $forum['forums'] ?? [], $id, $position);
+        }
     }
 
     /**

@@ -53,7 +53,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->id === $post->author_id || $user->can('forum.discussions');
+        return $user->is($post->author) || $user->can('forum.discussions');
     }
 
     /**
@@ -65,6 +65,6 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id === $post->author_id || $user->can('forum.discussions');
+        return $user->is($post->author) || $user->can('forum.discussions');
     }
 }

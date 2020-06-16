@@ -22,9 +22,9 @@ trait HasParentNavigation
         $parent = null;
 
         while (($el = $el->getParentNavigation()) !== null) {
-            $stack = array_merge($el->getNavigationLink(), $stack);
+            array_unshift($stack, $el->getNavigationLink());
         }
 
-        return $stack;
+        return array_merge([], ...$stack);
     }
 }

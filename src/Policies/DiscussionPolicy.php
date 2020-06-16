@@ -53,7 +53,7 @@ class DiscussionPolicy
      */
     public function update(User $user, Discussion $discussion)
     {
-        return $user->id === $discussion->author_id || $user->can('forum.discussions');
+        return $user->is($discussion->author) || $user->can('forum.discussions');
     }
 
     /**

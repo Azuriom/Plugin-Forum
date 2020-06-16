@@ -13,7 +13,7 @@
             handle: '.sortable-handle'
         });
 
-        document.querySelectorAll('.category-list').forEach(function (el) {
+        document.querySelectorAll('.forum-list').forEach(function (el) {
             Sortable.create(el, {
                 group: {
                     name: 'forums',
@@ -27,25 +27,30 @@
             const serialized = [];
 
             [].slice.call(categories.children).forEach(function (category) {
-                const forumsId = [];
-
-                const forums = category.querySelector('.category-list');
-
-                [].slice.call(forums.children).forEach(function (categoryforum) {
-                    forumsId.push(categoryforum.dataset['forumId']);
-                });
-
                 serialized.push({
                     id: category.dataset['categoryId'],
-                    forums: forumsId
+                    forums: serializeForum(category.querySelector('.forum-list')),
                 });
             });
 
             return serialized
         }
 
+        function serializeForum(forumsList) {
+            const forums = [];
+
+            [].slice.call(forumsList.children).forEach(function (forumCategory) {
+                forums.push({
+                    id: forumCategory.dataset['forumId'],
+                    forums: serializeForum(forumCategory.querySelector('.forum-list')),
+                });
+            });
+
+            return forums;
+        }
+
         const saveButton = document.getElementById('save');
-        const saveButtonIcon = saveButton.querySelector('.btn-animation');
+        const saveButtonIcon = saveButton.querySelector('.btn-spinner');
 
         saveButton.addEventListener('click', function () {
             saveButton.setAttribute('disabled', '');
@@ -86,23 +91,9 @@
                                 </span>
                             </div>
                         </div>
-                        <ol class="list-unstyled sortable sortable-list category-list">
-                            @foreach($category->forums as $forum)
-                                <li class="sortable-item" data-forum-id="{{ $forum->id }}">
-                                    <div class="card">
-                                        <div class="card-body d-flex justify-content-between">
-                                            <span>
-                                                <i class="fas fa-arrows-alt sortable-handle"></i>
-                                                <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
-                                            </span>
-                                            <span>
-                                                <a href="{{ route('forum.admin.forums.edit', $forum) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                                                <a href="{{ route('forum.admin.forums.destroy', $forum) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
+
+                        <ol class="list-unstyled sortable sortable-list forum-list">
+                            @each('forum::admin.forums._forum', $category->forums, 'forum')
                         </ol>
                     </li>
                 @endforeach
@@ -116,7 +107,7 @@
 
                 <button type="button" class="btn btn-success" id="save">
                     <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
-                    <i class="fas fa-sync fa-spin d-none btn-animation"></i>
+                    <span class="spinner-border spinner-border-sm btn-spinner d-none" role="status"></span>
                 </button>
             @endif
         </div>

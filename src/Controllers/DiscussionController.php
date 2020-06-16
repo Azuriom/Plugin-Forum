@@ -29,7 +29,7 @@ class DiscussionController extends Controller
      */
     public function show(Discussion $discussion)
     {
-        $discussion->load('forum.category');
+        $discussion->load(['author', 'forum.category']);
 
         $posts = $discussion->posts()
             ->with([

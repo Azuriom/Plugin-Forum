@@ -14,6 +14,7 @@
                             <h5>{{ $category->name }}</h5>
                             <small>{{ $category->description }}</small>
                         </div>
+
                         <div class="list-group list-group-flush">
                             @foreach($category->forums as $forum)
                                 <div class="list-group-item">

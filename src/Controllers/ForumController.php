@@ -26,11 +26,13 @@ class ForumController extends Controller
             }
         ])->orderBy('position')->get();
 
-        $stats = Cache::remember('forum.stats', 5, function () {
+        $stats = Cache::remember('forum.stats', now()->addMinutes(5), function () {
             $onlineUsers = ForumUser::online()
-                ->with(['user' => function($query) {
-                    $query->without('role');
-                }])
+                ->with([
+                    'user' => function ($query) {
+                        $query->without('role');
+                    }
+                ])
                 ->get()
                 ->pluck('user.name');
 
@@ -65,7 +67,11 @@ class ForumController extends Controller
 
         $forum->setRelation('discussions', $discussions);
 
-        $forum->load('category');
+        $forum->load([
+            'category', 'forums' => function ($query) {
+                $query->withCount(['discussions', 'posts']);
+            },
+        ]);
 
         return view('forum::show', [
             'forum' => $forum,

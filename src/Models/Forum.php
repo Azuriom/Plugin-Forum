@@ -5,6 +5,7 @@ namespace Azuriom\Plugin\Forum\Models;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\Loggable;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,13 +13,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $slug
  * @property string $description
- * @property int category_id
+ * @property int|null category_id
  * @property int $position
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
  * @property \Azuriom\Plugin\Forum\Models\Category $category
+ * @property \Azuriom\Plugin\Forum\Models\Forum|null $parent
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Discussion[] $discussions
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder parents()
  */
 class Forum extends Model
 {
@@ -39,7 +43,7 @@ class Forum extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'slug', 'position', 'category_id',
+        'name', 'description', 'slug', 'position', 'category_id', 'parent_id',
     ];
 
     /**
@@ -48,6 +52,22 @@ class Forum extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the parent forum of this forum.
+     */
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    /**
+     * Get the parents forums in this forum.
+     */
+    public function forums()
+    {
+        return $this->hasMany(self::class, 'parent_id')->orderBy('position');
     }
 
     /**
@@ -68,11 +88,22 @@ class Forum extends Model
 
     public function getParentNavigation()
     {
-        return $this->category;
+        return $this->parent ?? $this->category;
     }
 
     public function getNavigationLink()
     {
         return [route('forum.show', $this->slug) => $this->name];
+    }
+
+    /**
+     * Scope a query to only include parent forums.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeParents(Builder $query)
+    {
+        return $query->whereNull('parent_id')->orderBy('position');
     }
 }
