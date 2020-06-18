@@ -55,6 +55,16 @@ class Discussion extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_pinned' => 'boolean',
+        'is_locked' => 'boolean',
+    ];
+
+    /**
      * The user key associated with this model.
      *
      * @var string

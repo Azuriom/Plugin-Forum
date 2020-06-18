@@ -6,12 +6,14 @@
     <div class="container content">
         @include('forum::elements.nav')
 
+        <h1 class="h2">{{ trans('forum::messages.title') }}</h1>
+
         <div class="row">
             <div class="col-md-9">
                 @foreach($categories as $category)
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h5>{{ $category->name }}</h5>
+                            <h2 class="h3">{{ $category->name }}</h2>
                             <small>{{ $category->description }}</small>
                         </div>
 
@@ -19,14 +21,16 @@
                             @foreach($category->forums as $forum)
                                 <div class="list-group-item">
                                     <div class="row">
-                                        <div class="col-xl-1 col-md-2 col-2 forum-big-icon text-center">
-                                            <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-fw"></i>
+                                        <div class="col-xl-1 col-md-2 col-2 text-center">
+                                            <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
                                         </div>
 
-                                        <div class="col-xl-8 col-md-7 col-10">
-                                            <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
-                                            <br>
-                                            {{ $forum->description }}
+                                        <div class="col-xl-8 col-md-7 col-10 pl-md-0">
+                                            <h3 class="h5">
+                                                <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
+                                            </h3>
+
+                                            {{ $forum->description ?? '' }}
                                         </div>
 
                                         <div class="col-xl-3 col-md-3 d-none d-md-block">
@@ -45,7 +49,26 @@
             <div class="col-md-3">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-chart-bar"></i> {{ trans('forum::messages.stats.title') }}
+                        <i class="fas fa-comments fa-fw"></i> {{ trans('forum::messages.latest.title') }}
+                    </div>
+                    <div class="list-group list-group-flush">
+                        @foreach($latestPosts as $post)
+                            <div class="list-group-item">
+                                <a href="{{ route('forum.discussions.show', $post->discussion) }}">
+                                    {{ $post->discussion->title }}
+                                </a>
+
+                                <br>
+
+                                <small>{{ $post->author->name }}, {{ format_date($post->created_at) }}</small>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar fa-fw"></i> {{ trans('forum::messages.stats.title') }}
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
@@ -58,7 +81,7 @@
 
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-users"></i> {{ trans('forum::messages.online.title') }}
+                        <i class="fas fa-users fa-fw"></i> {{ trans('forum::messages.online.title') }}
                     </div>
                     <div class="card-body">
                         @empty($onlineUsers)

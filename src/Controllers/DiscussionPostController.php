@@ -84,15 +84,9 @@ class DiscussionPostController extends Controller
      * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
      * @param  \Azuriom\Plugin\Forum\Models\Post  $post
      * @return \Illuminate\Http\Response
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(PostRequest $request, Discussion $discussion, Post $post)
     {
-        if ($discussion->is_locked && ! $request->user()->isAdmin()) {
-            throw new AuthorizationException();
-        }
-
         $post->update($request->validated());
 
         return redirect()->route('forum.discussions.show', $discussion)
@@ -111,10 +105,6 @@ class DiscussionPostController extends Controller
      */
     public function destroy(Request $request, Discussion $discussion, Post $post)
     {
-        if ($discussion->is_locked && ! $request->user()->isAdmin()) {
-            throw new AuthorizationException();
-        }
-
         $post->delete();
 
         ActionLog::log('forum-post.deleted', $post);

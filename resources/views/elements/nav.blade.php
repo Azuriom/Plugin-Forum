@@ -8,22 +8,3 @@
         @endforeach
     </ol>
 </nav>
-
-@push('styles')
-    <style>
-        .forum-big-icon i {
-            font-size: 3em;
-        }
-
-        @media (max-width: 575px) {
-            .forum-big-icon {
-                padding-left: 5px;
-                padding-right: 0;
-            }
-
-            .forum-big-icon i {
-                font-size: 2em;
-            }
-        }
-    </style>
-@endpush

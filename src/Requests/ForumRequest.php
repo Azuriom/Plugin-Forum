@@ -2,6 +2,7 @@
 
 namespace Azuriom\Plugin\Forum\Requests;
 
+use Azuriom\Http\Requests\Traits\ConvertCheckbox;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Rules\Slug;
 use Illuminate\Foundation\Http\FormRequest;
@@ -9,6 +10,17 @@ use Illuminate\Validation\Rule;
 
 class ForumRequest extends FormRequest
 {
+    use ConvertCheckbox;
+
+    /**
+     * The checkboxes attributes.
+     *
+     * @var array
+     */
+    protected $checkboxes = [
+        'is_locked',
+    ];
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,6 +36,7 @@ class ForumRequest extends FormRequest
             ],
             'description' => ['nullable', 'string', 'max:255'],
             'category_id' => ['required', 'exists:forum_categories,id'],
+            'is_locked' => ['filled', 'boolean'],
         ];
     }
 }

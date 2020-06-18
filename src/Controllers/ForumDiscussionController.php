@@ -6,6 +6,7 @@ use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Arr;
 
 class ForumDiscussionController extends Controller
@@ -30,9 +31,15 @@ class ForumDiscussionController extends Controller
      * @param  \Azuriom\Plugin\Forum\Requests\DiscussionRequest  $request
      * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
      * @return \Illuminate\Http\Response
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(DiscussionRequest $request, Forum $forum)
     {
+        if ($forum->is_locked && ! $request->user()->isAdmin()) {
+            throw new AuthorizationException();
+        }
+
         $nextPostTime = Post::nextPostTime($request->user());
 
         if ($nextPostTime !== null) {

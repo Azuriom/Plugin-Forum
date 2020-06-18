@@ -35,6 +35,9 @@ return [
 
         'icons' => 'Vous pouvez avoir la liste des icônes disponibles sur <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener noreferrer">FontAwesome</a>.',
 
+        'lock' => 'Verrouiller ce forum',
+        'lock-info' => 'Les utilisateurs qui ne sont pas admin ne pourront pas créer de discussions.',
+
         'status' => [
             'created' => 'Le forum a été créé.',
             'updated' => 'Ce forum a été mis à jour.',

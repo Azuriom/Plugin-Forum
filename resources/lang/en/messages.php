@@ -16,6 +16,10 @@ return [
         'unlock' => 'Unlock',
     ],
 
+    'latest' => [
+        'title' => 'Latest posts',
+    ],
+
     'stats' => [
         'title' => 'Stats',
 
@@ -32,6 +36,8 @@ return [
 
     'forums' => [
         'discussions-count' => ':count discussion|:count discussions',
+
+        'locked' => 'This forum is locked.',
     ],
 
     'discussions' => [

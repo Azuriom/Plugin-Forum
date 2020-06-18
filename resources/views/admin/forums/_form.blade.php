@@ -43,7 +43,7 @@
 
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text"><i class="{{ $forum->icon ?? 'fas fa-comments' }}"></i></span>
+                <span class="input-group-text"><i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-fw"></i></span>
             </div>
 
             <input type="text" class="form-control @error('icon') is-invalid @enderror" id="iconInput" name="icon" value="{{ old('icon', $forum->icon ?? '') }}" required placeholder="fas fa-comments" aria-labelledby="iconLabel">
@@ -59,9 +59,16 @@
 
 <div class="form-group">
     <label for="descriptionInput">{{ trans('messages.fields.description') }}</label>
-    <input type="text" class="form-control @error('description') is-invalid @enderror" id="descriptionInput" name="description" value="{{ old('description', $forum->description ?? '') }}" required>
+    <input type="text" class="form-control @error('description') is-invalid @enderror" id="descriptionInput" name="description" value="{{ old('description', $forum->description ?? '') }}">
 
     @error('description')
     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
     @enderror
+</div>
+
+<div class="form-group custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="lockSwitch" name="is_locked" aria-describedby="lockLabel" @if($forum->is_locked ?? false) checked @endif>
+    <label class="custom-control-label" for="lockSwitch">{{ trans('forum::admin.forums.lock') }}</label>
+
+    <small id="lockLabel" class="form-text">{{ trans('forum::admin.forums.lock-info') }}</small>
 </div>

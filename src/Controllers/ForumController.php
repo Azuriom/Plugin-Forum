@@ -22,7 +22,7 @@ class ForumController extends Controller
     {
         $categories = Category::with([
             'forums' => function ($query) {
-                $query->withCount(['discussions', 'posts']);
+                $query->scopes('parents')->withCount(['discussions', 'posts']);
             }
         ])->orderBy('position')->get();
 
@@ -44,7 +44,15 @@ class ForumController extends Controller
             ];
         });
 
-        return view('forum::home', ['categories' => $categories] + $stats);
+        $latestPosts = Post::with(['author', 'discussion'])
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('forum::home', [
+                'categories' => $categories,
+                'latestPosts' => $latestPosts,
+            ] + $stats);
     }
 
     /**

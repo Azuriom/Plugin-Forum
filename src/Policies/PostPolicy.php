@@ -2,8 +2,8 @@
 
 namespace Azuriom\Plugin\Forum\Policies;
 
-use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Models\User;
+use Azuriom\Plugin\Forum\Models\Post;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy
@@ -53,7 +53,11 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->is($post->author) || $user->can('forum.discussions');
+        if (! $post->discussion->is_locked && $user->is($post->author)) {
+            return true;
+        }
+
+        return $user->can('forum.discussions');
     }
 
     /**
@@ -65,6 +69,10 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->is($post->author) || $user->can('forum.discussions');
+        if (! $post->discussion->is_locked && $user->is($post->author)) {
+            return true;
+        }
+
+        return $user->can('forum.discussions');
     }
 }

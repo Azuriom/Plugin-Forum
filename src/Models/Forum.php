@@ -13,10 +13,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $icon
  * @property string $slug
- * @property string $description
+ * @property string|null $description
  * @property int|null $category_id
  * @property int|null $parent_id
  * @property int $position
+ * @property bool $is_locked
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -45,7 +46,16 @@ class Forum extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'icon', 'description', 'slug', 'position', 'category_id', 'parent_id',
+        'name', 'icon', 'description', 'slug', 'position', 'category_id', 'parent_id', 'is_locked',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_locked' => 'boolean',
     ];
 
     /**

@@ -16,6 +16,10 @@ return [
         'unlock' => 'Déverrouiller',
     ],
 
+    'latest' => [
+        'title' => 'Derniers messages',
+    ],
+
     'stats' => [
         'title' => 'Stats',
 
@@ -32,6 +36,8 @@ return [
 
     'forums' => [
         'discussions-count' => ':count discussion|:count discussions',
+
+        'locked' => 'Ce forum est verrouillée.',
     ],
 
     'discussions' => [

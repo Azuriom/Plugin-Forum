@@ -68,7 +68,7 @@
                         <div class="col-xl-2 col-md-3 text-center">
                             <div class="row">
                                 <div class="col-3 col-md-12">
-                                    <img src="{{ game()->getAvatarUrl($post->author, 128) }}" alt="{{ $post->author->name }}" class="img-fluid mb-3 rounded-lg">
+                                    <img src="{{ game()->getAvatarUrl($post->author, 128) }}" alt="{{ $post->author->name }}" class="img-fluid mb-3 rounded-lg" style="max-width: 80px">
                                 </div>
 
                                 <div class="col-9 col-md-12">
@@ -140,8 +140,7 @@
 
         @if($discussion->is_locked)
             <div class="alert alert-warning" role="alert">
-                <i class="fas fa-lock"></i>
-                {{ trans('forum::messages.discussions.info-locked') }}
+                <i class="fas fa-lock"></i> {{ trans('forum::messages.discussions.info-locked') }}
             </div>
         @endif
 

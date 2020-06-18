@@ -6,7 +6,7 @@
     <div class="container content">
         @include('forum::elements.nav')
 
-        <h1>{{ $forum->name }}</h1>
+        <h1 class="h2">{{ $forum->name }}</h1>
 
         @if(! $forum->forums->isEmpty())
             <div class="card mb-4">
@@ -14,14 +14,16 @@
                     @foreach($forum->forums as $subForum)
                         <div class="list-group-item">
                             <div class="row">
-                                <div class="col-xl-1 col-md-2 col-2 forum-big-icon text-center">
-                                    <i class="{{ $subForum->icon ?? 'fas fa-comments' }} fa-fw"></i>
+                                <div class="col-xl-1 col-md-2 col-2 text-center">
+                                    <i class="{{ $subForum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
                                 </div>
 
-                                <div class="col-xl-8 col-md-7 col-10">
-                                    <a href="{{ route('forum.show', $subForum->slug) }}">{{ $subForum->name }}</a>
-                                    <br>
-                                    {{ $subForum->description }}
+                                <div class="col-xl-8 col-md-7 col-10 pl-md-0">
+                                    <h3 class="h5">
+                                        <a href="{{ route('forum.show', $subForum->slug) }}">{{ $subForum->name }}</a>
+                                    </h3>
+
+                                    {{ $subForum->description ?? ''}}
                                 </div>
 
                                 <div class="col-xl-3 col-md-3 d-none d-md-block">
@@ -42,11 +44,11 @@
                 @foreach($forum->discussions as $discussion)
                     <div class="list-group-item">
                         <div class="row">
-                            <div class="col-2 col-md-1 text-center forum-big-icon">
-                                <i class="fas fa-comment fa-fw"></i>
+                            <div class="col-2 col-md-1 text-center">
+                                <i class="fas fa-comment-dots fa-2x fa-fw forum-big-icon"></i>
                             </div>
 
-                            <div class="col-8 col-md-5">
+                            <div class="col-8 col-md-5 pl-md-0">
                                 <a href="{{ route('forum.discussions.show', $discussion) }}">{{ $discussion->title }}</a>
                                 <br>
                                 <small>{{ $discussion->author->name }}, {{ format_date($discussion->created_at) }}</small>
@@ -84,11 +86,19 @@
 
         {{ $forum->discussions->links() }}
 
-        @can('create', \Azuriom\Plugin\Forum\Models\Discussion::class)
-            <a href="{{ route('forum.forum.discussions.create', $forum->slug) }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i>
-                {{ trans('messages.actions.create') }}
-            </a>
-        @endcan
+        @if($forum->is_locked)
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-lock"></i> {{ trans('forum::messages.forums.locked') }}
+            </div>
+        @endif
+
+        @if(! $forum->is_locked || optional(auth()->user())->isAdmin())
+            @can('create', \Azuriom\Plugin\Forum\Models\Discussion::class)
+                <a href="{{ route('forum.forum.discussions.create', $forum->slug) }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    {{ trans('messages.actions.create') }}
+                </a>
+            @endcan
+        @endif
     </div>
 @endsection
