@@ -76,6 +76,8 @@ class ForumServiceProvider extends BasePluginServiceProvider
         ActionLog::registerLogModels([
             Category::class,
             Forum::class,
+            Discussion::class,
+            Post::class,
         ], 'forum::admin.logs');
 
         ActionLog::registerLogs([

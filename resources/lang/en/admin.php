@@ -62,7 +62,7 @@ return [
     ],
 
     'logs' => [
-        'discussions' => [
+        'forum-discussions' => [
             'deleted' => 'Deleted discussion #:id',
             'pinned' => 'Pinned discussion #:id',
             'unpinned' => 'Unpinned discussion #:id',
@@ -70,17 +70,17 @@ return [
             'unlocked' => 'Unlocked discussion #:id',
         ],
 
-        'posts' => [
+        'forum-posts' => [
             'deleted' => 'Deleted post #:id',
         ],
 
-        'categories' => [
+        'forum-categories' => [
             'created' => 'Created forum category #:id',
             'updated' => 'Updated forum category #:id',
             'deleted' => 'Deleted forum category #:id',
         ],
 
-        'forums' => [
+        'forum-forums' => [
             'created' => 'Created forum #:id',
             'updated' => 'Updated forum #:id',
             'deleted' => 'Deleted forum #:id',

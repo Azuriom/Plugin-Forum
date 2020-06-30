@@ -37,7 +37,7 @@ return [
     'forums' => [
         'discussions-count' => ':count discussion|:count discussions',
 
-        'locked' => 'Ce forum est verrouillée.',
+        'locked' => 'Ce forum est verrouillé.',
     ],
 
     'discussions' => [

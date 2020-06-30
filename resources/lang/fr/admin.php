@@ -62,7 +62,7 @@ return [
     ],
 
     'logs' => [
-        'discussions' => [
+        'forum-discussions' => [
             'deleted' => 'Suppression de la discussion #:id',
             'pinned' => 'Ajout de la discussion #:id en épinglé',
             'unpinned' => 'Retrait de la discussion #:id des épinglées',
@@ -70,7 +70,7 @@ return [
             'unlocked' => 'Déverrouillage de la discussion #:id',
         ],
 
-        'posts' => [
+        'forum-posts' => [
             'deleted' => 'Suppression du message #:id',
         ],
 
