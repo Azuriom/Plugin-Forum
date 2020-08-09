@@ -99,10 +99,13 @@
                 @endforeach
             </ol>
 
-            <a href="{{ route('forum.admin.categories.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-category') }}</a>
+            <a href="{{ route('forum.admin.categories.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-category') }}
+            </a>
 
             @if(! $categories->isEmpty())
-                <a href="{{ route('forum.admin.forums.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-forum') }}
+                <a href="{{ route('forum.admin.forums.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-forum') }}
                 </a>
 
                 <button type="button" class="btn btn-success" id="save">

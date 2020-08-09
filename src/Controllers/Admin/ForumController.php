@@ -25,9 +25,7 @@ class ForumController extends Controller
             ->orderBy('position')
             ->get();
 
-        return view('forum::admin.forums.index', [
-            'categories' => $categories,
-        ]);
+        return view('forum::admin.forums.index', ['categories' => $categories]);
     }
 
     /**

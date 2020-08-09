@@ -68,7 +68,7 @@
                         <div class="col-xl-2 col-md-3 text-center">
                             <div class="row">
                                 <div class="col-3 col-md-12">
-                                    <img src="{{ game()->getAvatarUrl($post->author, 128) }}" alt="{{ $post->author->name }}" class="img-fluid mb-3 rounded-lg" style="max-width: 80px">
+                                    <img src="{{ $post->author->getAvatar(128) }}" alt="{{ $post->author->name }}" class="img-fluid mb-3 rounded-lg" style="max-width: 80px">
                                 </div>
 
                                 <div class="col-9 col-md-12">
