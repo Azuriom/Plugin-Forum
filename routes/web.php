@@ -36,3 +36,10 @@ Route::prefix('posts/{post}')->name('posts.')->middleware('auth')->group(functio
     Route::post('/like', 'PostLikeController@addLike')->name('like');
     Route::delete('/like', 'PostLikeController@removeLike')->name('dislike');
 });
+
+Route::resource('users', 'UserController')->only('show');
+
+Route::prefix('profile')->name('profile.')->middleware('auth')->group(function () {
+    Route::get('/edit', 'ProfileController@edit')->name('edit');
+    Route::post('/', 'ProfileController@update')->name('update');
+});

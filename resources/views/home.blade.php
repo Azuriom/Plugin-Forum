@@ -60,7 +60,10 @@
 
                                 <br>
 
-                                <small>{{ $post->author->name }}, {{ format_date($post->created_at) }}</small>
+                                <small>
+                                    <a href="{{ route('forum.users.show', $post->author) }}">{{ $post->author->name }}</a>,
+                                    {{ format_date($post->created_at) }}
+                                </small>
                             </div>
                         @endforeach
                     </div>
@@ -84,11 +87,16 @@
                         <i class="fas fa-users fa-fw"></i> {{ trans('forum::messages.online.title') }}
                     </div>
                     <div class="card-body">
-                        @empty($onlineUsers)
+                        @forelse($onlineUsers as $id => $user)
+                            @if($id !== 0)
+                                ,
+                            @endif
+                            <a href="{{ route('forum.users.show', $user) }}">
+                                {{ $user->name }}
+                            </a>
+                        @empty
                             {{ trans('forum::messages.online.none') }}
-                        @else
-                            {{ implode(', ', $onlineUsers) }}
-                        @endempty
+                        @endforelse
                     </div>
                 </div>
             </div>

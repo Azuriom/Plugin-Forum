@@ -2,16 +2,15 @@
 
 namespace Azuriom\Plugin\Forum\Models;
 
+use Azuriom\Models\Traits\HasMarkdown;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\HasUser;
 use Azuriom\Models\Traits\Loggable;
 use Azuriom\Models\User as BaseUser;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
-use Azuriom\Plugin\Forum\Support\Markdown;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\HtmlString;
 
 /**
  * @property int $id
@@ -23,11 +22,13 @@ use Illuminate\Support\HtmlString;
  *
  * @property \Azuriom\Models\User $author
  * @property \Azuriom\Plugin\Forum\Models\Discussion $discussion
+ * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Like[] $likes
  */
 class Post extends Model
 {
     use HasTablePrefix;
     use HasUser;
+    use HasMarkdown;
     use HasParentNavigation;
     use Loggable;
 
@@ -63,13 +64,6 @@ class Post extends Model
      */
     protected $userKey = 'author_id';
 
-    protected static function booted()
-    {
-        static::updated(function (Model $model) {
-            Cache::forget("forum.posts-content.{$model->getKey()}");
-        });
-    }
-
     /**
      * Get the the author of this discussion.
      */
@@ -97,7 +91,7 @@ class Post extends Model
             return false;
         }
 
-        $userId = $user ? $user->id : Auth::id();
+        $userId = $user->id ?? Auth::id();
 
         if ($this->relationLoaded('likes')) {
             return $this->likes->contains('author_id', $userId);
@@ -122,11 +116,7 @@ class Post extends Model
 
     public function parseContent()
     {
-        $cacheKey = "forum.posts-content.{$this->id}";
-
-        return new HtmlString(Cache::remember($cacheKey, now()->addMinutes(15), function () {
-            return Markdown::parse($this->content);
-        }));
+        return $this->parseMarkdown('content');
     }
 
     public function getParentNavigation()

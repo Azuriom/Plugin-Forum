@@ -72,7 +72,11 @@
                                 </div>
 
                                 <div class="col-9 col-md-12">
-                                    <h5>{{ $post->author->name }}</h5>
+                                    <h5>
+                                        <a href="{{ route('forum.users.show', $post->author) }}">
+                                            {{ $post->author->name }}
+                                        </a>
+                                    </h5>
 
                                     <span class="badge badge-label" style="{{ $post->author->role->getBadgeStyle() }};">{{ $post->author->role->name }}</span>
                                 </div>
@@ -100,7 +104,7 @@
                                 <small>{{ format_date($post->created_at, true) }}</small>
                             </div>
 
-                            <div class="markdown-body mb-3">
+                            <div class="markdown-body card-text user-html-content mb-3">
                                 {{ $post->parseContent() }}
                             </div>
                         </div>

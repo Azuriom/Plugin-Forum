@@ -5,8 +5,6 @@ return [
 
     'fields' => [
         'forum' => 'Forum',
-        'category' => 'Catégorie',
-        'icon' => 'Icône',
     ],
 
     'actions' => [
@@ -94,5 +92,12 @@ return [
         'likes' => 'J\'aimes',
         'posts' => 'Messages',
         'discussions' => 'Discussions',
+
+        'information' => 'Informations',
+        'edit' => 'Édition du profil',
+
+        'location' => 'Localité',
+        'website' => 'Site web',
+        'about' => 'À propos',
     ],
 ];

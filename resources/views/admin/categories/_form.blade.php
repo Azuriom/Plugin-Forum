@@ -11,7 +11,7 @@
 
 <div class="form-group">
     <label for="descriptionInput">{{ trans('messages.fields.description') }}</label>
-    <input type="text" class="form-control @error('description') is-invalid @enderror" id="descriptionInput" name="description" value="{{ old('description', $category->description ?? '') }}" required>
+    <input type="text" class="form-control @error('description') is-invalid @enderror" id="descriptionInput" name="description" value="{{ old('description', $category->description ?? '') }}">
 
     @error('description')
     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>

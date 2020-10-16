@@ -34,13 +34,13 @@ class ForumController extends Controller
                     }
                 ])
                 ->get()
-                ->pluck('user.name');
+                ->pluck('user');
 
             return [
                 'discussionsCount' => Discussion::count(),
                 'postsCount' => Post::count(),
                 'usersCount' => User::count(),
-                'onlineUsers' => $onlineUsers->all(),
+                'onlineUsers' => $onlineUsers,
             ];
         });
 

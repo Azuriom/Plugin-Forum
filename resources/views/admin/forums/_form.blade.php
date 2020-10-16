@@ -25,7 +25,7 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        <label for="categorySelect">{{ trans('forum::messages.fields.category') }}</label>
+        <label for="categorySelect">{{ trans('messages.fields.category') }}</label>
 
         <select class="custom-select" id="categorySelect" name="category_id">
             @foreach($categories as $category)
@@ -37,16 +37,16 @@
         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
         @enderror
     </div>
-
+²
     <div class="form-group col-md-6">
-        <label for="iconInput">{{ trans('forum::messages.fields.icon') }}</label>
+        <label for="iconInput">{{ trans('messages.fields.icon') }}</label>
 
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-fw"></i></span>
             </div>
 
-            <input type="text" class="form-control @error('icon') is-invalid @enderror" id="iconInput" name="icon" value="{{ old('icon', $forum->icon ?? '') }}" required placeholder="fas fa-comments" aria-labelledby="iconLabel">
+            <input type="text" class="form-control @error('icon') is-invalid @enderror" id="iconInput" name="icon" value="{{ old('icon', $forum->icon ?? '') }}" placeholder="fas fa-comments" aria-labelledby="iconLabel">
 
             @error('icon')
             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>

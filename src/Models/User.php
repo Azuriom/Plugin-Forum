@@ -4,6 +4,12 @@ namespace Azuriom\Plugin\Forum\Models;
 
 use Azuriom\Models\User as BaseUser;
 
+/**
+ * @property \Azuriom\Plugin\Forum\Models\ForumUser $user
+ * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Like[] $likes
+ * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Discussion[] $discussions
+ * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Post[] $posts
+ */
 class User extends BaseUser
 {
     /**
@@ -25,5 +31,10 @@ class User extends BaseUser
     public function posts()
     {
         return $this->hasMany(Post::class, 'author_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(ForumUser::class, 'user_id')->withDefault();
     }
 }

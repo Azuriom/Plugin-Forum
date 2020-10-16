@@ -2,20 +2,28 @@
 
 namespace Azuriom\Plugin\Forum\Models;
 
+use Azuriom\Models\Traits\HasMarkdown;
 use Azuriom\Models\Traits\HasUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $user_id
+ * @property int $user_id
  * @property \Carbon\Carbon $last_seen_at
+ * @property string|null $about
+ * @property string|null $website
+ * @property string|null $location
+ * @property string|null $discord
+ * @property string|null $twitter
  *
  * @property \Azuriom\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder online()
  */
 class ForumUser extends Model
 {
+    use HasMarkdown;
     use HasUser;
 
     /**
@@ -38,12 +46,17 @@ class ForumUser extends Model
      * @var array
      */
     protected $fillable = [
-        'last_seen_at',
+        'last_seen_at', 'about', 'website', 'location', 'discord', 'twitter',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function parseAbout()
+    {
+        return $this->parseMarkdown('about');
     }
 
     /**

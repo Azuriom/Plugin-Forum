@@ -51,7 +51,10 @@
                             <div class="col-8 col-md-5 pl-md-0">
                                 <a href="{{ route('forum.discussions.show', $discussion) }}">{{ $discussion->title }}</a>
                                 <br>
-                                <small>{{ $discussion->author->name }}, {{ format_date($discussion->created_at) }}</small>
+                                <small>
+                                    <a href="{{ route('forum.users.show', $discussion->author) }}">{{ $discussion->author->name }}</a>,
+                                    {{ format_date($discussion->created_at, true) }}
+                                </small>
                             </div>
 
                             <div class="col-2">
@@ -74,8 +77,12 @@
 
                             <div class="col-md-2 d-none d-md-block">
                                 @if(! $discussion->posts->isEmpty())
-                                    {{ $discussion->posts->first()->author->name }},
-                                    <small>{{ format_date($discussion->posts->first()->created_at) }}</small>
+                                    <small>
+                                        <a href="{{ route('forum.users.show', $discussion->posts->first()->author) }}">
+                                            {{ $discussion->posts->first()->author->name }}
+                                        </a>,
+                                        {{ format_date($discussion->posts->first()->created_at) }}
+                                    </small>
                                 @endif
                             </div>
                         </div>
