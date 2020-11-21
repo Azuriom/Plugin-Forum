@@ -25,7 +25,7 @@ Route::prefix('{forum:slug}/discussions')->name('forum.discussions.')->group(fun
 Route::resource('discussions', 'DiscussionController')->only(['show', 'edit', 'update', 'destroy']);
 Route::resource('discussions.posts', 'DiscussionPostController')->only(['store', 'edit', 'update', 'destroy']);
 
-Route::prefix('discussions{discussion}')->name('discussions.')->group(function () {
+Route::prefix('discussions/{discussion}')->name('discussions.')->group(function () {
     Route::post('/lock', 'DiscussionStatusController@lock')->name('lock');
     Route::post('/unlock', 'DiscussionStatusController@unlock')->name('unlock');
     Route::post('/pin', 'DiscussionStatusController@pin')->name('pin');

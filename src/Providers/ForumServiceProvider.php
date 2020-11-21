@@ -84,25 +84,25 @@ class ForumServiceProvider extends BasePluginServiceProvider
             'forum-discussions.locked' => [
                 'icon' => 'lock',
                 'color' => 'info',
-                'message' => 'forum::admin.logs.discussions.locked',
+                'message' => 'forum::admin.logs.forum-discussions.locked',
                 'model' => Discussion::class,
             ],
             'forum-discussions.unlocked' => [
                 'icon' => 'lock-open',
                 'color' => 'info',
-                'message' => 'forum::admin.logs.discussions.unlocked',
+                'message' => 'forum::admin.logs.forum-discussions.unlocked',
                 'model' => Discussion::class,
             ],
             'forum-discussions.pinned' => [
                 'icon' => 'thumbtack rotate-45',
                 'color' => 'info',
-                'message' => 'forum::admin.logs.discussions.pinned',
+                'message' => 'forum::admin.logs.forum-discussions.pinned',
                 'model' => Discussion::class,
             ],
             'forum-discussions.unpinned' => [
                 'icon' => 'thumbtack rotate-45',
                 'color' => 'info',
-                'message' => 'forum::admin.logs.discussions.unpinned',
+                'message' => 'forum::admin.logs.forum-discussions.unpinned',
                 'model' => Discussion::class,
             ],
         ]);

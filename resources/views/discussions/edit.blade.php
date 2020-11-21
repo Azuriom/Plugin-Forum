@@ -19,7 +19,7 @@
 
                     <select class="custom-select" id="forumSelect" name="forum_id">
                         @foreach($forums as $forum)
-                            <option value="{{ $forum->id }}" @if($forum->id === old('forum_id', $discussion->forum_id)) selected @endif>{{ $forum->name }}</option>
+                            <option value="{{ $forum->id }}" @if($forum->id === (int) old('forum_id', $discussion->forum_id)) selected @endif>{{ $forum->name }}</option>
                         @endforeach
                     </select>
 

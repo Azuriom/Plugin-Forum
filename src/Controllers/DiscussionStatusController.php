@@ -15,7 +15,7 @@ class DiscussionStatusController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('can:forum.discussions.manage');
+        $this->middleware('can:forum.discussions');
     }
 
     public function lock(Discussion $discussion)

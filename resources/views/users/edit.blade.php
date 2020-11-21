@@ -45,7 +45,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="twitterInput">Twitter</label>
-                    <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="twitterInput" name="twitter" value="{{ old('twitter', $user->twitter ?? '') }}" required>
+                    <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="twitterInput" name="twitter" value="{{ old('twitter', $user->twitter ?? '') }}">
 
                     @error('twitter')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -54,7 +54,7 @@
 
                 <div class="form-group col-md-6">
                     <label for="discordInput">Discord</label>
-                    <input type="text" class="form-control @error('discord') is-invalid @enderror" id="discordInput" name="discord" value="{{ old('discord', $user->discord ?? '') }}" required placeholder="User#0000">
+                    <input type="text" class="form-control @error('discord') is-invalid @enderror" id="discordInput" name="discord" value="{{ old('discord', $user->discord ?? '') }}" placeholder="User#0000">
 
                     @error('discord')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
