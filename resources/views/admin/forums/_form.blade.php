@@ -37,7 +37,7 @@
         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
         @enderror
     </div>
-²
+
     <div class="form-group col-md-6">
         <label for="iconInput">{{ trans('messages.fields.icon') }}</label>
 
@@ -71,4 +71,20 @@
     <label class="custom-control-label" for="lockSwitch">{{ trans('forum::admin.forums.lock') }}</label>
 
     <small id="lockLabel" class="form-text">{{ trans('forum::admin.forums.lock-info') }}</small>
+</div>
+
+<div class="form-group custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="restrictedSwitch" name="is_restricted" data-toggle="collapse" data-target="#rolesGroup" @if(isset($forum) && $forum->roles !== null) checked @endif>
+    <label class="custom-control-label" for="restrictedSwitch">{{ trans('forum::admin.forums.restricted') }}</label>
+</div>
+
+<div id="rolesGroup" class="{{ (isset($forum) && $forum->roles !== null) ?  'show' : 'collapse' }}">
+    <div class="card card-body mb-2">
+        @foreach($roles as $role)
+            <div class="form-group custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="role{{ $role->id }}" name="roles[{{ $role->id }}]" @if(isset($forum) && $forum->roles !== null && $forum->hasRole($role)) checked @endif">
+                <label class="custom-control-label" for="role{{ $role->id }}">{{ $role->name }}</label>
+            </div>
+        @endforeach
+    </div>
 </div>

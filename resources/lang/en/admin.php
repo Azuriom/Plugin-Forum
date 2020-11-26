@@ -35,6 +35,8 @@ return [
 
         'icons' => 'You can find the list of available icons on <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener noreferrer">FontAwesome</a>.',
 
+        'restricted' => 'Restrict access to this forum to certain roles only',
+
         'lock' => 'Lock this forum',
         'lock-info' => 'Users who are not admin will not be able to create discussions.',
 
@@ -88,8 +90,8 @@ return [
     ],
 
     'permissions' => [
-        'forums' => 'View and manage support forums and categories',
-        'discussions' => 'View and manage forum discussions (move, edit, delete, pin, lock)',
+        'forums' => 'Manage forums and categories',
+        'discussions' => 'Manage forum discussions (move, edit, delete, pin, lock)',
         'delete-self-post' => 'Delete own forum posts',
     ],
 ];

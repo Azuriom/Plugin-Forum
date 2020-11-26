@@ -10,6 +10,7 @@ use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\ForumUser;
 use Azuriom\Plugin\Forum\Models\Post;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Gate;
 
 class ForumController extends Controller
 {
@@ -46,8 +47,12 @@ class ForumController extends Controller
 
         $latestPosts = Post::with(['author', 'discussion'])
             ->latest()
-            ->take(3)
-            ->get();
+            ->take(5)
+            ->get()
+            ->filter(function (Post $post) {
+                return Gate::allows('view', $post);
+            })
+            ->take(3);
 
         return view('forum::home', [
                 'categories' => $categories,
@@ -60,9 +65,13 @@ class ForumController extends Controller
      *
      * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
      * @return \Illuminate\Http\Response
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Forum $forum)
     {
+        $this->authorize('view', $forum);
+
         $discussions = $forum->discussions()
             ->with([
                 'author', 'posts' => function ($query) {

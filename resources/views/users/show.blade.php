@@ -51,7 +51,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                 <div class="list-group list-group-flush">
-                    @foreach($user->posts as $post)
+                    @foreach($posts as $post)
                         <div class="list-group-item">
                             <h3 class="h5">
                                 <a href="{{ route('forum.discussions.show', $post->discussion) }}">

@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Forum\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
+use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
@@ -11,6 +12,11 @@ use Illuminate\Support\Arr;
 
 class ForumDiscussionController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Discussion::class);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

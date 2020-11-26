@@ -2,6 +2,7 @@
 
 namespace Azuriom\Plugin\Forum\Models;
 
+use Azuriom\Models\Role;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\Loggable;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $category_id
  * @property int|null $parent_id
  * @property int $position
+ * @property array|null $roles
  * @property bool $is_locked
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -46,7 +48,7 @@ class Forum extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'icon', 'description', 'slug', 'position', 'category_id', 'parent_id', 'is_locked',
+        'name', 'icon', 'description', 'slug', 'position', 'roles', 'category_id', 'parent_id', 'is_locked',
     ];
 
     /**
@@ -55,6 +57,7 @@ class Forum extends Model
      * @var array
      */
     protected $casts = [
+        'roles' => 'array',
         'is_locked' => 'boolean',
     ];
 
@@ -96,6 +99,11 @@ class Forum extends Model
     public function posts()
     {
         return $this->hasManyThrough(Post::class, Discussion::class)->latest();
+    }
+
+    public function hasRole(Role $role)
+    {
+        return in_array($role->id, $this->roles, true);
     }
 
     public function getParentNavigation()

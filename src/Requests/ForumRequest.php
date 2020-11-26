@@ -6,6 +6,7 @@ use Azuriom\Http\Requests\Traits\ConvertCheckbox;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Rules\Slug;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 
 class ForumRequest extends FormRequest
@@ -36,7 +37,19 @@ class ForumRequest extends FormRequest
             ],
             'description' => ['nullable', 'string', 'max:255'],
             'category_id' => ['required', 'exists:forum_categories,id'],
+            'roles' => ['sometimes', 'nullable', 'array'],
             'is_locked' => ['filled', 'boolean'],
         ];
+    }
+
+    public function validated()
+    {
+        $validated = parent::validated();
+
+        $validated['roles'] = $this->filled('is_restricted')
+            ? array_keys(Arr::get($validated, 'roles', []))
+            : null;
+
+        return $validated;
     }
 }

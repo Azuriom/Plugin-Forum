@@ -10,6 +10,7 @@ use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Policies\DiscussionPolicy;
+use Azuriom\Plugin\Forum\Policies\ForumPolicy;
 use Azuriom\Plugin\Forum\Policies\PostPolicy;
 use Azuriom\Plugin\Forum\View\Composers\ForumAdminDashboardComposer;
 use Illuminate\Support\Facades\View;
@@ -24,6 +25,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
     protected $policies = [
         Post::class => PostPolicy::class,
         Discussion::class => DiscussionPolicy::class,
+        Forum::class => ForumPolicy::class,
     ];
 
     /**

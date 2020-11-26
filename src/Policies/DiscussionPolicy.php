@@ -5,6 +5,7 @@ namespace Azuriom\Plugin\Forum\Policies;
 use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class DiscussionPolicy
 {
@@ -13,7 +14,7 @@ class DiscussionPolicy
     /**
      * Determine whether the user can view any discussions.
      *
-     * @param  \Azuriom\Models\User  $user
+     * @param  \Azuriom\Models\User|null  $user
      * @return mixed
      */
     public function viewAny(?User $user)
@@ -24,13 +25,13 @@ class DiscussionPolicy
     /**
      * Determine whether the user can view the discussion.
      *
-     * @param  \Azuriom\Models\User  $user
+     * @param  \Azuriom\Models\User|null  $user
      * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
      * @return mixed
      */
     public function view(?User $user, Discussion $discussion)
     {
-        return true;
+        return Gate::allows('view', $discussion->forum);
     }
 
     /**

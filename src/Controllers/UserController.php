@@ -3,7 +3,9 @@
 namespace Azuriom\Plugin\Forum\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
+use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -15,8 +17,19 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user->load(['user', 'posts.discussion'])->loadCount(['posts', 'likes', 'discussions']);
+        $user->load('user')->loadCount(['posts', 'likes', 'discussions']);
 
-        return view('forum::users.show', ['user' => $user]);
+        $posts = $user->posts()
+            ->with('discussion')
+            ->take(15)
+            ->get()
+            ->filter(function (Post $post) {
+                return Gate::allows('view', $post);
+            });
+
+        return view('forum::users.show', [
+            'user' => $user,
+            'posts' => $posts,
+        ]);
     }
 }

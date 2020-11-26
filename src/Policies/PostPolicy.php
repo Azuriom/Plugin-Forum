@@ -5,6 +5,7 @@ namespace Azuriom\Plugin\Forum\Policies;
 use Azuriom\Models\User;
 use Azuriom\Plugin\Forum\Models\Post;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class PostPolicy
 {
@@ -13,7 +14,7 @@ class PostPolicy
     /**
      * Determine whether the user can view any posts.
      *
-     * @param  \Azuriom\Models\User  $user
+     * @param  \Azuriom\Models\User|null  $user
      * @return mixed
      */
     public function viewAny(?User $user)
@@ -24,13 +25,13 @@ class PostPolicy
     /**
      * Determine whether the user can view the post.
      *
-     * @param  \Azuriom\Models\User  $user
+     * @param  \Azuriom\Models\User|null  $user
      * @param  \Azuriom\Plugin\Forum\Models\Post  $post
      * @return mixed
      */
     public function view(?User $user, Post $post)
     {
-        return true;
+        return Gate::allows('view', $post->discussion->forum);
     }
 
     /**

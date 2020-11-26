@@ -19,27 +19,29 @@
 
                         <div class="list-group list-group-flush">
                             @foreach($category->forums as $forum)
-                                <div class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-xl-1 col-md-2 col-2 text-center">
-                                            <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
-                                        </div>
+                                @can('view', $forum)
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-xl-1 col-md-2 col-2 text-center">
+                                                <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
+                                            </div>
 
-                                        <div class="col-xl-8 col-md-7 col-10 pl-md-0">
-                                            <h3 class="h5">
-                                                <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
-                                            </h3>
+                                            <div class="col-xl-8 col-md-7 col-10 pl-md-0">
+                                                <h3 class="h5">
+                                                    <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
+                                                </h3>
 
-                                            {{ $forum->description ?? '' }}
-                                        </div>
+                                                {{ $forum->description ?? '' }}
+                                            </div>
 
-                                        <div class="col-xl-3 col-md-3 d-none d-md-block">
-                                            {{ trans_choice('forum::messages.forums.discussions-count', $forum->discussions_count) }}
-                                            <br>
-                                            {{ trans_choice('forum::messages.discussions.posts-count', $forum->posts_count) }}
+                                            <div class="col-xl-3 col-md-3 d-none d-md-block">
+                                                {{ trans_choice('forum::messages.forums.discussions-count', $forum->discussions_count) }}
+                                                <br>
+                                                {{ trans_choice('forum::messages.discussions.posts-count', $forum->posts_count) }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endcan
                             @endforeach
                         </div>
                     </div>
