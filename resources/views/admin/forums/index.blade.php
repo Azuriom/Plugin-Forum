@@ -24,29 +24,21 @@
         });
 
         function serialize(categories) {
-            const serialized = [];
-
-            [].slice.call(categories.children).forEach(function (category) {
-                serialized.push({
+            return [].slice.call(categories.children).map(function (category) {
+                return {
                     id: category.dataset['categoryId'],
                     forums: serializeForum(category.querySelector('.forum-list')),
-                });
+                };
             });
-
-            return serialized
         }
 
         function serializeForum(forumsList) {
-            const forums = [];
-
-            [].slice.call(forumsList.children).forEach(function (forumCategory) {
-                forums.push({
+            return [].slice.call(forumsList.children).map(function (forumCategory) {
+                return {
                     id: forumCategory.dataset['forumId'],
                     forums: serializeForum(forumCategory.querySelector('.forum-list')),
-                });
+                };
             });
-
-            return forums;
         }
 
         const saveButton = document.getElementById('save');

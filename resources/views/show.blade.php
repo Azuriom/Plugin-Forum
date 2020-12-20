@@ -49,7 +49,12 @@
                             </div>
 
                             <div class="col-8 col-md-5 pl-md-0">
-                                <a href="{{ route('forum.discussions.show', $discussion) }}">{{ $discussion->title }}</a>
+                                <a href="{{ route('forum.discussions.show', $discussion) }}">
+                                    @foreach($discussion->tags as $tag)
+                                        <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
+                                    @endforeach
+                                    {{ $discussion->title }}
+                                </a>
                                 <br>
                                 <small>
                                     <a href="{{ route('forum.users.show', $discussion->author) }}">{{ $discussion->author->name }}</a>,

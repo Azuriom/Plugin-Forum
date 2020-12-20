@@ -8,7 +8,9 @@
             <form action="{{ route('forum.admin.forums.store') }}" method="POST">
                 @include('forum::admin.forums._form')
 
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> {{ trans('messages.actions.save') }}</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
+                </button>
             </form>
         </div>
     </div>

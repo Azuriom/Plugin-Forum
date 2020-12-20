@@ -74,9 +74,9 @@ class ForumController extends Controller
 
         $discussions = $forum->discussions()
             ->with([
-                'author', 'posts' => function ($query) {
+                'author', 'tags', 'posts' => function ($query) {
                     $query->latest()->with('author');
-                }
+                },
             ])
             ->withCount('posts')
             ->orderByDesc('is_pinned')

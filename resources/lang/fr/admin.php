@@ -5,6 +5,7 @@ return [
     'nav' => [
         'settings' => 'Paramètres',
         'forums' => 'Forums',
+        'tags' => 'Étiquettes',
     ],
 
     'settings' => [
@@ -61,6 +62,11 @@ return [
 
         'delay' => 'Délai entre chaque messages',
         'seconds' => 'secondes',
+    ],
+
+    'tags' => [
+        'title' => 'Étiquettes',
+        'create' => 'Créer une étiquette',
     ],
 
     'logs' => [

@@ -95,6 +95,11 @@ class Discussion extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'forum_discussion_tag');
+    }
+
     public function getParentNavigation()
     {
         return $this->forum;

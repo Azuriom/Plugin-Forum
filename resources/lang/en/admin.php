@@ -5,6 +5,7 @@ return [
     'nav' => [
         'settings' => 'Settings',
         'forums' => 'Forums',
+        'tags' => 'Tags',
     ],
 
     'settings' => [
@@ -61,6 +62,11 @@ return [
 
         'delay' => 'Delay between posts',
         'seconds' => 'seconds',
+    ],
+
+    'tags' => [
+        'title' => 'Tags',
+        'create' => 'Create a tag',
     ],
 
     'logs' => [

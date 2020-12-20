@@ -1,5 +1,9 @@
 <?php
 
+use Azuriom\Plugin\Forum\Controllers\Admin\CategoryController;
+use Azuriom\Plugin\Forum\Controllers\Admin\ForumController;
+use Azuriom\Plugin\Forum\Controllers\Admin\SettingController;
+use Azuriom\Plugin\Forum\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,11 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('can:forum.forums')->group(function () {
-    Route::get('/settings', 'SettingController@show')->name('settings');
-    Route::post('/settings', 'SettingController@save')->name('settings.save');
+    Route::get('/settings', [SettingController::class, 'show'])->name('settings');
+    Route::post('/settings', [SettingController::class, 'save'])->name('settings.save');
 
-    Route::resource('forums', 'ForumController')->except('show');
-    Route::resource('categories', 'CategoryController')->except(['index', 'show']);
+    Route::resource('forums', ForumController::class)->except('show');
+    Route::resource('categories', CategoryController::class)->except(['index', 'show']);
+    Route::resource('tags', TagController::class)->except(['create', 'show']);
 
-    Route::post('/forums/update-order', 'ForumController@updateOrder')->name('forums.update-order');
+    Route::post('/forums/update-order', [ForumController::class, 'updateOrder'])->name('forums.update-order');
 });

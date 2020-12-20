@@ -5,6 +5,7 @@ return [
 
     'fields' => [
         'forum' => 'Forum',
+        'tags' => 'Étiquettes',
     ],
 
     'actions' => [
@@ -99,5 +100,6 @@ return [
         'location' => 'Localité',
         'website' => 'Site web',
         'about' => 'À propos',
+        'signature' => 'Signature',
     ],
 ];

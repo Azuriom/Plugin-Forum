@@ -42,6 +42,15 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="signature">{{ trans('forum::messages.profile.signature') }}</label>
+                <textarea class="form-control @error('signature') is-invalid @enderror" id="signature" name="signature" rows="4">{{ old('signature', $user->signature ?? '') }}</textarea>
+
+                @error('signature')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+            </div>
+
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="twitterInput">Twitter</label>

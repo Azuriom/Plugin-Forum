@@ -139,6 +139,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
                 'items' => [
                     'forum.admin.settings' => 'forum::admin.nav.settings',
                     'forum.admin.forums.index' => 'forum::admin.nav.forums',
+                    'forum.admin.tags.index' => 'forum::admin.nav.tags',
                 ],
             ],
         ];

@@ -16,7 +16,14 @@
 
         <div class="row mb-2">
             <div class="col-md-9">
-                <h1>{{ $discussion->title }}</h1>
+                <h1>
+                    @foreach($discussion->tags as $tag)
+                        <small>
+                            <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
+                        </small>
+                    @endforeach
+                    {{ $discussion->title }}
+                </h1>
             </div>
 
             <div class="col-md-3 d-flex align-items-center justify-content-md-end">
@@ -106,6 +113,12 @@
 
                             <div class="markdown-body card-text user-html-content mb-3">
                                 {{ $post->parseContent() }}
+
+                                @if($post->author->signature !== null)
+                                    <hr>
+
+                                    {{ $post->author->parseSignature() }}
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,16 @@ use Azuriom\Models\User as BaseUser;
  */
 class User extends BaseUser
 {
+    public function getSignatureAttribute()
+    {
+        return $this->user->signature;
+    }
+
+    public function parseSignature()
+    {
+        return $this->user->parseSignature();
+    }
+
     /**
      * Get this user forum likes.
      */

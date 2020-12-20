@@ -6,6 +6,7 @@ use Azuriom\Http\Controllers\Controller;
 use Azuriom\Models\ActionLog;
 use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
+use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
 use Illuminate\Support\Arr;
 
@@ -29,7 +30,7 @@ class DiscussionController extends Controller
      */
     public function show(Discussion $discussion)
     {
-        $discussion->load(['author', 'forum.category']);
+        $discussion->load(['author.user', 'forum.category']);
 
         $posts = $discussion->posts()
             ->with([
@@ -61,6 +62,7 @@ class DiscussionController extends Controller
             'discussionContent' => $discussion->posts()->value('content'),
             'current' => $discussion,
             'forums' => Forum::all(),
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -75,6 +77,8 @@ class DiscussionController extends Controller
     {
         if ($request->user()->can('forum.discussions')) {
             $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();
+
+            $discussion->tags()->sync(array_keys($request->input('tags', [])));
         } else {
             $discussion->update(Arr::except($request->validated(), ['is_pinned', 'is_locked', 'forum_id']));
         }

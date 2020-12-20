@@ -6,6 +6,7 @@ use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\Post;
+use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Arr;
@@ -28,6 +29,7 @@ class ForumDiscussionController extends Controller
         return view('forum::discussions.create', [
             'forum' => $forum,
             'current' => $forum,
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -60,6 +62,8 @@ class ForumDiscussionController extends Controller
 
         if ($request->user()->can('forum.discussions')) {
             $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();
+
+            $discussion->tags()->sync(array_keys($request->input('tags', [])));
         }
 
         return redirect()->route('forum.discussions.show', $discussion);

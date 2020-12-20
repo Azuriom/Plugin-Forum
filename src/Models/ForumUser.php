@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property \Carbon\Carbon $last_seen_at
  * @property string|null $about
+ * @property string|null $signature
  * @property string|null $website
  * @property string|null $location
  * @property string|null $discord
@@ -46,7 +47,7 @@ class ForumUser extends Model
      * @var array
      */
     protected $fillable = [
-        'last_seen_at', 'about', 'website', 'location', 'discord', 'twitter',
+        'last_seen_at', 'about', 'signature', 'website', 'location', 'discord', 'twitter',
     ];
 
     public function user()
@@ -57,6 +58,11 @@ class ForumUser extends Model
     public function parseAbout()
     {
         return $this->parseMarkdown('about');
+    }
+
+    public function parseSignature()
+    {
+        return $this->parseMarkdown('signature');
     }
 
     /**
