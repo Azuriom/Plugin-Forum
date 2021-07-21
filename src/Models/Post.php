@@ -2,12 +2,12 @@
 
 namespace Azuriom\Plugin\Forum\Models;
 
-use Azuriom\Models\Traits\HasMarkdown;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\HasUser;
 use Azuriom\Models\Traits\Loggable;
 use Azuriom\Models\User as BaseUser;
 use Azuriom\Notifications\AlertNotification;
+use Azuriom\Plugin\Forum\Models\Traits\HasMarkdownOrBBCode;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,7 @@ class Post extends Model
 {
     use HasTablePrefix;
     use HasUser;
-    use HasMarkdown;
+    use HasMarkdownOrBBCode;
     use HasParentNavigation;
     use Loggable;
 

@@ -19,7 +19,6 @@ trait HasParentNavigation
         $stack = [];
 
         $el = $this;
-        $parent = null;
 
         while (($el = $el->getParentNavigation()) !== null) {
             array_unshift($stack, $el->getNavigationLink());

@@ -2,8 +2,8 @@
 
 namespace Azuriom\Plugin\Forum\Models;
 
-use Azuriom\Models\Traits\HasMarkdown;
 use Azuriom\Models\Traits\HasUser;
+use Azuriom\Plugin\Forum\Models\Traits\HasMarkdownOrBBCode;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ForumUser extends Model
 {
-    use HasMarkdown;
+    use HasMarkdownOrBBCode;
     use HasUser;
 
     /**
