@@ -87,6 +87,7 @@ return [
 
     'notifications' => [
         'reply' => ':user a répondu à votre discussion :discussion',
+        'mention' => ':user vous a mentionné dans :discussion',
     ],
 
     'profile' => [

@@ -3,12 +3,12 @@
 namespace Azuriom\Plugin\Forum\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
-use Azuriom\Models\User;
 use Azuriom\Plugin\Forum\Models\Category;
 use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\ForumUser;
 use Azuriom\Plugin\Forum\Models\Post;
+use Azuriom\Plugin\Forum\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
@@ -57,6 +57,7 @@ class ForumController extends Controller
         return view('forum::home', [
                 'categories' => $categories,
                 'latestPosts' => $latestPosts,
+                'user' => auth()->user(),
             ] + $stats);
     }
 

@@ -7,10 +7,10 @@ use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\HasUser;
 use Azuriom\Models\Traits\Loggable;
 use Azuriom\Models\User as BaseUser;
+use Azuriom\Notifications\AlertNotification;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * @property int $id
@@ -63,6 +63,30 @@ class Post extends Model
      * @var string
      */
     protected $userKey = 'author_id';
+
+    protected static function booted()
+    {
+        static::created(function (Post $post) {
+            preg_match_all('/@(\w{3,25})/', $post->content, $matches);
+
+            if (empty($matches[1])) {
+                return;
+            }
+
+            $users = User::whereIn('name', $matches[1])->limit(10)->get();
+
+            $notification = (new AlertNotification(trans('forum::messages.notifications.mention', [
+                'user' => $post->author->name,
+                'discussion' => $post->discussion->title,
+            ])))->from($post->author);
+
+            foreach ($users as $user) {
+                if (!$user->is($post->author)) {
+                    $user->notifications()->create($notification->toArray());
+                }
+            }
+        });
+    }
 
     /**
      * Get the the author of this discussion.

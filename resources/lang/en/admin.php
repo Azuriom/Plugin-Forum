@@ -48,7 +48,7 @@ return [
 
             'order-updated' => 'Forums order updated.',
 
-            'delete-not-empty' => 'This forums contain discussions and can\'t be deleted.',
+            'delete-not-empty' => 'This forum contain discussions and can\'t be deleted.',
             'delete-with-forums' => 'A forum with sub forums can\'t be deleted.',
         ],
     ],
