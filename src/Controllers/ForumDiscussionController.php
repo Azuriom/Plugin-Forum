@@ -58,7 +58,10 @@ class ForumDiscussionController extends Controller
         /** @var \Azuriom\Plugin\Forum\Models\Discussion $discussion */
         $discussion = $forum->discussions()->create(Arr::except($request->validated(), ['is_pinned', 'is_locked']));
 
-        $discussion->posts()->create(['content' => $request->input('content')]);
+        $discussion->posts()->create([
+            'content' => $request->input('content'),
+            'content_format' => setting('forum.editor', 'bbcode'),
+        ]);
 
         if ($request->user()->can('forum.discussions')) {
             $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();

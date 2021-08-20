@@ -24,6 +24,17 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="editorSelect">{{ trans('forum::messages.fields.editor') }}</label>
+                    <select class="custom-select @error('editor') is-invalid @enderror" id="editorSelect" name="editor">
+                        <option value="bbcode" @if($editor === 'bbcode') selected @endif>BBCode</option>
+                        <option value="markdown" @if($editor === 'markdown') selected @endif>Markdown</option>
+                    </select>
+
+                    @error('editor')
+                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                    @enderror
+                </div>
 
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}

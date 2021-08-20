@@ -2,10 +2,8 @@
 
 @section('title', trans('forum::messages.posts.title-edit'))
 
-@include('forum::elements.markdown-editor')
-
 @section('content')
-    <div class="container">
+    <div class="container content">
         @include('forum::elements.nav')
 
         <h1>{{ trans('forum::messages.posts.title-edit') }}</h1>
@@ -13,6 +11,8 @@
         <form action="{{ route('forum.discussions.posts.update', [$post->discussion, $post]) }}" method="POST">
             @csrf
             @method('PUT')
+
+            @include('forum::elements.markdown-editor', ['editor' => $post->content_format ?? null])
 
             <div class="form-group">
                 <label for="content">{{ trans('messages.comments.your-comment') }}</label>
@@ -27,6 +27,5 @@
                 <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
             </button>
         </form>
-
     </div>
 @endsection

@@ -1,16 +1,16 @@
-@if(setting('forum.editor') !== 'bbcode')
+@if(($editor = ($editor ?? setting('forum.editor'))) === 'markdown')
     @push('styles')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde@2.9.0/dist/easymde.min.css">
     @endpush
 @endif
 
 @push('footer-scripts')
-    @if(setting('forum.editor') === 'bbcode')
+    @if($editor !== 'markdown')
         <script src="{{ asset('vendor/tinymce/tinymce.min.js') }}"></script>
         <script>
             tinymce.init({
                 selector: 'textarea',
-                height: {{ ($editorMinHeight ?? 300) * 2 }},
+                height: {{ ($editorMinHeight ?? 300) * 1.5 }},
                 min_height: 200,
                 entity_encoding: 'raw',
                 menubar: false,

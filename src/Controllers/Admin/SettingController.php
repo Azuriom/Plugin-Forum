@@ -15,7 +15,7 @@ class SettingController extends Controller
      */
     public function show()
     {
-        return view('forum::admin.settings');
+        return view('forum::admin.settings', ['editor' => setting('forum.editor')]);
     }
 
     /**
@@ -30,9 +30,13 @@ class SettingController extends Controller
     {
         $this->validate($request, [
             'post_delay' => ['nullable', 'integer', 'min:0'],
+            'editor' => ['nullable', 'in:bbcode,markdown'],
         ]);
 
-        Setting::updateSettings('forum.post_delay', $request->input('post_delay'));
+        Setting::updateSettings([
+            'forum.post_delay' => $request->input('post_delay'),
+            'forum.editor' => $request->input('editor'),
+        ]);
 
         return redirect()->route('forum.admin.settings')
             ->with('success', trans('admin.settings.status.updated'));

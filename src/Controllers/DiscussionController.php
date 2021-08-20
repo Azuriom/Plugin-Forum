@@ -57,9 +57,12 @@ class DiscussionController extends Controller
      */
     public function edit(Discussion $discussion)
     {
+        $post = $discussion->posts()->first();
+
         return view('forum::discussions.edit', [
             'discussion' => $discussion,
-            'discussionContent' => $discussion->posts()->value('content'),
+            'discussionContent' => $post->content ?? null,
+            'editor' => $post->content_format ?? null,
             'current' => $discussion,
             'forums' => Forum::all(),
             'tags' => Tag::all(),

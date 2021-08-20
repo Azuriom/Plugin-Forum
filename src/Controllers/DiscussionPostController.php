@@ -62,7 +62,9 @@ class DiscussionPostController extends Controller
                 ->with('error', trans('forum::messages.posts.delay', ['time' => $nextPostTime]));
         }
 
-        $discussion->posts()->create($request->validated());
+        $discussion->posts()->create(array_merge($request->validated(), [
+            'content_format' => setting('forum.editor', 'bbcode'),
+        ]));
 
         if (! $request->user()->is($discussion->author)) {
             $notification = (new AlertNotification(trans('forum::messages.notifications.reply', [

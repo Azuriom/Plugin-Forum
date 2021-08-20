@@ -14,7 +14,7 @@ use Illuminate\Support\HtmlString;
  */
 trait HasMarkdownOrBBCode
 {
-    protected static function bootHasMarkdown()
+    protected static function bootHasMarkdownOrBBCode()
     {
         static::updated(function (Model $model) {
             Cache::forget($model->getMarkdownCacheKey());
@@ -50,7 +50,7 @@ trait HasMarkdownOrBBCode
 
     public function parseRawMarkdown(string $attribute, string $content, bool $inlineOnly = false)
     {
-        if (setting('forum.editor') === 'bbcode') {
+        if ($this->getMarkdownFormat() === 'bbcode') {
             $internalHosts = [str_replace(['http://', 'https://'], '', config('app.url'))];
             $parser = (new BBCodeParser('https://images.weserv.nl/?url=%s', $internalHosts));
             return new HtmlString($parser->parse($content));
@@ -62,5 +62,10 @@ trait HasMarkdownOrBBCode
     protected function getMarkdownCacheKey()
     {
         return "markdown.{$this->getTable()}.{$this->getKey()}";
+    }
+
+    protected function getMarkdownFormat()
+    {
+        return $this->content_format;
     }
 }

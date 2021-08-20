@@ -8,8 +8,6 @@
     <meta property="og:article:modified_time" content="{{ $discussion->updated_at->toIso8601String() }}">
 @endpush
 
-@include('forum::elements.markdown-editor', ['editorMinHeight' => 150])
-
 @section('content')
     <div class="container content">
         @include('forum::elements.nav')
@@ -170,6 +168,8 @@
                     <div class="card-body">
                         <form action="{{ route('forum.discussions.posts.store', $discussion) }}" method="POST">
                             @csrf
+
+                            @include('forum::elements.markdown-editor', ['editorMinHeight' => 150])
 
                             <div class="form-group">
                                 <label for="content">{{ trans('messages.fields.content') }}</label>

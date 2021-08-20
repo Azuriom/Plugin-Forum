@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int $author_id
  * @property int $discussion_id
  * @property string $content
+ * @property string $content_format
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -54,7 +55,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'content',
+        'content', 'content_format',
     ];
 
     /**

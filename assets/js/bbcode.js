@@ -5,6 +5,7 @@ function html2bbcode(s) {
         .replace(/<i>([\s\S]*?)<\/i>/gi, '[i]$1[/i]')
         .replace(/<em>([\s\S]*?)<\/em>/gi, '[i]$1[/i]')
         .replace(/<u>([\s\S]*?)<\/u>/gi, '[u]$1[/u]')
+        .replace(/<span style="([\w-]+): ?([\w#-]+); ?([\w-]+): ?([\w#-]+)">([\s\S]*?)<\/span>/gi, '<span style="$1: $2"><span style="$3: $4">$5</span></span>')
         .replace(/<span style="text-decoration: ?underline;?">([\s\S]*?)<\/span>/gi, '[u]$1[/u]')
         .replace(/<span style="text-decoration: ?line-through;?">([\s\S]*?)<\/span>/gi, '[s]$1[/s]')
         .replace(/<span style="color: ?(.*?);?">([\s\S]*?)<\/span>/gi, '[color=$1]$2[/color]')
@@ -44,7 +45,7 @@ function bbcode2html(s) {
         .replace(/\[color=(#[A-f0-9]{3,6})]([\s\S]*?)\[\/color]/gi, '<span style="color: $1">$2</span>')
         .replace(/\[url]([\s\S]*?)\[\/url]/gi, '<a href="$1">$1</a>')
         .replace(/\[url=([^\]]+)]([\s\S]*?)\[\/url]/gi, '<a href="$1">$2</a>')
-        .replace(/\[img]([\s\S]*?)\[\/img]/gi, '<img src="$1">')
+        .replace(/\[img=?]([\s\S]*?)\[\/img]/gi, '<img src="$1">')
         .replace(/\[img=([^\]]+)]([\s\S]*?)\[\/img]/gi, '<img src="$2" alt="$1">')
         .replace(/\[h1]([\s\S]*?)\[\/h1]\n?/gi, '<h1>$1</h1>')
         .replace(/\[h2]([\s\S]*?)\[\/h2]\n?/gi, '<h2>$1</h2>')
@@ -53,13 +54,12 @@ function bbcode2html(s) {
         .replace(/\[h5]([\s\S]*?)\[\/h5]\n?/gi, '<h5>$1</h5>')
         .replace(/\[h6]([\s\S]*?)\[\/h6]\n?/gi, '<h6>$1</h6>')
         .replace(/\[\*](.*?)\n/g, '<li>$1</li>')
-        .replace(/\[code]\n?([\s\S]*?)\[\/code]\n?/gi, '<pre><code>$1</code></pre>')
+        .replace(/\[code=?]\n?([\s\S]*?)\[\/code]\n?/gi, '<pre><code>$1</code></pre>')
         .replace(/\[code=(.*?)]\n?([\s\S]*?)\[\/code]\n?/gi, '<pre class="language-$1"><code>$2</code></pre>')
         .replace(/\[quote]\n?([\s\S]*?)\[\/quote]\n?/gi, '<blockquote>$1</blockquote>')
         .replace(/\[center]([\s\S]*?)\[\/center]\n?/gi, '<p style="text-align: center">$1</p>')
         .replace(/\[list]\n?([\s\S]*?)\[\/list]\n?/gi, '<ul>$1</ul>')
         .replace(/\[olist]\n?([\s\S]*?)\[\/olist]\n?/gi, '<ol>$1</ol>')
-      //  .replace(/\n\n/g, '\n')
         .replace(/\n/g, '<br>');
 }
 

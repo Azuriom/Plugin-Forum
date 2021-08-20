@@ -6,6 +6,7 @@ return [
     'fields' => [
         'forum' => 'Forum',
         'tags' => 'Tags',
+        'editor' => 'Editor',
     ],
 
     'actions' => [
