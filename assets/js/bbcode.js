@@ -1,20 +1,47 @@
+const maxNestedLevel = 15;
+
 function html2bbcode(s) {
+    const recursiveTags = [
+        {
+            pattern: /<span style="([\w-]+): ?([\w#-]+); ?([\w-]+): ?([\w#-]+);?">([\s\S]*?)<\/span>/gi,
+            replace: '<span style="$1: $2"><span style="$3: $4">$5</span></span>',
+        },
+        {
+            pattern: /<span style="color: ?([\w#-]+);?">([\s\S]*?)<\/span>/gi,
+            replace: '[color=$1]$2[/color]',
+        },
+        {
+            pattern: /<font.*?color="(.*?)".*?>([\s\S]*?)<\/font>/gi,
+            replace: '[color=$1]$2[/color]',
+        },
+        {
+            pattern: /<span style="text-decoration: ?underline;?">([\s\S]*?)<\/span>/gi,
+            replace: '[u]$1[/u]',
+        },
+    ];
+
+    recursiveTags.forEach(function (value) {
+        let i = 0;
+
+        while (value.pattern.test(s) && i++ < maxNestedLevel) {
+            s = s.replace(value.pattern, value.replace);
+        }
+    });
+
     return s.replace(/<font>([\s\S]*?)<\/font>/gi, '$1')
         .replace(/<b>([\s\S]*?)<\/b>/gi, '[b]$1[/b]')
         .replace(/<strong>([\s\S]*?)<\/strong>/gi, '[b]$1[/b]')
         .replace(/<i>([\s\S]*?)<\/i>/gi, '[i]$1[/i]')
         .replace(/<em>([\s\S]*?)<\/em>/gi, '[i]$1[/i]')
         .replace(/<u>([\s\S]*?)<\/u>/gi, '[u]$1[/u]')
-        .replace(/<span style="([\w-]+): ?([\w#-]+); ?([\w-]+): ?([\w#-]+)">([\s\S]*?)<\/span>/gi, '<span style="$1: $2"><span style="$3: $4">$5</span></span>')
-        .replace(/<span style="text-decoration: ?underline;?">([\s\S]*?)<\/span>/gi, '[u]$1[/u]')
         .replace(/<span style="text-decoration: ?line-through;?">([\s\S]*?)<\/span>/gi, '[s]$1[/s]')
-        .replace(/<span style="color: ?(.*?);?">([\s\S]*?)<\/span>/gi, '[color=$1]$2[/color]')
-        .replace(/<font.*?color="(.*?)".*?>([\s\S]*?)<\/font>/gi, '[color=$1]$2[/color]')
         .replace(/<a.*?href="(.*?)".*?>([\s\S]*?)<\/a>/gi, '[url=$1]$2[/url]')
         .replace(/<img.*?src="(.*?)".*?alt="(.*?)".*?\/>/gi, '[img=$2]$1[/img]')
         .replace(/<img.*?src="(.*?)".*?\/>/gi, '[img]$1[/img]')
         .replace(/<center>([\s\S]*?)<\/center>/gi, '[center]$1[/center]')
+        .replace(/<p style="text-align: ?left;?">([\s\S]*?)<\/p>/gi, '$1')
         .replace(/<p style="text-align: ?center;?">([\s\S]*?)<\/p>/gi, '[center]$1[/center]')
+        .replace(/<p style="text-align: ?right;?">([\s\S]*?)<\/p>/gi, '[right]$1[/right]')
         .replace(/<blockquote>([\s\S]*?)<\/blockquote>/gi, '[quote]$1[/quote]')
         .replace(/<pre class="language-(.*?)"><code>([\s\S]*?)<\/code><\/pre>/gi, '[code=$1]$2[/code]')
         .replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/gi, '[code]$1[/code]')
@@ -38,11 +65,25 @@ function html2bbcode(s) {
 }
 
 function bbcode2html(s) {
+    const recursiveTags = [
+        {
+            pattern: /\[color=(#\w{3,6})]([\s\S]*?)\[\/color]/gi,
+            replace: '<span style="color: $1">$2</span>',
+        },
+    ];
+
+    recursiveTags.forEach(function (value) {
+        let i = 0;
+
+        while (value.pattern.test(s) && i++ < maxNestedLevel) {
+            s = s.replace(value.pattern, value.replace);
+        }
+    });
+
     return s.replace(/\[b]([\s\S]*?)\[\/b]/gi, '<strong>$1</strong>')
         .replace(/\[i]([\s\S]*?)\[\/i]/gi, '<em>$1</em>')
         .replace(/\[u]([\s\S]*?)\[\/u]/gi, '<u>$1</u>')
         .replace(/\[s]([\s\S]*?)\[\/s]/gi, '<span style="text-decoration: line-through">$1</span>')
-        .replace(/\[color=(#[A-f0-9]{3,6})]([\s\S]*?)\[\/color]/gi, '<span style="color: $1">$2</span>')
         .replace(/\[url]([\s\S]*?)\[\/url]/gi, '<a href="$1">$1</a>')
         .replace(/\[url=([^\]]+)]([\s\S]*?)\[\/url]/gi, '<a href="$1">$2</a>')
         .replace(/\[img=?]([\s\S]*?)\[\/img]/gi, '<img src="$1">')
@@ -55,7 +96,7 @@ function bbcode2html(s) {
         .replace(/\[h6]([\s\S]*?)\[\/h6]\n?/gi, '<h6>$1</h6>')
         .replace(/\[\*](.*?)\n/g, '<li>$1</li>')
         .replace(/\[code=?]\n?([\s\S]*?)\[\/code]\n?/gi, '<pre><code>$1</code></pre>')
-        .replace(/\[code=(.*?)]\n?([\s\S]*?)\[\/code]\n?/gi, '<pre class="language-$1"><code>$2</code></pre>')
+        .replace(/\[code=(\w*?)]\n?([\s\S]*?)\[\/code]\n?/gi, '<pre class="language-$1"><code>$2</code></pre>')
         .replace(/\[quote]\n?([\s\S]*?)\[\/quote]\n?/gi, '<blockquote>$1</blockquote>')
         .replace(/\[center]([\s\S]*?)\[\/center]\n?/gi, '<p style="text-align: center">$1</p>')
         .replace(/\[list]\n?([\s\S]*?)\[\/list]\n?/gi, '<ul>$1</ul>')

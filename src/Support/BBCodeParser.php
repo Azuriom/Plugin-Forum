@@ -2,6 +2,9 @@
 
 namespace Azuriom\Plugin\Forum\Support;
 
+use Illuminate\Support\Str;
+use League\CommonMark\Util\RegexHelper;
+
 /**
  * Based on https://github.com/genert/bbcode, under the MIT license.
  * Modified to add more tags, produce safe HTML and fix issues with newlines.
@@ -61,6 +64,7 @@ class BBCodeParser
             'pattern' => '/\[u\](.*?)\[\/u\]/s',
             'replace' => '<u>$1</u>',
             'content' => '$1',
+            'recursive' => true,
         ],
 
         'linethrough' => [
@@ -70,9 +74,10 @@ class BBCodeParser
         ],
 
         'color' => [
-            'pattern' => '/\[color\=(#[A-f0-9]{6}|#[A-f0-9]{3})\](.*?)\[\/color\]/s',
+            'pattern' => '/\[color\=(#\w{6}|#\w{3})\](.*?)\[\/color\]/s',
             'replace' => '<span style="color: $1">$2</span>',
             'content' => '$2',
+            'recursive' => true,
         ],
 
         'center' => [
@@ -100,13 +105,13 @@ class BBCodeParser
         ],
 
         'code' => [
-            'pattern' => '/\n?\[code\]\n?(.*?)\[\/code\]\n?/s',
+            'pattern' => '/\n?\[code=?\]\n?(.*?)\[\/code\]\n?/s',
             'replace' => '<pre><code>$1</code></pre>',
             'content' => '$1',
         ],
 
         'named_code' => [
-            'pattern' => '/\n?\[code\=(.*?)\]\n?(.*?)\[\/code\]\n?/s',
+            'pattern' => '/\n?\[code\=(\w*?)\]\n?(.*?)\[\/code\]\n?/s',
             'replace' => '<pre class="language-$1"><code>$2</code></pre>',
             'content' => '$2',
         ],
@@ -135,7 +140,7 @@ class BBCodeParser
             'content' => '$2',
         ],
 
-        'ordered_list_numerical' => [
+        'ordered_list' => [
             'pattern' => '/\n?\[olist\]\n?(.*?)\[\/olist\]\n?/s',
             'replace' => '<ol>$1</ol>',
             'content' => '$1',
@@ -154,7 +159,7 @@ class BBCodeParser
         ],
 
         'youtube' => [
-            'pattern' => '/\n?\[youtube\](?:https?:\/\/www\.youtube\.com\/watch\?v\=|https:\/\/youtu\.be\/)?(.*?)\[\/youtube\]/s',
+            'pattern' => '/\n?\[youtube\](?:https?:\/\/www\.youtube\.com\/watch\?v\=|https:\/\/youtu\.be\/)?(\w*?)\[\/youtube\]/s',
             'replace' => '<iframe width="560" height="315" src="//www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',
             'content' => '$1',
         ],
@@ -173,6 +178,13 @@ class BBCodeParser
     {
         $this->imageProxy = $imageProxy;
         $this->internalHosts = $internalHosts;
+
+        $this->parsers['link']['callback'] = function ($matches) {
+            return $this->handleLink($matches[1], $matches[1]);
+        };
+        $this->parsers['named_link']['callback'] = function ($matches) {
+            return $this->handleLink($matches[1], $matches[2]);
+        };
 
         if ($this->imageProxy !== null) {
             $this->parsers['image']['callback'] = function ($matches) {
@@ -231,11 +243,16 @@ class BBCodeParser
      */
     protected function searchAndReplace(string $pattern, string $replace, string $source, callable $callback = null)
     {
-        if ($callback === null) {
-            return preg_replace($pattern, $replace, $source);
+        if ($callback !== null) {
+            return preg_replace_callback($pattern, $callback, $source);
         }
 
-        return preg_replace_callback($pattern, $callback, $source);
+        $i = 0;
+        while (preg_match($pattern, $source) && $i++ < 10) {
+            $source = preg_replace($pattern, $replace, $source);
+        }
+
+        return $source;
     }
 
     /**
@@ -273,6 +290,15 @@ class BBCodeParser
         ];
     }
 
+    private function handleLink(string $href, string $content)
+    {
+        if (RegexHelper::isLinkPotentiallyUnsafe($href) || Str::contains($href, '"')) {
+            return $content;
+        }
+
+        return '<a href="'.$href.'" target="_blank" rel="noopener noreferrer">'.$content.'</a>';
+    }
+
     private function handleImage(string $src, string $alt)
     {
         if ($this->isInternalHost($src)) {
@@ -281,7 +307,7 @@ class BBCodeParser
 
         $safeSrc = str_replace('%s', urlencode($src), $this->imageProxy);
 
-        return '<img src="'.$safeSrc.'" alt="'.$alt.'" data-original-src="'.$src.'">';
+        return '<img src="'.$safeSrc.'" alt="'.e($alt).'" data-original-src="'.e($src).'">';
     }
 
     private function isInternalHost(string $host)

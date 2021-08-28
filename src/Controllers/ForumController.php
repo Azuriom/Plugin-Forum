@@ -81,6 +81,7 @@ class ForumController extends Controller
             ])
             ->withCount('posts')
             ->orderByDesc('is_pinned')
+            ->latest()
             ->paginate();
 
         $forum->setRelation('discussions', $discussions);

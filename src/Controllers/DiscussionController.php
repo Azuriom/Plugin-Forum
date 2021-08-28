@@ -39,7 +39,9 @@ class DiscussionController extends Controller
                 }, 'author' => function ($query) {
                     $query->withCount(['likes', 'posts', 'discussions']);
                 }
-            ])->oldest()->paginate();
+            ])
+            ->oldest()
+            ->paginate();
 
         $discussion->setRelation('posts', $posts);
 

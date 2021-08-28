@@ -15,8 +15,17 @@
                 entity_encoding: 'raw',
                 menubar: false,
                 plugins: 'emoticons autolink code image link lists codesample',
-                toolbar: 'formatselect | bold italic underline strikethrough forecolor | link image emoticons | aligncenter | bullist numlist | codesample blockquote | removeformat code | undo redo',
+                toolbar: 'formatselect | bold italic underline strikethrough forecolor | link image emoticons | alignleft aligncenter alignright | bullist numlist | codesample blockquote | removeformat code | undo redo',
                 relative_urls: false,
+                convert_fonts_to_spans: false,
+                formats: {
+                    forecolor: { inline: 'font', attributes: { color: '%value' } },
+                },
+                valid_elements : 'strong/b,em/i,u,font[color],span[style],a[href],img[src|alt],center,p[style],blockquote,pre[class],code,h1,h2,h3,h4,h5,h6,ul,ol,li,br',
+                valid_styles: {
+                    span: 'text-decoration,color',
+                    p: 'text-align',
+                },
                 external_plugins: {
                     azuriombbcode: '{{ plugin_asset('forum', 'js/bbcode.js') }}',
                 },
