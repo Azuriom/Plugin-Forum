@@ -37,6 +37,7 @@ return [
         'icons' => 'Vous pouvez avoir la liste des icônes disponibles sur <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener noreferrer">FontAwesome</a>.',
 
         'restricted' => 'Restreindre l\'accès à ce forum à certains grades seulement',
+        'default_tags' => 'Tags par défaut',
 
         'lock' => 'Verrouiller ce forum',
         'lock-info' => 'Les utilisateurs qui ne sont pas admin ne pourront pas créer de discussions.',

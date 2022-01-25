@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $position
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Forum[] $forums
  */
 class Category extends Model

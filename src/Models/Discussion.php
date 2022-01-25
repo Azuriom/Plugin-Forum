@@ -13,11 +13,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $author_id
  * @property int $forum_id
  * @property string $title
+ * @property int $views
  * @property bool $is_pinned
  * @property bool $is_locked
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
  * @property \Azuriom\Models\User $author
  * @property \Azuriom\Plugin\Forum\Models\Forum $forum
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Post[] $posts
@@ -51,7 +51,7 @@ class Discussion extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
+        'title', 'views',
     ];
 
     /**

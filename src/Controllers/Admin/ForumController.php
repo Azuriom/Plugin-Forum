@@ -6,6 +6,7 @@ use Azuriom\Http\Controllers\Controller;
 use Azuriom\Models\Role;
 use Azuriom\Plugin\Forum\Models\Category;
 use Azuriom\Plugin\Forum\Models\Forum;
+use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\ForumRequest;
 use Illuminate\Http\Request;
 
@@ -90,6 +91,7 @@ class ForumController extends Controller
         return view('forum::admin.forums.create', [
             'categories' => Category::all(),
             'roles' => Role::all(),
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -118,6 +120,7 @@ class ForumController extends Controller
         return view('forum::admin.forums.edit', [
             'categories' => Category::all(),
             'roles' => Role::all(),
+            'tags' => Tag::all(),
             'forum' => $forum,
         ]);
     }

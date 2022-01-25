@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Auth;
  * @property string $content_format
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
  * @property \Azuriom\Models\User $author
  * @property \Azuriom\Plugin\Forum\Models\Discussion $discussion
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Like[] $likes

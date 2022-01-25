@@ -8,7 +8,9 @@ use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 class DiscussionController extends Controller
 {
@@ -25,10 +27,11 @@ class DiscussionController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
-    public function show(Discussion $discussion)
+    public function show(Request $request, Discussion $discussion)
     {
         $discussion->load(['author.user', 'forum.category']);
 
@@ -44,6 +47,13 @@ class DiscussionController extends Controller
             ->paginate();
 
         $discussion->setRelation('posts', $posts);
+
+        $key = 'forum.discussions.views.'.$discussion->id;
+        $views = Cache::get($key, []);
+        if (! in_array($request->ip(), $views, true)) {
+            $discussion->increment('views');
+            Cache::put($key, array_merge($views, [$request->ip()]), now()->endOfDay());
+        }
 
         return view('forum::discussions.show', [
             'discussion' => $discussion,

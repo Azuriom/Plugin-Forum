@@ -69,6 +69,10 @@ class ForumDiscussionController extends Controller
             $discussion->tags()->sync(array_keys($request->input('tags', [])));
         }
 
+        if (! empty($forum->default_tags)) {
+            $discussion->tags()->attach($forum->default_tags);
+        }
+
         return redirect()->route('forum.discussions.show', $discussion);
     }
 }

@@ -49,6 +49,7 @@ return [
         'lock' => 'Lock this discussion',
 
         'respond' => 'Respond',
+        'views' => ':count view|:count views',
 
         'locked' => 'Locked',
         'pinned' => 'Pinned',

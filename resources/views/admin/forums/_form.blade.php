@@ -79,12 +79,29 @@
 </div>
 
 <div id="rolesGroup" class="{{ (isset($forum) && $forum->roles !== null) ?  'show' : 'collapse' }}">
-    <div class="card card-body mb-2">
+    <div class="card card-body mb-2 pb-0">
         @foreach($roles as $role)
-            <div class="form-group custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="role{{ $role->id }}" name="roles[{{ $role->id }}]" @if(isset($forum) && $forum->roles !== null && $forum->hasRole($role)) checked @endif">
-                <label class="custom-control-label" for="role{{ $role->id }}">{{ $role->name }}</label>
+            <div class="form-group custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="role{{ $role->id }}" name="roles[]" value="{{ $role->id }}" @if(isset($forum) && $forum->roles !== null && $forum->hasRole($role)) checked @endif">
+                <label class="custom-control-label" for="role{{ $role->id }}">
+                    <span class="badge" style="{{ $role->getBadgeStyle() }}">{{ $role->name }}</span>
+                </label>
             </div>
         @endforeach
     </div>
 </div>
+
+@if(! $tags->isEmpty())
+    <label>{{ trans('forum::admin.forums.default_tags') }}</label>
+
+    <div class="card card-body mb-2 pb-0">
+        @foreach($tags as $tag)
+            <div class="form-group custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="tag{{ $tag->id }}" name="default_tags[]" value="{{ $tag->id }}" @if(isset($forum) && in_array($tag->id, $forum->default_tags ?? [], true)) checked @endif">
+                <label class="custom-control-label" for="tag{{ $tag->id }}">
+                    <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
+                </label>
+            </div>
+        @endforeach
+    </div>
+@endif

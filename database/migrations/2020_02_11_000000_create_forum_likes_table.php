@@ -18,7 +18,7 @@ class CreateForumLikesTable extends Migration
             $table->unsignedInteger('post_id');
             $table->unsignedInteger('author_id');
 
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('post_id')->references('id')->on('forum_posts')->onDelete('cascade');
         });
     }

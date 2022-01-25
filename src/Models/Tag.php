@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $color
  * @property int $position
- *
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Discussion[] $discussions
  */
 class Tag extends Model

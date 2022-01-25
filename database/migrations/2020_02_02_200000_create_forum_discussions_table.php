@@ -22,7 +22,7 @@ class CreateForumDiscussionsTable extends Migration
             $table->boolean('is_locked')->default(false);
             $table->timestamps();
 
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('forum_id')->references('id')->on('forum_forums')->onDelete('cascade');
         });
     }

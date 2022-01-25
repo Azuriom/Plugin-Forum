@@ -14,7 +14,7 @@
 
         <div class="row mb-2">
             <div class="col-md-9">
-                <h1>
+                <h1 class="mb-1">
                     @foreach($discussion->tags as $tag)
                         <small>
                             <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
@@ -22,6 +22,7 @@
                     @endforeach
                     {{ $discussion->title }}
                 </h1>
+                <p>{{ trans_choice('forum::messages.discussions.views', $discussion->views) }}</p>
             </div>
 
             <div class="col-md-3 d-flex align-items-center justify-content-md-end">

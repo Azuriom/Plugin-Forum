@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $location
  * @property string|null $discord
  * @property string|null $twitter
- *
  * @property \Azuriom\Models\User $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder online()

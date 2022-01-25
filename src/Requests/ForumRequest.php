@@ -38,6 +38,7 @@ class ForumRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:255'],
             'category_id' => ['required', 'exists:forum_categories,id'],
             'roles' => ['sometimes', 'nullable', 'array'],
+            'default_tags' => ['sometimes', 'nullable', 'array'],
             'is_locked' => ['filled', 'boolean'],
         ];
     }
@@ -46,9 +47,13 @@ class ForumRequest extends FormRequest
     {
         $validated = parent::validated();
 
-        $validated['roles'] = $this->filled('is_restricted')
-            ? array_keys(Arr::get($validated, 'roles', []))
-            : null;
+        if (! $this->filled('is_restricted') || ! array_key_exists('roles', $validated)) {
+            $validated['roles'] = null;
+        }
+
+        if (! array_key_exists('default_tags', $validated)) {
+            $validated['default_tags'] = null;
+        }
 
         return $validated;
     }

@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $parent_id
  * @property int $position
  * @property array|null $roles
+ * @property array|null $default_tags
  * @property bool $is_locked
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
  * @property \Azuriom\Plugin\Forum\Models\Category $category
  * @property \Azuriom\Plugin\Forum\Models\Forum|null $parent
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Discussion[] $discussions
@@ -48,7 +48,8 @@ class Forum extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'icon', 'description', 'slug', 'position', 'roles', 'category_id', 'parent_id', 'is_locked',
+        'name', 'icon', 'description', 'slug', 'position', 'roles', 'default_tags',
+        'category_id', 'parent_id', 'is_locked',
     ];
 
     /**
@@ -58,6 +59,7 @@ class Forum extends Model
      */
     protected $casts = [
         'roles' => 'array',
+        'default_tags' => 'array',
         'is_locked' => 'boolean',
     ];
 
@@ -114,6 +116,24 @@ class Forum extends Model
     public function getNavigationLink()
     {
         return [route('forum.show', $this->slug) => $this->name];
+    }
+
+    public function setRolesAttribute(?array $roles)
+    {
+        $ids = $roles === null ? $roles : array_map(function ($value) {
+            return (int) $value;
+        }, $roles);
+
+        $this->attributes['roles'] = json_encode($ids);
+    }
+
+    public function setDefaultTagsAttribute(?array $tags)
+    {
+        $ids = $tags === null ? $tags : array_map(function ($value) {
+            return (int) $value;
+        }, $tags);
+
+        $this->attributes['default_tags'] = json_encode($ids);
     }
 
     /**

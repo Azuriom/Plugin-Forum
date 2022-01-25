@@ -18,7 +18,7 @@ class CreateForumUsersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamp('last_seen_at')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

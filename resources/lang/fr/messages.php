@@ -49,6 +49,7 @@ return [
         'lock' => 'Verrouiller cette discussion',
 
         'respond' => 'Répondre',
+        'views' => ':count vue|:count vues',
 
         'locked' => 'Verrouillé',
         'pinned' => 'Épinglé',

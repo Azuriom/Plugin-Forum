@@ -11,7 +11,7 @@
         <form action="{{ route('forum.profile.update', $user) }}" method="POST">
             @csrf
 
-            @include('forum::elements.markdown-editor')
+            @include('forum::elements.markdown-editor', ['editor' => 'markdown'])
 
             <div class="form-row">
                 <div class="form-group col-md-6">
