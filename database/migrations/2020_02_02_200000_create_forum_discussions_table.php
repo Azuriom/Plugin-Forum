@@ -18,6 +18,7 @@ class CreateForumDiscussionsTable extends Migration
             $table->unsignedInteger('author_id');
             $table->unsignedInteger('forum_id');
             $table->string('title');
+            $table->unsignedInteger('views')->default(0);
             $table->boolean('is_pinned')->default(false);
             $table->boolean('is_locked')->default(false);
             $table->timestamps();

@@ -31,7 +31,7 @@
                         <form action="{{ route('forum.discussions.'.($discussion->is_pinned ? 'unpin' : 'pin'), $discussion) }}" method="POST" class="d-inline-block">
                             @csrf
 
-                            <button class="btn btn-success btn-sm @if($discussion->is_pinned) active @endif" title="{{ trans('forum::messages.actions.'.($discussion->is_pinned ? 'unpin' : 'pin')) }}" data-toggle="tooltip">
+                            <button class="btn btn-success btn-sm @if($discussion->is_pinned) active @endif" title="{{ trans('forum::messages.actions.'.($discussion->is_pinned ? 'unpin' : 'pin')) }}" data-bs-toggle="tooltip">
                                 <i class="fas fa-thumbtack fa-fw"></i>
                             </button>
                         </form>
@@ -39,7 +39,7 @@
                         <form action="{{ route('forum.discussions.'.($discussion->is_locked ? 'unlock' : 'lock'), $discussion) }}" method="POST" class="d-inline-block">
                             @csrf
 
-                            <button class="btn btn-secondary btn-sm @if($discussion->is_locked) active @endif" title="{{ trans('forum::messages.actions.'.($discussion->is_locked ? 'unlock' : 'lock')) }}" data-toggle="tooltip">
+                            <button class="btn btn-secondary btn-sm @if($discussion->is_locked) active @endif" title="{{ trans('forum::messages.actions.'.($discussion->is_locked ? 'unlock' : 'lock')) }}" data-bs-toggle="tooltip">
                                 <i class="fas fa-lock{{ $discussion->is_locked ? '-open' : ''}} fa-fw"></i>
                             </button>
                         </form>
@@ -47,7 +47,7 @@
 
                     @if(! $discussion->is_locked || optional(auth()->user())->isAdmin())
                         @can('update', $discussion)
-                            <a href="{{ route('forum.discussions.edit', $discussion) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip">
+                            <a href="{{ route('forum.discussions.edit', $discussion) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip">
                                 <i class="fas fa-edit fa-fw"></i>
                             </a>
                         @endcan
@@ -57,7 +57,7 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip">
+                                <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip">
                                     <i class="fas fa-trash fa-fw"></i>
                                 </button>
                             </form>
@@ -84,7 +84,7 @@
                                         </a>
                                     </h5>
 
-                                    <span class="badge badge-label" style="{{ $post->author->role->getBadgeStyle() }};">{{ $post->author->role->name }}</span>
+                                    <span class="badge" style="{{ $post->author->role->getBadgeStyle() }};">{{ $post->author->role->name }}</span>
                                 </div>
                             </div>
 
@@ -132,7 +132,7 @@
 
                     @if(! $loop->first && (! $discussion->is_locked || optional(auth()->user())->isAdmin()))
                         @can('edit', $post)
-                            <a href="{{ route('forum.discussions.posts.edit', [$discussion, $post]) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip">
+                            <a href="{{ route('forum.discussions.posts.edit', [$discussion, $post]) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip">
                                 <i class="fas fa-edit fa-fw"></i>
                             </a>
                         @endcan
@@ -142,7 +142,7 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip">
+                                <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip">
                                     <i class="fas fa-trash fa-fw"></i>
                                 </button>
                             </form>
@@ -156,7 +156,7 @@
 
         @if($discussion->is_locked)
             <div class="alert alert-warning" role="alert">
-                <i class="fas fa-lock"></i> {{ trans('forum::messages.discussions.info-locked') }}
+                <i class="fas fa-lock"></i> {{ trans('forum::messages.discussions.locked_info') }}
             </div>
         @endif
 
@@ -172,8 +172,8 @@
 
                             @include('forum::elements.markdown-editor', ['editorMinHeight' => 150])
 
-                            <div class="form-group">
-                                <label for="content">{{ trans('messages.fields.content') }}</label>
+                            <div class="mb-3">
+                                <label class="form-label" for="content">{{ trans('messages.fields.content') }}</label>
                                 <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="4"></textarea>
 
                                 @error('content')

@@ -1,7 +1,7 @@
 @csrf
 
-<div class="form-group">
-    <label for="nameInput">{{ trans('messages.fields.name') }}</label>
+<div class="mb-3">
+    <label class="form-label" for="nameInput">{{ trans('messages.fields.name') }}</label>
     <input type="text" class="form-control @error('name') is-invalid @enderror" id="nameInput" name="name" value="{{ old('name', $category->name ?? '') }}" required>
 
     @error('name')
@@ -9,8 +9,8 @@
     @enderror
 </div>
 
-<div class="form-group">
-    <label for="descriptionInput">{{ trans('messages.fields.description') }}</label>
+<div class="mb-3">
+    <label class="form-label" for="descriptionInput">{{ trans('messages.fields.description') }}</label>
     <input type="text" class="form-control @error('description') is-invalid @enderror" id="descriptionInput" name="description" value="{{ old('description', $category->description ?? '') }}">
 
     @error('description')

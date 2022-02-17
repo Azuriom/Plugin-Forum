@@ -78,8 +78,8 @@
                                     <i class="fas fa-arrows-alt sortable-handle"></i> {{ $category->name }}
                                 </span>
                                 <span>
-                                    <a href="{{ route('forum.admin.categories.edit', $category) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                                    <a href="{{ route('forum.admin.categories.destroy', $category) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ route('forum.admin.categories.edit', $category) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('forum.admin.categories.destroy', $category) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
                                 </span>
                             </div>
                         </div>
@@ -92,12 +92,12 @@
             </ol>
 
             <a href="{{ route('forum.admin.categories.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-category') }}
+                <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create_category') }}
             </a>
 
             @if(! $categories->isEmpty())
                 <a href="{{ route('forum.admin.forums.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-forum') }}
+                    <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create_forum') }}
                 </a>
 
                 <button type="button" class="btn btn-success" id="save">

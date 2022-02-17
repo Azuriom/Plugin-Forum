@@ -16,6 +16,12 @@ class CreateForumUsersTable extends Migration
         Schema::create('forum_users', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
+            $table->text('about')->nullable();
+            $table->text('signature')->nullable();
+            $table->string('website')->nullable();
+            $table->string('location')->nullable();
+            $table->string('discord')->nullable();
+            $table->string('twitter')->nullable();
             $table->timestamp('last_seen_at')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

@@ -6,8 +6,8 @@
                 <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
             </span>
             <span>
-                <a href="{{ route('forum.admin.forums.edit', $forum) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                <a href="{{ route('forum.admin.forums.destroy', $forum) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
+                <a href="{{ route('forum.admin.forums.edit', $forum) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip"><i class="fas fa-edit"></i></a>
+                <a href="{{ route('forum.admin.forums.destroy', $forum) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
             </span>
         </div>
     </div>

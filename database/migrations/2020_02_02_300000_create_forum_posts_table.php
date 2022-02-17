@@ -18,6 +18,7 @@ class CreateForumPostsTable extends Migration
             $table->unsignedInteger('author_id');
             $table->unsignedInteger('discussion_id');
             $table->text('content');
+            $table->string('content_format')->default('markdown');
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();

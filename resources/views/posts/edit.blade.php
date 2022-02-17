@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', trans('forum::messages.posts.title-edit'))
+@section('title', trans('forum::messages.posts.edit'))
 
 @section('content')
     <div class="container content">
         @include('forum::elements.nav')
 
-        <h1>{{ trans('forum::messages.posts.title-edit') }}</h1>
+        <h1>{{ trans('forum::messages.posts.edit') }}</h1>
 
         <form action="{{ route('forum.discussions.posts.update', [$post->discussion, $post]) }}" method="POST">
             @csrf
@@ -14,8 +14,8 @@
 
             @include('forum::elements.markdown-editor', ['editor' => $post->content_format ?? null])
 
-            <div class="form-group">
-                <label for="content">{{ trans('messages.comments.your-comment') }}</label>
+            <div class="mb-3">
+                <label class="form-label" for="content">{{ trans('messages.comments.your-comment') }}</label>
                 <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="4">{{ old('content', $post->content) }}</textarea>
 
                 @error('content')

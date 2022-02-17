@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', trans('forum::messages.discussions.title-edit'))
+@section('title', trans('forum::messages.discussions.edit'))
 
 @section('content')
     <div class="container content">
         @include('forum::elements.nav')
 
-        <h1>{{ trans('forum::messages.discussions.title-edit') }}</h1>
+        <h1>{{ trans('forum::messages.discussions.edit') }}</h1>
 
         <form action="{{ route('forum.discussions.update', $discussion) }}" method="POST">
             @method('PUT')
@@ -14,12 +14,14 @@
             @include('forum::discussions._form')
 
             @can('forum.discussions')
-                <div class="form-group">
-                    <label for="forumSelect">{{ trans('forum::messages.fields.forum') }}</label>
+                <div class="mb-3">
+                    <label class="form-label" for="forumSelect">{{ trans('forum::messages.fields.forum') }}</label>
 
-                    <select class="custom-select" id="forumSelect" name="forum_id">
+                    <select class="form-select" id="forumSelect" name="forum_id">
                         @foreach($forums as $forum)
-                            <option value="{{ $forum->id }}" @if($forum->id === (int) old('forum_id', $discussion->forum_id)) selected @endif>{{ $forum->name }}</option>
+                            <option value="{{ $forum->id }}" @selected($forum->id === (int) old('forum_id', $discussion->forum_id))>
+                                {{ $forum->name }}
+                            </option>
                         @endforeach
                     </select>
 

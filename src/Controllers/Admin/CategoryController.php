@@ -29,7 +29,7 @@ class CategoryController extends Controller
         Category::create($request->validated());
 
         return redirect()->route('forum.admin.forums.index')
-            ->with('success', trans('forum::admin.categories.status.created'));
+            ->with('success', trans('messages.status.success'));
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoryController extends Controller
         $category->update($request->validated());
 
         return redirect()->route('forum.admin.forums.index')
-            ->with('success', trans('forum::admin.categories.status.updated'));
+            ->with('success', trans('messages.status.success'));
     }
 
     /**
@@ -69,12 +69,12 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if ($category->forums()->exists()) {
-            return redirect()->back()->with('error', trans('forum.category.status.delete-not-empty'));
+            return redirect()->back()->with('error', trans('forum.categories.delete_error'));
         }
 
         $category->delete();
 
         return redirect()->route('forum.admin.forums.index')
-            ->with('success', trans('forum::admin.categories.status.deleted'));
+            ->with('success', trans('messages.status.success'));
     }
 }

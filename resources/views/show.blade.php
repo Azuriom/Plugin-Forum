@@ -18,7 +18,7 @@
                                     <i class="{{ $subForum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
                                 </div>
 
-                                <div class="col-xl-8 col-md-7 col-10 pl-md-0">
+                                <div class="col-xl-8 col-md-7 col-10 ps-md-0">
                                     <h3 class="h5">
                                         <a href="{{ route('forum.show', $subForum->slug) }}">{{ $subForum->name }}</a>
                                     </h3>
@@ -27,9 +27,9 @@
                                 </div>
 
                                 <div class="col-xl-3 col-md-3 d-none d-md-block">
-                                    {{ trans_choice('forum::messages.forums.discussions-count', $subForum->discussions_count) }}
+                                    {{ trans_choice('forum::messages.forums.discussions', $subForum->discussions_count) }}
                                     <br>
-                                    {{ trans_choice('forum::messages.discussions.posts-count', $subForum->posts_count) }}
+                                    {{ trans_choice('forum::messages.discussions.posts', $subForum->posts_count) }}
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                 <i class="fas fa-comment-dots fa-2x fa-fw forum-big-icon"></i>
                             </div>
 
-                            <div class="col-8 col-md-5 pl-md-0">
+                            <div class="col-8 col-md-5 ps-md-0">
                                 <a href="{{ route('forum.discussions.show', $discussion) }}">
                                     @foreach($discussion->tags as $tag)
                                         <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
@@ -66,18 +66,18 @@
                                 @if($discussion->is_pinned || $discussion->is_locked)
                                     <div class="float-md-right">
                                         @if($discussion->is_pinned)
-                                            <i class="fas fa-thumbtack fa-fw text-primary" title="{{ trans('forum::messages.discussions.pinned') }}" data-toggle="tooltip"></i>
+                                            <i class="fas fa-thumbtack fa-fw text-primary" title="{{ trans('forum::messages.discussions.pinned') }}" data-bs-toggle="tooltip"></i>
                                         @endif
 
                                         @if($discussion->is_locked)
-                                            <i class="fas fa-lock fa-fw text-warning" title="{{ trans('forum::messages.discussions.locked') }}" data-toggle="tooltip"></i>
+                                            <i class="fas fa-lock fa-fw text-warning" title="{{ trans('forum::messages.discussions.locked') }}" data-bs-toggle="tooltip"></i>
                                         @endif
                                     </div>
                                 @endif
                             </div>
 
                             <div class="col-md-2 d-none d-md-block">
-                                {{ trans_choice('forum::messages.discussions.posts-count', $discussion->posts_count) }}
+                                {{ trans_choice('forum::messages.discussions.posts', $discussion->posts_count) }}
                             </div>
 
                             <div class="col-md-2 d-none d-md-block">

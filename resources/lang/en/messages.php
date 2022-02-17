@@ -35,15 +35,15 @@ return [
     ],
 
     'forums' => [
-        'discussions-count' => ':count discussion|:count discussions',
+        'discussions' => ':count discussion|:count discussions',
 
         'locked' => 'This forum is locked.',
     ],
 
     'discussions' => [
         'title' => 'Discussions',
-        'title-create' => 'Create discussion',
-        'title-edit' => 'Edit discussion',
+        'create' => 'Create discussion',
+        'edit' => 'Edit discussion',
 
         'pin' => 'Pin this discussion',
         'lock' => 'Lock this discussion',
@@ -54,9 +54,9 @@ return [
         'locked' => 'Locked',
         'pinned' => 'Pinned',
 
-        'info-locked' => 'This discussion is locked.',
+        'locked_info' => 'This discussion is locked.',
 
-        'posts-count' => ':count post|:count posts',
+        'posts' => ':count post|:count posts',
 
         'delete' => 'Are you sure you want to delete this discussion ?',
 
@@ -74,7 +74,7 @@ return [
 
     'posts' => [
         'title' => 'Posts',
-        'title-edit' => 'Edit post',
+        'edit' => 'Edit post',
 
         'delay' => 'You can post again in :time.',
 

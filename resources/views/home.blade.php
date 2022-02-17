@@ -26,7 +26,7 @@
                                                 <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
                                             </div>
 
-                                            <div class="col-xl-8 col-md-7 col-10 pl-md-0">
+                                            <div class="col-xl-8 col-md-7 col-10 ps-md-0">
                                                 <h3 class="h5">
                                                     <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
                                                 </h3>
@@ -35,9 +35,9 @@
                                             </div>
 
                                             <div class="col-xl-3 col-md-3 d-none d-md-block">
-                                                {{ trans_choice('forum::messages.forums.discussions-count', $forum->discussions_count) }}
+                                                {{ trans_choice('forum::messages.forums.discussions', $forum->discussions_count) }}
                                                 <br>
-                                                {{ trans_choice('forum::messages.discussions.posts-count', $forum->posts_count) }}
+                                                {{ trans_choice('forum::messages.discussions.posts', $forum->posts_count) }}
                                             </div>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                     </a>
                                 </div>
 
-                                <div class="col-md-7 pl-md-0">
+                                <div class="col-md-7 ps-md-0">
                                     <h5 class="mb-1">
                                         <a href="{{ route('forum.users.show', $user) }}">{{ $user->name }}</a>
                                     </h5>
