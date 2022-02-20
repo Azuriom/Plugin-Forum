@@ -22,7 +22,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
      *
      * @var array
      */
-    protected $policies = [
+    protected array $policies = [
         Post::class => PostPolicy::class,
         Discussion::class => DiscussionPolicy::class,
         Forum::class => ForumPolicy::class,
