@@ -3,10 +3,9 @@
 @section('title', trans('forum::messages.title'))
 
 @section('content')
-    <div class="container content">
         @include('forum::elements.nav')
 
-        <h1 class="h2">{{ trans('forum::messages.title') }}</h1>
+        <h1>{{ trans('forum::messages.title') }}</h1>
 
         <div class="row">
             <div class="col-md-9">
@@ -73,27 +72,29 @@
                     </div>
                 @endauth
 
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fas fa-comments fa-fw"></i> {{ trans('forum::messages.latest.title') }}
-                    </div>
-                    <div class="list-group list-group-flush">
-                        @foreach($latestPosts as $post)
-                            <div class="list-group-item">
-                                <a href="{{ route('forum.discussions.show', $post->discussion) }}">
-                                    {{ $post->discussion->title }}
-                                </a>
+                @if(! $latestPosts->isEmpty())
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-comments fa-fw"></i> {{ trans('forum::messages.latest.title') }}
+                        </div>
+                        <div class="list-group list-group-flush">
+                            @foreach($latestPosts as $post)
+                                <div class="list-group-item">
+                                    <a href="{{ route('forum.discussions.show', $post->discussion) }}">
+                                        {{ $post->discussion->title }}
+                                    </a>
 
-                                <br>
+                                    <br>
 
-                                <small>
-                                    <a href="{{ route('forum.users.show', $post->author) }}">{{ $post->author->name }}</a>,
-                                    {{ format_date($post->created_at) }}
-                                </small>
-                            </div>
-                        @endforeach
+                                    <small>
+                                        <a href="{{ route('forum.users.show', $post->author) }}">{{ $post->author->name }}</a>,
+                                        {{ format_date($post->created_at) }}
+                                    </small>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="card mb-3">
                     <div class="card-header">
@@ -127,6 +128,4 @@
                 </div>
             </div>
         </div>
-
-    </div>
 @endsection

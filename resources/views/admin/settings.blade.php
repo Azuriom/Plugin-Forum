@@ -3,7 +3,7 @@
 @section('title', trans('forum::admin.settings.title'))
 
 @section('content')
-    <div class="card shadow mb-4">
+    <div class="card">
         <div class="card-body">
 
             <form action="{{ route('forum.admin.settings.save') }}" method="POST">

@@ -3,7 +3,7 @@
 @section('title', trans('forum::admin.forums.edit', ['forum' => $forum->name]))
 
 @section('content')
-    <div class="card shadow mb-4">
+    <div class="card">
         <div class="card-body">
             <form action="{{ route('forum.admin.forums.update', $forum) }}" method="POST">
                 @method('PUT')
