@@ -89,7 +89,7 @@ class Post extends Model
     }
 
     /**
-     * Get the the author of this discussion.
+     * Get the author of this discussion.
      */
     public function author()
     {

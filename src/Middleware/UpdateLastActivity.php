@@ -4,6 +4,7 @@ namespace Azuriom\Plugin\Forum\Middleware;
 
 use Azuriom\Plugin\Forum\Models\ForumUser;
 use Closure;
+use Illuminate\Http\Request;
 
 class UpdateLastActivity
 {
@@ -14,7 +15,7 @@ class UpdateLastActivity
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
 
