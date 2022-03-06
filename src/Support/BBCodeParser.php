@@ -153,6 +153,12 @@ class BBCodeParser
         ],
 
         'list_item' => [
+            'pattern' => '/\n?\[\*\]\n?(.*?)\[\/\*\]\n?/s',
+            'replace' => '<li>$1</li>',
+            'content' => '$1',
+        ],
+
+        'single_list_item' => [
             'pattern' => '/\[\*\](.*)\n?/',
             'replace' => '<li>$1</li>',
             'content' => '$1',

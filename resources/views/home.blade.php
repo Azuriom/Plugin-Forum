@@ -22,7 +22,7 @@
                                     <div class="list-group-item">
                                         <div class="row">
                                             <div class="col-xl-1 col-md-2 col-2 text-center">
-                                                <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
+                                                <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-2x fa-fw text-primary"></i>
                                             </div>
 
                                             <div class="col-xl-8 col-md-7 col-10 ps-md-0">

@@ -58,7 +58,7 @@
                             </a>
                         </h3>
 
-                        <p>{{ Str::limit($post->content) }}</p>
+                        <p>{{ Str::limit(strip_tags($post->parseContent())) }}</p>
 
                         <small class="text-muted d-block">
                             {{ format_date($post->created_at) }}

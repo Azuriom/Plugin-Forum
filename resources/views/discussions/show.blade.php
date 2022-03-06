@@ -109,7 +109,7 @@
                             <small>{{ format_date($post->created_at, true) }}</small>
                         </div>
 
-                        <div class="markdown-body card-text user-html-content mb-3">
+                        <div class="markdown-body card-text mb-3">
                             {{ $post->parseContent() }}
 
                             @if($post->author->signature !== null)

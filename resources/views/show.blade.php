@@ -14,7 +14,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-xl-1 col-md-2 col-2 text-center">
-                                <i class="{{ $subForum->icon ?? 'fas fa-comments' }} fa-2x fa-fw forum-big-icon"></i>
+                                <i class="{{ $subForum->icon ?? 'fas fa-comments' }} fa-2x fa-fw text-primary"></i>
                             </div>
 
                             <div class="col-xl-8 col-md-7 col-10 ps-md-0">
@@ -44,7 +44,7 @@
                 <div class="list-group-item">
                     <div class="row">
                         <div class="col-2 col-md-1 text-center">
-                            <i class="fas fa-comment-dots fa-2x fa-fw forum-big-icon"></i>
+                            <i class="fas fa-comment-dots fa-2x fa-fw text-primary"></i>
                         </div>
 
                         <div class="col-8 col-md-5 ps-md-0">
