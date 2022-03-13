@@ -37,7 +37,7 @@
             document.querySelectorAll('textarea').forEach(function (el) {
                 new EasyMDE({
                     element: el,
-                    autoDownloadFontAwesome: false,
+                    autoDownloadFontAwesome: true,
                     minHeight: '{{ $editorMinHeight ?? 300 }}px',
                     promptURLs: true,
                     spellChecker: false,

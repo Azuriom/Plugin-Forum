@@ -29,7 +29,7 @@
                         @csrf
 
                         <button class="btn btn-success btn-sm @if($discussion->is_pinned) active @endif" title="{{ trans('forum::messages.actions.'.($discussion->is_pinned ? 'unpin' : 'pin')) }}" data-bs-toggle="tooltip">
-                            <i class="fas fa-thumbtack fa-fw"></i>
+                            <i class="bi bi-{{ $discussion->is_pinned ? 'pin' : 'pin-angle'}}"></i>
                         </button>
                     </form>
 
@@ -37,7 +37,7 @@
                         @csrf
 
                         <button class="btn btn-secondary btn-sm @if($discussion->is_locked) active @endif" title="{{ trans('forum::messages.actions.'.($discussion->is_locked ? 'unlock' : 'lock')) }}" data-bs-toggle="tooltip">
-                            <i class="fas fa-lock{{ $discussion->is_locked ? '-open' : ''}} fa-fw"></i>
+                            <i class="bi bi-{{ $discussion->is_locked ? 'unlock' : 'lock'}}"></i>
                         </button>
                     </form>
                 @endcan
@@ -45,7 +45,7 @@
                 @if(! $discussion->is_locked || auth()->user()?->isAdmin())
                     @can('update', $discussion)
                         <a href="{{ route('forum.discussions.edit', $discussion) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip">
-                            <i class="fas fa-edit fa-fw"></i>
+                            <i class="bi bi-pencil-square"></i>
                         </a>
                     @endcan
 
@@ -55,7 +55,7 @@
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip">
-                                <i class="fas fa-trash fa-fw"></i>
+                                <i class="bi bi-trash"></i>
                             </button>
                         </form>
                     @endcan
@@ -124,7 +124,7 @@
 
             <div class="card-footer text-right">
                 <button type="button" class="btn btn-primary btn-sm @if($post->isLiked()) active @endif" @guest disabled @endguest data-like-url="{{ route('forum.posts.like', $post) }}">
-                    <i class="fas fa-thumbs-up"></i>
+                    <i class="bi bi-hand-thumbs-up"></i>
                     <span class="likes-count">{{ $post->likes->count() }}</span>
                     <span class="d-none spinner-border spinner-border-sm load-spinner" role="status"></span>
                 </button>
@@ -132,7 +132,7 @@
                 @if(! $loop->first && (! $discussion->is_locked || auth()->user()?->isAdmin()))
                     @can('edit', $post)
                         <a href="{{ route('forum.discussions.posts.edit', [$discussion, $post]) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip">
-                            <i class="fas fa-edit fa-fw"></i>
+                            <i class="bi bi-pencil-square"></i>
                         </a>
                     @endcan
 
@@ -142,7 +142,7 @@
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger btn-sm" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip">
-                                <i class="fas fa-trash fa-fw"></i>
+                                <i class="bi bi-trash"></i>
                             </button>
                         </form>
                     @endcan
@@ -155,7 +155,7 @@
 
     @if($discussion->is_locked)
         <div class="alert alert-warning" role="alert">
-            <i class="fas fa-lock"></i> {{ trans('forum::messages.discussions.locked_info') }}
+            <i class="bi bi-lock"></i> {{ trans('forum::messages.discussions.locked_info') }}
         </div>
     @endif
 
@@ -181,7 +181,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-reply"></i> {{ trans('forum::messages.discussions.respond') }}
+                            <i class="bi bi-reply"></i> {{ trans('forum::messages.discussions.respond') }}
                         </button>
                     </form>
                 </div>

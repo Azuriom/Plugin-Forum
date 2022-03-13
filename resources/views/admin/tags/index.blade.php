@@ -16,7 +16,7 @@
                         @include('forum::admin.tags._form')
 
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
+                            <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                         </button>
                     </form>
                 </div>
@@ -52,8 +52,8 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="{{ route('forum.admin.tags.edit', $tag) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                                            <a href="{{ route('forum.admin.tags.destroy', $tag) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ route('forum.admin.tags.edit', $tag) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ route('forum.admin.tags.destroy', $tag) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip" data-confirm="delete"><i class="bi bi-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

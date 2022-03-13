@@ -133,7 +133,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
             'forum' => [
                 'name' => trans('forum::messages.title'),
                 'type' => 'dropdown',
-                'icon' => 'fas fa-comments',
+                'icon' => 'bi bi-chat',
                 'route' => 'forum.admin.*',
                 'permission' => 'forum.forums',
                 'items' => [

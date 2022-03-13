@@ -14,7 +14,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-xl-1 col-md-2 col-2 text-center">
-                                <i class="{{ $subForum->icon ?? 'fas fa-comments' }} fa-2x fa-fw text-primary"></i>
+                                <i class="{{ $subForum->icon ?? 'bi bi-chat' }} fs-2 text-primary"></i>
                             </div>
 
                             <div class="col-xl-8 col-md-7 col-10 ps-md-0">
@@ -44,7 +44,7 @@
                 <div class="list-group-item">
                     <div class="row">
                         <div class="col-2 col-md-1 text-center">
-                            <i class="fas fa-comment-dots fa-2x fa-fw text-primary"></i>
+                            <i class="bi bi-chat-dots fs-2 text-primary"></i>
                         </div>
 
                         <div class="col-8 col-md-5 ps-md-0">
@@ -66,11 +66,11 @@
                             @if($discussion->is_pinned || $discussion->is_locked)
                                 <div class="float-md-right">
                                     @if($discussion->is_pinned)
-                                        <i class="fas fa-thumbtack fa-fw text-primary" title="{{ trans('forum::messages.discussions.pinned') }}" data-bs-toggle="tooltip"></i>
+                                        <i class="bi bi-pin-angle text-primary" title="{{ trans('forum::messages.discussions.pinned') }}" data-bs-toggle="tooltip"></i>
                                     @endif
 
                                     @if($discussion->is_locked)
-                                        <i class="fas fa-lock fa-fw text-warning" title="{{ trans('forum::messages.discussions.locked') }}" data-bs-toggle="tooltip"></i>
+                                        <i class="bi bi-lock text-warning" title="{{ trans('forum::messages.discussions.locked') }}" data-bs-toggle="tooltip"></i>
                                     @endif
                                 </div>
                             @endif
@@ -99,14 +99,14 @@
 
     @if($forum->is_locked)
         <div class="alert alert-warning" role="alert">
-            <i class="fas fa-lock"></i> {{ trans('forum::messages.forums.locked') }}
+            <i class="bi bi-lock"></i> {{ trans('forum::messages.forums.locked') }}
         </div>
     @endif
 
     @if(! $forum->is_locked || auth()->user()?->isAdmin())
         @can('create', \Azuriom\Plugin\Forum\Models\Discussion::class)
             <a href="{{ route('forum.forum.discussions.create', $forum->slug) }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> {{ trans('messages.actions.create') }}
+                <i class="bi bi-plus-lg"></i> {{ trans('messages.actions.create') }}
             </a>
         @endcan
     @endif

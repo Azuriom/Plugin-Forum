@@ -62,7 +62,7 @@ class ForumController extends Controller
         }
 
         return response()->json([
-            'message' => trans('forum::admin.forums.status.updated'),
+            'message' => trans('forum::admin.forums.updated'),
         ]);
     }
 

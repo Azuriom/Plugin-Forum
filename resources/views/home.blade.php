@@ -22,7 +22,7 @@
                                     <div class="list-group-item">
                                         <div class="row">
                                             <div class="col-xl-1 col-md-2 col-2 text-center">
-                                                <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-2x fa-fw text-primary"></i>
+                                                <i class="{{ $forum->icon ?? 'bi bi-chat' }} fs-2 text-primary"></i>
                                             </div>
 
                                             <div class="col-xl-8 col-md-7 col-10 ps-md-0">
@@ -75,7 +75,7 @@
                 @if(! $latestPosts->isEmpty())
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fas fa-comments fa-fw"></i> {{ trans('forum::messages.latest.title') }}
+                            <i class="bi bi-chat"></i> {{ trans('forum::messages.latest.title') }}
                         </div>
                         <div class="list-group list-group-flush">
                             @foreach($latestPosts as $post)
@@ -98,7 +98,7 @@
 
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-chart-bar fa-fw"></i> {{ trans('forum::messages.stats.title') }}
+                        <i class="bi bi-graph-up"></i> {{ trans('forum::messages.stats.title') }}
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
@@ -111,7 +111,7 @@
 
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-users fa-fw"></i> {{ trans('forum::messages.online.title') }}
+                        <i class="bi bi-people"></i> {{ trans('forum::messages.online.title') }}
                     </div>
                     <div class="card-body">
                         @forelse($onlineUsers as $id => $user)

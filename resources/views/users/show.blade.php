@@ -103,7 +103,7 @@
 
             @if($user->id === Auth::id())
                 <a href="{{ route('forum.profile.edit') }}" class="btn btn-primary">
-                    <i class="fas fa-edit"></i> {{ trans('messages.actions.edit') }}
+                    <i class="bi bi-pencil-square"></i> {{ trans('messages.actions.edit') }}
                 </a>
             @endif
         </div>

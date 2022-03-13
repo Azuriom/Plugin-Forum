@@ -43,17 +43,17 @@
 
         <div class="input-group @error('icon') has-validation @enderror">
             <span class="input-group-text">
-                <i class="{{ $forum->icon ?? 'fas fa-comments' }} fa-fw"></i>
+                <i class="{{ $forum->icon ?? 'bi bi-chat' }}"></i>
             </span>
 
-            <input type="text" class="form-control @error('icon') is-invalid @enderror" id="iconInput" name="icon" value="{{ old('icon', $forum->icon ?? '') }}" placeholder="fas fa-comments" aria-labelledby="iconLabel">
+            <input type="text" class="form-control @error('icon') is-invalid @enderror" id="iconInput" name="icon" value="{{ old('icon', $forum->icon ?? '') }}" placeholder="bi bi-chat" aria-labelledby="iconLabel">
 
             @error('icon')
             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
         </div>
 
-        <small id="iconLabel" class="form-text">@lang('messages.fontawesome')</small>
+        <small id="iconLabel" class="form-text">@lang('messages.icons')</small>
     </div>
 </div>
 
