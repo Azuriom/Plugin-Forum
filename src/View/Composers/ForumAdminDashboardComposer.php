@@ -15,13 +15,13 @@ class ForumAdminDashboardComposer extends AdminDashboardCardComposer
                 'color' => 'primary',
                 'name' => trans('forum::admin.discussions.card'),
                 'value' => Discussion::count(),
-                'icon' => 'fas fa-comments',
+                'icon' => 'bi bi-chat',
             ],
             'forum_posts' => [
                 'color' => 'success',
                 'name' => trans('forum::admin.posts.card'),
                 'value' => Post::count(),
-                'icon' => 'fas fa-comment',
+                'icon' => 'bi bi-chat',
             ],
         ];
     }

@@ -62,7 +62,7 @@ class ForumController extends Controller
         }
 
         return response()->json([
-            'message' => trans('forum::admin.forums.status.order-updated'),
+            'message' => trans('forum::admin.forums.updated'),
         ]);
     }
 
@@ -106,7 +106,7 @@ class ForumController extends Controller
         Forum::create($request->validated());
 
         return redirect()->route('forum.admin.forums.index')
-            ->with('success', trans('forum::admin.forums.status.created'));
+            ->with('success', trans('messages.status.success'));
     }
 
     /**
@@ -137,7 +137,7 @@ class ForumController extends Controller
         $forum->update($request->validated());
 
         return redirect()->route('forum.admin.forums.index')
-            ->with('success', trans('forum::admin.forums.status.updated'));
+            ->with('success', trans('messages.status.success'));
     }
 
     /**
@@ -150,19 +150,14 @@ class ForumController extends Controller
      */
     public function destroy(Forum $forum)
     {
-        if ($forum->forums()->exists()) {
+        if ($forum->forums()->exists() || $forum->discussions()->exists()) {
             return redirect()->back()
-                ->with('error', trans('forum::admin.forums.status.delete-with-forums'));
-        }
-
-        if ($forum->discussions()->exists()) {
-            return redirect()->back()
-                ->with('error', trans('forum::admin.forums.status.delete-not-empty'));
+                ->with('error', trans('forum::admin.forums.delete_error'));
         }
 
         $forum->delete();
 
         return redirect()->route('forum.admin.forums.index')
-            ->with('success', trans('forum::admin.forums.status.deleted'));
+            ->with('success', trans('messages.status.success'));
     }
 }

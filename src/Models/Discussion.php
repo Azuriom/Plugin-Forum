@@ -72,7 +72,7 @@ class Discussion extends Model
     protected $userKey = 'author_id';
 
     /**
-     * Get the the author of this discussion.
+     * Get the author of this discussion.
      */
     public function author()
     {

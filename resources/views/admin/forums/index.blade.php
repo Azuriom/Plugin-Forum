@@ -66,7 +66,7 @@
 @endpush
 
 @section('content')
-    <div class="card shadow mb-4">
+    <div class="card">
         <div class="card-body">
 
             <ol class="list-unstyled sortable" id="categories">
@@ -75,11 +75,11 @@
                         <div class="card">
                             <div class="card-body d-flex justify-content-between">
                                 <span>
-                                    <i class="fas fa-arrows-alt sortable-handle"></i> {{ $category->name }}
+                                    <i class="bi bi-arrows-move sortable-handle"></i> {{ $category->name }}
                                 </span>
                                 <span>
-                                    <a href="{{ route('forum.admin.categories.edit', $category) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                                    <a href="{{ route('forum.admin.categories.destroy', $category) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ route('forum.admin.categories.edit', $category) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ route('forum.admin.categories.destroy', $category) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-bs-toggle="tooltip" data-confirm="delete"><i class="bi bi-trash"></i></a>
                                 </span>
                             </div>
                         </div>
@@ -92,16 +92,16 @@
             </ol>
 
             <a href="{{ route('forum.admin.categories.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-category') }}
+                <i class="bi bi-plus-lg"></i> {{ trans('forum::admin.forums.create_category') }}
             </a>
 
             @if(! $categories->isEmpty())
                 <a href="{{ route('forum.admin.forums.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> {{ trans('forum::admin.forums.create-forum') }}
+                    <i class="bi bi-plus-lg"></i> {{ trans('forum::admin.forums.create_forum') }}
                 </a>
 
                 <button type="button" class="btn btn-success" id="save">
-                    <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
+                    <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                     <span class="spinner-border spinner-border-sm btn-spinner d-none" role="status"></span>
                 </button>
             @endif

@@ -2,8 +2,8 @@
 
 @include('forum::elements.markdown-editor')
 
-<div class="form-group">
-    <label for="titleInput">{{ trans('messages.fields.title') }}</label>
+<div class="mb-3">
+    <label class="form-label" for="titleInput">{{ trans('messages.fields.title') }}</label>
     <input type="text" class="form-control @error('title') is-invalid @enderror" id="titleInput" name="title" value="{{ old('title', $discussion->title ?? '') }}" required>
 
     @error('title')
@@ -11,8 +11,8 @@
     @enderror
 </div>
 
-<div class="form-group">
-    <label for="content">{{ trans('messages.fields.content') }}</label>
+<div class="mb-3">
+    <label class="form-label" for="content">{{ trans('messages.fields.content') }}</label>
     <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="4">{{ old('content', $discussionContent ?? '') }}</textarea>
 
     @error('content')
@@ -23,12 +23,12 @@
 @can('forum.discussions')
     <label>{{ trans('forum::messages.fields.tags') }}</label>
 
-    <div class="row form-group">
+    <div class="row mb-3">
         @foreach($tags as $tag)
             <div class="col-md-1 col-sm-3 col-4">
-                <div class="mb-1 custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="tag{{ $tag->id }}" name="tags[{{ $tag->id }}]" @if(isset($discussion) && $discussion->tags->contains($tag->id)) checked @endif>
-                    <label class="custom-control-label" for="tag{{ $tag->id }}">
+                <div class="mb-1 form-check">
+                    <input type="checkbox" class="form-check-input" id="tag{{ $tag->id }}" name="tags[{{ $tag->id }}]" @checked(isset($discussion) && $discussion->tags->contains($tag->id))>
+                    <label class="form-check-label" for="tag{{ $tag->id }}">
                         <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
                     </label>
                 </div>
@@ -36,13 +36,13 @@
         @endforeach
     </div>
 
-    <div class="form-group custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="pinSwitch" name="is_pinned" @if($discussion->is_pinned ?? false) checked @endif>
-        <label class="custom-control-label" for="pinSwitch">{{ trans('forum::messages.discussions.pin') }}</label>
+    <div class="mb-3 form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="pinSwitch" name="is_pinned" @checked($discussion->is_pinned ?? false)>
+        <label class="form-check-label" for="pinSwitch">{{ trans('forum::messages.discussions.pin') }}</label>
     </div>
 
-    <div class="form-group custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="lockSwitch" name="is_locked" @if($discussion->is_locked ?? false) checked @endif>
-        <label class="custom-control-label" for="lockSwitch">{{ trans('forum::messages.discussions.lock') }}</label>
+    <div class="mb-3 form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="lockSwitch" name="is_locked" @checked($discussion->is_locked ?? false)>
+        <label class="form-check-label" for="lockSwitch">{{ trans('forum::messages.discussions.lock') }}</label>
     </div>
 @endcan

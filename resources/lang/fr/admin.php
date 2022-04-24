@@ -14,48 +14,31 @@ return [
 
     'categories' => [
         'title' => 'Catégories',
-        'title-edit' => 'Éditer la catégorie #:category',
-        'title-create' => 'Créer une catégorie',
+        'edit' => 'Éditer la catégorie #:category',
+        'create' => 'Créer une catégorie',
 
-        'status' => [
-            'created' => 'La catégorie a été créée.',
-            'updated' => 'Cette catégorie a été mise à jour.',
-            'deleted' => 'Cette catégorie a été supprimée.',
-
-            'error-delete' => 'La catégorie contient des forums et ne peut pas être supprimée.',
-        ],
+        'delete_error' => 'La catégorie contient des forums et ne peut pas être supprimée.',
     ],
 
     'forums' => [
         'title' => 'Forums',
-        'title-create' => 'Créer un forum',
-        'title-edit' => 'Éditer le forum :forum',
+        'create' => 'Créer un forum',
+        'edit' => 'Éditer le forum :forum',
 
-        'create-category' => 'Créer une catégorie',
-        'create-forum' => 'Créer un forum',
-
-        'icons' => 'Vous pouvez avoir la liste des icônes disponibles sur <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener noreferrer">FontAwesome</a>.',
+        'create_category' => 'Créer une catégorie',
+        'create_forum' => 'Créer un forum',
 
         'restricted' => 'Restreindre l\'accès à ce forum à certains grades seulement',
         'default_tags' => 'Tags par défaut',
-
         'lock' => 'Verrouiller ce forum',
-        'lock-info' => 'Les utilisateurs qui ne sont pas admin ne pourront pas créer de discussions.',
+        'lock_info' => 'Les utilisateurs qui ne sont pas admin ne pourront pas créer de discussions.',
 
-        'status' => [
-            'created' => 'Le forum a été créé.',
-            'updated' => 'Ce forum a été mis à jour.',
-            'deleted' => 'Ce forum a été supprimé.',
-
-            'order-updated' => 'Ordre des forums mis à jour.',
-
-            'error-delete' => 'Ce forum contient des discussions et ne peut pas être supprimée.',
-            'delete-with-forums' => 'Un forum qui contient des sous-forums ne peut pas être supprimé.',
-        ],
+        'updated' => 'Ordre des forums mis à jour.',
+        'delete_error' => 'Un forum qui contient des discussions ou des sous-forums ne peut pas être supprimé',
     ],
 
     'discussions' => [
-        'card' => 'Discussions sur forum',
+        'card' => 'Discussions sur le forum',
     ],
 
     'posts' => [
@@ -99,6 +82,6 @@ return [
     'permissions' => [
         'forums' => 'Gérer les forums et les catégories',
         'discussions' => 'Gérer les discussions du forum',
-        'delete-self-post' => 'Supprimer ses propres messages du forum',
+        'delete_own_posts' => 'Supprimer ses propres messages du forum',
     ],
 ];

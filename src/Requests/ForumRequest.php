@@ -43,7 +43,7 @@ class ForumRequest extends FormRequest
         ];
     }
 
-    public function validated()
+    public function validated($key = null, $value = null)
     {
         $validated = parent::validated();
 

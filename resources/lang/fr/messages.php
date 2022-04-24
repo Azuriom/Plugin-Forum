@@ -35,15 +35,15 @@ return [
     ],
 
     'forums' => [
-        'discussions-count' => ':count discussion|:count discussions',
+        'discussions' => ':count discussion|:count discussions',
 
         'locked' => 'Ce forum est verrouillé.',
     ],
 
     'discussions' => [
         'title' => 'Discussions',
-        'title-create' => 'Créer une discussion',
-        'title-edit' => 'Éditer une discussion',
+        'create' => 'Créer une discussion',
+        'edit' => 'Éditer une discussion',
 
         'pin' => 'Épingler cette discussion',
         'lock' => 'Verrouiller cette discussion',
@@ -54,9 +54,9 @@ return [
         'locked' => 'Verrouillé',
         'pinned' => 'Épinglé',
 
-        'info-locked' => 'Cette discussion est verrouillée.',
+        'locked_info' => 'Cette discussion est verrouillée.',
 
-        'posts-count' => ':count message|:count messages',
+        'posts' => ':count message|:count messages',
 
         'delete' => 'Êtes-vous sûr de vouloir supprimer cette discussion ?',
 
@@ -74,7 +74,7 @@ return [
 
     'posts' => [
         'title' => 'Messages',
-        'title-edit' => 'Éditer le message',
+        'edit' => 'Éditer le message',
 
         'delay' => 'Vous pouvez poster un nouveau message dans :time.',
 

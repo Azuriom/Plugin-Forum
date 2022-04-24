@@ -11,7 +11,7 @@ use League\CommonMark\Util\RegexHelper;
  */
 class BBCodeParser
 {
-    public $parsers = [
+    public array $parsers = [
         'h1' => [
             'pattern' => '/\[h1\](.*?)\[\/h1\]\n?/s',
             'replace' => '<h1>$1</h1>',
@@ -153,6 +153,12 @@ class BBCodeParser
         ],
 
         'list_item' => [
+            'pattern' => '/\n?\[\*\]\n?(.*?)\[\/\*\]\n?/s',
+            'replace' => '<li>$1</li>',
+            'content' => '$1',
+        ],
+
+        'single_list_item' => [
             'pattern' => '/\[\*\](.*)\n?/',
             'replace' => '<li>$1</li>',
             'content' => '$1',
@@ -171,8 +177,8 @@ class BBCodeParser
         ],
     ];
 
-    protected $imageProxy;
-    protected $internalHosts;
+    protected ?string $imageProxy;
+    protected array $internalHosts;
 
     public function __construct(string $imageProxy = null, array $internalHosts = [])
     {

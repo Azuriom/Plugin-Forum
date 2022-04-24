@@ -22,7 +22,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
      *
      * @var array
      */
-    protected $policies = [
+    protected array $policies = [
         Post::class => PostPolicy::class,
         Discussion::class => DiscussionPolicy::class,
         Forum::class => ForumPolicy::class,
@@ -69,7 +69,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
         Permission::registerPermissions([
             'forum.forums' => 'forum::admin.permissions.forums',
             'forum.discussions' => 'forum::admin.permissions.discussions',
-            'forum.posts.delete.self' => 'forum::admin.permissions.delete-self-post',
+            'forum.posts.delete.self' => 'forum::admin.permissions.delete_own_posts',
         ]);
     }
 
@@ -118,7 +118,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
     protected function routeDescriptions()
     {
         return [
-            'forum.home' => 'forum::messages.title',
+            'forum.home' => trans('forum::messages.title'),
         ];
     }
 
@@ -131,15 +131,15 @@ class ForumServiceProvider extends BasePluginServiceProvider
     {
         return [
             'forum' => [
-                'name' => 'forum::messages.title',
+                'name' => trans('forum::messages.title'),
                 'type' => 'dropdown',
-                'icon' => 'fas fa-comments',
+                'icon' => 'bi bi-chat',
                 'route' => 'forum.admin.*',
                 'permission' => 'forum.forums',
                 'items' => [
-                    'forum.admin.settings' => 'forum::admin.nav.settings',
-                    'forum.admin.forums.index' => 'forum::admin.nav.forums',
-                    'forum.admin.tags.index' => 'forum::admin.nav.tags',
+                    'forum.admin.settings' => trans('forum::admin.nav.settings'),
+                    'forum.admin.forums.index' => trans('forum::admin.nav.forums'),
+                    'forum.admin.tags.index' => trans('forum::admin.nav.tags'),
                 ],
             ],
         ];

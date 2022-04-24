@@ -2,11 +2,12 @@
     "id": "forum",
     "name": "Forum",
     "description": "A nice and simple forum for Azuriom",
-    "version": "0.1.24",
-    "url": "https://azuriom.com/market/resources/16",
+    "version": "1.0.0",
+    "url": "https://market.azuriom.com/resources/16",
     "authors": [
         "Azuriom"
     ],
+    "azuriom_api": "1.0.0",
     "providers": [
         "\\Azuriom\\Plugin\\Forum\\Providers\\ForumServiceProvider",
         "\\Azuriom\\Plugin\\Forum\\Providers\\RouteServiceProvider"
