@@ -117,11 +117,14 @@ class ForumController extends Controller
      */
     public function edit(Forum $forum)
     {
+        $forums = Forum::all()->except($forum->id);
+
         return view('forum::admin.forums.edit', [
             'categories' => Category::all(),
             'roles' => Role::all(),
             'tags' => Tag::all(),
             'forum' => $forum,
+            'forums' => $forums,
         ]);
     }
 

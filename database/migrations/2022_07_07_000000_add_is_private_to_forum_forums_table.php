@@ -13,12 +13,8 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('forum_categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->unsignedInteger('position')->default(0);
-            $table->timestamps();
+        Schema::table('forum_forums', function (Blueprint $table) {
+            $table->boolean('is_private')->default(false)->after('is_locked');
         });
     }
 
@@ -29,6 +25,8 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forum_categories');
+        Schema::table('forum_forums', function (Blueprint $table) {
+            $table->dropColumn('is_private');
+        });
     }
 };

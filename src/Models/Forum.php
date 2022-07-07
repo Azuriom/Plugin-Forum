@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array|null $roles
  * @property array|null $default_tags
  * @property bool $is_locked
+ * @property bool $is_private
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Azuriom\Plugin\Forum\Models\Category $category
@@ -49,7 +50,7 @@ class Forum extends Model
      */
     protected $fillable = [
         'name', 'icon', 'description', 'slug', 'position', 'roles', 'default_tags',
-        'category_id', 'parent_id', 'is_locked',
+        'category_id', 'parent_id', 'is_locked', 'is_private',
     ];
 
     /**
@@ -61,6 +62,7 @@ class Forum extends Model
         'roles' => 'array',
         'default_tags' => 'array',
         'is_locked' => 'boolean',
+        'is_private' => 'boolean',
     ];
 
     /**

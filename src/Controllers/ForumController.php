@@ -9,6 +9,7 @@ use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\ForumUser;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
@@ -30,9 +31,7 @@ class ForumController extends Controller
         $stats = Cache::remember('forum.stats', now()->addMinutes(5), function () {
             $onlineUsers = ForumUser::online()
                 ->with([
-                    'user' => function ($query) {
-                        $query->without('role');
-                    }
+                    'user' => fn ($query) => $query->without('role'),
                 ])
                 ->get()
                 ->pluck('user');
@@ -73,11 +72,15 @@ class ForumController extends Controller
     {
         $this->authorize('view', $forum);
 
+        $hideDiscussions = $forum->is_private && ! Gate::allows('forum.private.view');
+
         $discussions = $forum->discussions()
+            ->when($hideDiscussions, function (Builder $query) {
+                $query->where('author_id', auth()->id() ?? 0);
+            })
             ->with([
-                'author', 'tags', 'posts' => function ($query) {
-                    $query->latest()->with('author');
-                },
+                'author', 'tags',
+                'posts' => fn (Builder $query) => $query->latest()->with('author'),
             ])
             ->withCount('posts')
             ->orderByDesc('is_pinned')
@@ -87,9 +90,10 @@ class ForumController extends Controller
         $forum->setRelation('discussions', $discussions);
 
         $forum->load([
-            'category', 'forums' => function ($query) {
-                $query->withCount(['discussions', 'posts']);
-            },
+            'category',
+            'forums' => fn (Builder $query) => $query->withCount([
+                'discussions', 'posts',
+            ]),
         ]);
 
         return view('forum::show', [

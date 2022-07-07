@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateForumTagsTable extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
@@ -40,4 +40,4 @@ class CreateForumTagsTable extends Migration
         Schema::dropIfExists('forum_discussion_tag');
         Schema::dropIfExists('forum_tags');
     }
-}
+};

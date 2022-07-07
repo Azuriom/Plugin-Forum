@@ -28,10 +28,13 @@ return [
         'create_category' => 'Create category',
         'create_forum' => 'Create forum',
 
+        'parent' => 'Parent forum',
         'restricted' => 'Restrict access to this forum to certain roles only',
         'default_tags' => 'Default tags',
         'lock' => 'Lock this forum',
         'lock_info' => 'Users who are not admin will not be able to create discussions.',
+        'private' => 'Private forum',
+        'private_info' => 'Users can only see their own discussions.',
 
         'updated' => 'Forums order updated.',
         'delete_error' => 'A forum with discussions or sub-forums can\'t be deleted.',
@@ -82,6 +85,7 @@ return [
     'permissions' => [
         'forums' => 'Manage forums and categories',
         'discussions' => 'Manage forum discussions (move, edit, delete, pin, lock)',
+        'private' => 'View discussions from others users in private forums',
         'delete_own_posts' => 'Delete own forum posts',
     ],
 ];

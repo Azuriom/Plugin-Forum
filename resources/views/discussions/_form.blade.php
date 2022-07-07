@@ -21,7 +21,7 @@
 </div>
 
 @can('forum.discussions')
-    <label>{{ trans('forum::messages.fields.tags') }}</label>
+    <label class="form-label">{{ trans('forum::messages.fields.tags') }}</label>
 
     <div class="row mb-3">
         @foreach($tags as $tag)

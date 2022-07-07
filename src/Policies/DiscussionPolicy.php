@@ -31,7 +31,15 @@ class DiscussionPolicy
      */
     public function view(?User $user, Discussion $discussion)
     {
-        return Gate::allows('view', $discussion->forum);
+        if (! Gate::allows('view', $discussion->forum)) {
+            return false;
+        }
+
+        if (! $discussion->forum->is_private || $discussion->author->is($user)) {
+            return true;
+        }
+
+        return $user !== null && $user->can('forum.private.view');
     }
 
     /**

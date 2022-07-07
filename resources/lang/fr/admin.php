@@ -28,10 +28,13 @@ return [
         'create_category' => 'Créer une catégorie',
         'create_forum' => 'Créer un forum',
 
+        'parent' => 'Forum parent',
         'restricted' => 'Restreindre l\'accès à ce forum à certains grades seulement',
         'default_tags' => 'Tags par défaut',
         'lock' => 'Verrouiller ce forum',
         'lock_info' => 'Les utilisateurs qui ne sont pas admin ne pourront pas créer de discussions.',
+        'private' => 'Forum privé',
+        'private_info' => 'Les utilisateurs ne peuvent voir que leurs propres discussions.',
 
         'updated' => 'Ordre des forums mis à jour.',
         'delete_error' => 'Un forum qui contient des discussions ou des sous-forums ne peut pas être supprimé',
@@ -82,6 +85,7 @@ return [
     'permissions' => [
         'forums' => 'Gérer les forums et les catégories',
         'discussions' => 'Gérer les discussions du forum',
+        'private' => 'Voir les discussions des autres utilisateurs dans les forums privés',
         'delete_own_posts' => 'Supprimer ses propres messages du forum',
     ],
 ];

@@ -318,6 +318,10 @@ class BBCodeParser
 
     private function isInternalHost(string $host)
     {
+        if (Str::startsWith($host, '/')) {
+            return true;
+        }
+
         foreach ($this->internalHosts as $c) {
             if (strncmp($c, '/', 1) === 0) {
                 if (preg_match($c, $host)) {

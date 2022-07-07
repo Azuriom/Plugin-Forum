@@ -69,6 +69,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
         Permission::registerPermissions([
             'forum.forums' => 'forum::admin.permissions.forums',
             'forum.discussions' => 'forum::admin.permissions.discussions',
+            'forum.private.view' => 'forum::admin.permissions.private',
             'forum.posts.delete.self' => 'forum::admin.permissions.delete_own_posts',
         ]);
     }

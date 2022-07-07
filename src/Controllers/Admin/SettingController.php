@@ -39,6 +39,6 @@ class SettingController extends Controller
         ]);
 
         return redirect()->route('forum.admin.settings')
-            ->with('success', trans('admin.settings.status.updated'));
+            ->with('success', trans('admin.settings.updated'));
     }
 }

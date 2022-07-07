@@ -19,7 +19,7 @@ class ForumRequest extends FormRequest
      * @var array
      */
     protected $checkboxes = [
-        'is_locked',
+        'is_locked', 'is_private',
     ];
 
     /**
@@ -37,9 +37,11 @@ class ForumRequest extends FormRequest
             ],
             'description' => ['nullable', 'string', 'max:255'],
             'category_id' => ['required', 'exists:forum_categories,id'],
+            'parent_id' => ['nullable', 'exists:forum_forums,id'],
             'roles' => ['sometimes', 'nullable', 'array'],
             'default_tags' => ['sometimes', 'nullable', 'array'],
             'is_locked' => ['filled', 'boolean'],
+            'is_private' => ['filled', 'boolean'],
         ];
     }
 
