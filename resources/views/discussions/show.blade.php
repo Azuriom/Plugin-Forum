@@ -169,7 +169,12 @@
                     <form action="{{ route('forum.discussions.posts.store', $discussion) }}" method="POST">
                         @csrf
 
-                        @include('forum::elements.markdown-editor', ['editorMinHeight' => 150])
+                        <input type="hidden" name="pending_id" value="{{ $pendingId }}">
+
+                        @include('forum::elements.markdown-editor', [
+                            'editorMinHeight' => 150,
+                            'imagesUploadUrl' => route('forum.posts.attachments.pending', $pendingId),
+                        ])
 
                         <div class="mb-3">
                             <label class="form-label" for="content">{{ trans('messages.fields.content') }}</label>

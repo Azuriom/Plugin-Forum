@@ -13,6 +13,7 @@ use Azuriom\Plugin\Forum\Policies\DiscussionPolicy;
 use Azuriom\Plugin\Forum\Policies\ForumPolicy;
 use Azuriom\Plugin\Forum\Policies\PostPolicy;
 use Azuriom\Plugin\Forum\View\Composers\ForumAdminDashboardComposer;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\View;
 
 class ForumServiceProvider extends BasePluginServiceProvider
@@ -35,7 +36,9 @@ class ForumServiceProvider extends BasePluginServiceProvider
      */
     public function register()
     {
-        //
+        Relation::morphMap([
+            'forum.posts' => Post::class,
+        ]);
     }
 
     /**

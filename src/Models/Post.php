@@ -2,6 +2,7 @@
 
 namespace Azuriom\Plugin\Forum\Models;
 
+use Azuriom\Models\Traits\Attachable;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\HasUser;
 use Azuriom\Models\Traits\Loggable;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
  */
 class Post extends Model
 {
+    use Attachable;
     use HasTablePrefix;
     use HasUser;
     use HasMarkdownOrBBCode;

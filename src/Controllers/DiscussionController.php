@@ -11,6 +11,7 @@ use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class DiscussionController extends Controller
 {
@@ -58,6 +59,7 @@ class DiscussionController extends Controller
         return view('forum::discussions.show', [
             'discussion' => $discussion,
             'current' => $discussion,
+            'pendingId' => old('pending_id', Str::uuid()),
         ]);
     }
 
@@ -72,6 +74,7 @@ class DiscussionController extends Controller
         $post = $discussion->posts()->first();
 
         return view('forum::discussions.edit', [
+            'firstPost' => $post,
             'discussion' => $discussion,
             'discussionContent' => $post->content ?? null,
             'editor' => $post->content_format ?? null,

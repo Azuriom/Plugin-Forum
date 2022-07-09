@@ -10,6 +10,7 @@ use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class ForumDiscussionController extends Controller
 {
@@ -30,6 +31,7 @@ class ForumDiscussionController extends Controller
             'forum' => $forum,
             'current' => $forum,
             'tags' => Tag::all(),
+            'pendingId' => old('pending_id', Str::uuid()),
         ]);
     }
 
@@ -58,10 +60,12 @@ class ForumDiscussionController extends Controller
         /** @var \Azuriom\Plugin\Forum\Models\Discussion $discussion */
         $discussion = $forum->discussions()->create(Arr::except($request->validated(), ['is_pinned', 'is_locked']));
 
-        $discussion->posts()->create([
+        $post = $discussion->posts()->create([
             'content' => $request->input('content'),
             'content_format' => setting('forum.editor', 'bbcode'),
         ]);
+
+        $post->persistPendingAttachments($request->input('pending_id'));
 
         if ($request->user()->can('forum.discussions')) {
             $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();

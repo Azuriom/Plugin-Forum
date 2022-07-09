@@ -1,7 +1,5 @@
 @csrf
 
-@include('forum::elements.markdown-editor')
-
 <div class="mb-3">
     <label class="form-label" for="titleInput">{{ trans('messages.fields.title') }}</label>
     <input type="text" class="form-control @error('title') is-invalid @enderror" id="titleInput" name="title" value="{{ old('title', $discussion->title ?? '') }}" required>

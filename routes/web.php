@@ -5,6 +5,7 @@ use Azuriom\Plugin\Forum\Controllers\DiscussionPostController;
 use Azuriom\Plugin\Forum\Controllers\DiscussionStatusController;
 use Azuriom\Plugin\Forum\Controllers\ForumController;
 use Azuriom\Plugin\Forum\Controllers\ForumDiscussionController;
+use Azuriom\Plugin\Forum\Controllers\PostAttachmentController;
 use Azuriom\Plugin\Forum\Controllers\PostLikeController;
 use Azuriom\Plugin\Forum\Controllers\ProfileController;
 use Azuriom\Plugin\Forum\Controllers\UserController;
@@ -39,6 +40,10 @@ Route::prefix('discussions/{discussion}')->name('discussions.')->group(function 
     Route::post('/pin', [DiscussionStatusController::class, 'pin'])->name('pin');
     Route::post('/unpin', [DiscussionStatusController::class, 'unpin'])->name('unpin');
 });
+
+Route::resource('posts.attachments', PostAttachmentController::class)->only('store');
+Route::post('posts/attachments/{pendingId}', [PostAttachmentController::class, 'pending'])
+    ->name('posts.attachments.pending');
 
 Route::prefix('posts/{post}')->name('posts.')->middleware('auth')->group(function () {
     Route::post('/like', [PostLikeController::class, 'addLike'])->name('like');

@@ -2,6 +2,10 @@
 
 @section('title', trans('forum::messages.discussions.edit'))
 
+@include('forum::elements.markdown-editor', [
+    'imagesUploadUrl' => route('forum.posts.attachments.store', $firstPost),
+])
+
 @section('content')
     @include('forum::elements.nav')
 

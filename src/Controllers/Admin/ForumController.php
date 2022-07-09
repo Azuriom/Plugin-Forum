@@ -92,6 +92,7 @@ class ForumController extends Controller
             'categories' => Category::all(),
             'roles' => Role::all(),
             'tags' => Tag::all(),
+            'forums' => Forum::all(),
         ]);
     }
 
