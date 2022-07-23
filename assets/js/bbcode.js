@@ -41,6 +41,7 @@ function html2bbcode(s) {
     });
 
     return s.replace(/<font>([\s\S]*?)<\/font>/gi, '$1')
+        .replace(/<span>([\s\S]*?)<\/span>/gi, '$1')
         .replace(/<b>([\s\S]*?)<\/b>/gi, '[b]$1[/b]')
         .replace(/<strong>([\s\S]*?)<\/strong>/gi, '[b]$1[/b]')
         .replace(/<i>([\s\S]*?)<\/i>/gi, '[i]$1[/i]')
