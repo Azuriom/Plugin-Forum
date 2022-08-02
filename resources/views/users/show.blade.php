@@ -27,6 +27,16 @@
                         <li>
                             <strong>{{ trans('forum::messages.profile.likes') }}:</strong> {{ $user->likes_count }}
                         </li>
+                        <li>
+                            <strong>{{ trans('forum::messages.profile.registered') }}:</strong>
+                            {{ format_date($user->created_at) }}
+                        </li>
+                        @if($user->user->display_last_seen && $user->user->last_seen_at !== null)
+                            <li>
+                                <strong>{{ trans('forum::messages.profile.last_seen') }}:</strong>
+                                {{ format_date($user->user->last_seen_at, true) }}
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

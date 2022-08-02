@@ -4,6 +4,7 @@ namespace Azuriom\Plugin\Forum\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Forum\Models\ForumUser;
+use Azuriom\Plugin\Forum\Requests\UserRequest;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -15,18 +16,11 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(UserRequest $request)
     {
-        $data = $this->validate($request, [
-            'about' => ['nullable', 'string'],
-            'signature' => ['nullable', 'string', 'max:500'],
-            'website' => ['nullable', 'string', 'url', 'max:100'],
-            'location' => ['nullable', 'string', 'max:50'],
-            'discord' => ['nullable', 'string', 'max:40', 'regex:/^(.+)#(\d{4})$/'],
-            'twitter' => ['nullable', 'string', 'max:15', 'alpha_dash', 'regex:/^[A-Za-z0-9_]+$/'],
-        ]);
-
-        ForumUser::updateOrCreate(['user_id' => $request->user()->id], $data);
+        ForumUser::updateOrCreate([
+            'user_id' => $request->user()->id,
+        ], $request->validated());
 
         return redirect()->route('forum.users.show', $request->user());
     }

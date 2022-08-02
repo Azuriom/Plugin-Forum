@@ -82,19 +82,19 @@ class BBCodeParser
 
         'center' => [
             'pattern' => '/\[center\](.*?)\[\/center\]\n?/s',
-            'replace' => '<div style="text-align: center;">$1</div>',
+            'replace' => '<p style="text-align: center;">$1</p>',
             'content' => '$1',
         ],
 
         'left' => [
             'pattern' => '/\[left\](.*?)\[\/left\]\n?/s',
-            'replace' => '<div style="text-align: left;">$1</div>',
+            'replace' => '<p style="text-align: left;">$1</p>',
             'content' => '$1',
         ],
 
         'right' => [
             'pattern' => '/\[right\](.*?)\[\/right\]\n?/s',
-            'replace' => '<div style="text-align: right;">$1</div>',
+            'replace' => '<p style="text-align: right;">$1</p>',
             'content' => '$1',
         ],
 

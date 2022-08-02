@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $location
  * @property string|null $discord
  * @property string|null $twitter
+ * @property bool $display_last_seen
  * @property \Azuriom\Models\User $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder online()
@@ -46,7 +47,18 @@ class ForumUser extends Model
      * @var array
      */
     protected $fillable = [
-        'last_seen_at', 'about', 'signature', 'website', 'location', 'discord', 'twitter',
+        'last_seen_at', 'about', 'signature', 'website', 'location', 'discord',
+        'twitter', 'display_last_seen',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'last_seen_at' => 'datetime',
+        'display_last_seen' => 'boolean',
     ];
 
     public function user()

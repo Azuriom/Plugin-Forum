@@ -104,5 +104,8 @@ return [
         'website' => 'Website',
         'about' => 'About',
         'signature' => 'Signature',
+        'registered' => 'Registered',
+        'last_seen' => 'Last seen',
+        'display_last_seen' => 'Display last visit',
     ],
 ];

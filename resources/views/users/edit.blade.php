@@ -72,6 +72,11 @@
                     </div>
                 </div>
 
+                <div class="mb-3 form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="displayLast" name="display_last_seen" @checked($user->display_last_seen ?? false)>
+                    <label class="form-check-label" for="displayLast">{{ trans('forum::messages.profile.display_last_seen') }}</label>
+                </div>
+
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                 </button>
