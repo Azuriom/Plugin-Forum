@@ -69,12 +69,16 @@ class DiscussionPostController extends Controller
         $post->persistPendingAttachments($request->input('pending_id'));
 
         if (! $request->user()->is($discussion->author)) {
-            $notification = (new AlertNotification(trans('forum::messages.notifications.reply', [
+            (new AlertNotification(trans('forum::messages.notifications.reply', [
                 'user' => $request->user()->name,
                 'discussion' => $discussion->title,
-            ])))->from($request->user());
+            ])))
+                ->from($request->user())
+                ->send($discussion->author);
+        }
 
-            $discussion->author->notifications()->create($notification->toArray());
+        if (($webhookUrl = setting('forum.webhook')) !== null) {
+            rescue(fn () => $post->createDiscordWebhook()->send($webhookUrl));
         }
 
         return redirect()->route('forum.discussions.show', $discussion)

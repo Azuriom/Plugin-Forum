@@ -1,12 +1,8 @@
-@extends('layouts.app')
+@extends('forum::layouts.forum')
 
 @section('title', $forum->name)
 
-@section('content')
-    @include('forum::elements.nav')
-
-    <h1>{{ $forum->name }}</h1>
-
+@section('forum')
     @if(! $forum->forums->isEmpty())
         <div class="card mb-4">
             <div class="list-group list-group-flush">

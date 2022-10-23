@@ -25,7 +25,7 @@ class ForumController extends Controller
         $categories = Category::with([
             'forums' => function ($query) {
                 $query->scopes('parents')->withCount(['discussions', 'posts']);
-            }
+            },
         ])->orderBy('position')->get();
 
         $stats = Cache::remember('forum.stats', now()->addMinutes(5), function () {
@@ -48,16 +48,14 @@ class ForumController extends Controller
             ->latest()
             ->take(5)
             ->get()
-            ->filter(function (Post $post) {
-                return Gate::allows('view', $post);
-            })
+            ->filter(fn (Post $post) => Gate::allows('view', $post))
             ->take(3);
 
         return view('forum::home', [
-                'categories' => $categories,
-                'latestPosts' => $latestPosts,
-                'user' => auth()->user(),
-            ] + $stats);
+            'categories' => $categories,
+            'latestPosts' => $latestPosts,
+            'user' => auth()->user(),
+        ] + $stats);
     }
 
     /**

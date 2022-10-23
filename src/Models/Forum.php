@@ -32,8 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Forum extends Model
 {
-    use HasTablePrefix;
     use HasParentNavigation;
+    use HasTablePrefix;
     use Loggable;
 
     /**
@@ -122,18 +122,14 @@ class Forum extends Model
 
     public function setRolesAttribute(?array $roles)
     {
-        $ids = $roles === null ? $roles : array_map(function ($value) {
-            return (int) $value;
-        }, $roles);
+        $ids = $roles === null ? $roles : array_map(fn ($val) => (int) $val, $roles);
 
         $this->attributes['roles'] = json_encode($ids);
     }
 
     public function setDefaultTagsAttribute(?array $tags)
     {
-        $ids = $tags === null ? $tags : array_map(function ($value) {
-            return (int) $value;
-        }, $tags);
+        $ids = $tags === null ? $tags : array_map(fn ($val) => (int) $val, $tags);
 
         $this->attributes['default_tags'] = json_encode($ids);
     }

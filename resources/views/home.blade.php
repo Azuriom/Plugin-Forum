@@ -1,131 +1,127 @@
-@extends('layouts.app')
+@extends('forum::layouts.forum')
 
 @section('title', trans('forum::messages.title'))
 
-@section('content')
-        @include('forum::elements.nav')
+@section('forum')
+    <div class="row" id="forum">
+        <div class="col-md-9">
+            @foreach($categories as $category)
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h2 class="h3">{{ $category->name }}</h2>
+                        <small>{{ $category->description }}</small>
+                    </div>
 
-        <h1>{{ trans('forum::messages.title') }}</h1>
+                    <div class="list-group list-group-flush">
+                        @foreach($category->forums as $forum)
+                            @can('view', $forum)
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xl-1 col-md-2 col-2 text-center">
+                                            <i class="{{ $forum->icon ?? 'bi bi-chat' }} fs-2 text-primary"></i>
+                                        </div>
 
-        <div class="row">
-            <div class="col-md-9">
-                @foreach($categories as $category)
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h2 class="h3">{{ $category->name }}</h2>
-                            <small>{{ $category->description }}</small>
-                        </div>
+                                        <div class="col-xl-8 col-md-7 col-10 ps-md-0">
+                                            <h3 class="h5">
+                                                <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
+                                            </h3>
 
-                        <div class="list-group list-group-flush">
-                            @foreach($category->forums as $forum)
-                                @can('view', $forum)
-                                    <div class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-xl-1 col-md-2 col-2 text-center">
-                                                <i class="{{ $forum->icon ?? 'bi bi-chat' }} fs-2 text-primary"></i>
-                                            </div>
+                                            {{ $forum->description ?? '' }}
+                                        </div>
 
-                                            <div class="col-xl-8 col-md-7 col-10 ps-md-0">
-                                                <h3 class="h5">
-                                                    <a href="{{ route('forum.show', $forum->slug) }}">{{ $forum->name }}</a>
-                                                </h3>
-
-                                                {{ $forum->description ?? '' }}
-                                            </div>
-
-                                            <div class="col-xl-3 col-md-3 d-none d-md-block">
-                                                {{ trans_choice('forum::messages.forums.discussions', $forum->discussions_count) }}
-                                                <br>
-                                                {{ trans_choice('forum::messages.discussions.posts', $forum->posts_count) }}
-                                            </div>
+                                        <div class="col-xl-3 col-md-3 d-none d-md-block">
+                                            {{ trans_choice('forum::messages.forums.discussions', $forum->discussions_count) }}
+                                            <br>
+                                            {{ trans_choice('forum::messages.discussions.posts', $forum->posts_count) }}
                                         </div>
                                     </div>
-                                @endcan
-                            @endforeach
-                        </div>
+                                </div>
+                            @endcan
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+        </div>
 
-            <div class="col-md-3">
-                @auth
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5 text-center">
-                                    <a href="{{ route('forum.users.show', $user) }}">
-                                        <img src="{{ $user->getAvatar() }}" class="rounded img-fluid" alt="{{ $user->name }}">
-                                    </a>
-                                </div>
+        <div class="col-md-3">
+            @auth
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5 text-center">
+                                <a href="{{ route('forum.users.show', $user) }}">
+                                    <img src="{{ $user->getAvatar() }}" class="rounded img-fluid" alt="{{ $user->name }}">
+                                </a>
+                            </div>
 
-                                <div class="col-md-7 ps-md-0">
-                                    <h5 class="mb-1">
-                                        <a href="{{ route('forum.users.show', $user) }}">{{ $user->name }}</a>
-                                    </h5>
+                            <div class="col-md-7 ps-md-0">
+                                <h5 class="mb-1">
+                                    <a href="{{ route('forum.users.show', $user) }}">{{ $user->name }}</a>
+                                </h5>
 
-                                    <span class="badge" style="{{ $user->role->getBadgeStyle() }}; vertical-align: middle">
-                                        {{ $user->role->name }}
-                                    </span>
-                                </div>
+                                <span class="badge" style="{{ $user->role->getBadgeStyle() }}; vertical-align: middle">
+                                    {{ $user->role->name }}
+                                </span>
                             </div>
                         </div>
                     </div>
-                @endauth
+                </div>
+            @endauth
 
-                @if(! $latestPosts->isEmpty())
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <i class="bi bi-chat"></i> {{ trans('forum::messages.latest.title') }}
-                        </div>
-                        <div class="list-group list-group-flush">
-                            @foreach($latestPosts as $post)
-                                <div class="list-group-item">
-                                    <a href="{{ route('forum.discussions.show', $post->discussion) }}">
-                                        {{ $post->discussion->title }}
-                                    </a>
-
-                                    <br>
-
-                                    <small>
-                                        <a href="{{ route('forum.users.show', $post->author) }}">{{ $post->author->name }}</a>,
-                                        {{ format_date($post->created_at) }}
-                                    </small>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
+            @if(! $latestPosts->isEmpty())
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="bi bi-graph-up"></i> {{ trans('forum::messages.stats.title') }}
+                        <i class="bi bi-chat-dots"></i> {{ trans('forum::messages.latest.title') }}
                     </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled mb-0">
-                            <li>{{ trans_choice('forum::messages.stats.discussions', $discussionsCount) }}</li>
-                            <li>{{ trans_choice('forum::messages.stats.posts', $postsCount) }}</li>
-                            <li>{{ trans_choice('forum::messages.stats.users', $usersCount) }}</li>
-                        </ul>
+                    <div class="list-group list-group-flush">
+                        @foreach($latestPosts as $post)
+                            <div class="list-group-item">
+                                <a href="{{ route('forum.discussions.show', $post->discussion) }}">
+                                    {{ $post->discussion->title }}
+                                </a>
+
+                                <br>
+
+                                <small>
+                                    <a href="{{ route('forum.users.show', $post->author) }}">{{ $post->author->name }}</a>,
+                                    {{ format_date($post->created_at) }}
+                                </small>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
+            @endif
 
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="bi bi-people"></i> {{ trans('forum::messages.online.title') }}
-                    </div>
-                    <div class="card-body">
-                        @forelse($onlineUsers as $id => $user)
-                            @if($id !== 0)
-                                ,
-                            @endif
-                            <a href="{{ route('forum.users.show', $user) }}">
-                                {{ $user->name }}
-                            </a>
-                        @empty
-                            {{ trans('forum::messages.online.none') }}
-                        @endforelse
-                    </div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="bi bi-graph-up"></i> {{ trans('forum::messages.stats.title') }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li>{{ trans_choice('forum::messages.stats.discussions', $discussionsCount) }}</li>
+                        <li>{{ trans_choice('forum::messages.stats.posts', $postsCount) }}</li>
+                        <li>{{ trans_choice('forum::messages.stats.users', $usersCount) }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="bi bi-people"></i> {{ trans('forum::messages.online.title') }}
+                </div>
+                <div class="card-body">
+                    @forelse($onlineUsers as $id => $user)
+                        @if($id !== 0)
+                            ,
+                        @endif
+                        <a href="{{ route('forum.users.show', $user) }}">
+                            {{ $user->name }}
+                        </a>
+                    @empty
+                        {{ trans('forum::messages.online.none') }}
+                    @endforelse
                 </div>
             </div>
         </div>
+    </div>
 @endsection

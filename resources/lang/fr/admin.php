@@ -10,6 +10,8 @@ return [
 
     'settings' => [
         'title' => 'Paramètres du forum',
+        'webhook' => 'URL de webhook Discord',
+        'webhook_info' => 'Une notification sur ce webhook sera envoyée lorsqu\'un nouveau message est posté. Laissez vide pour ne pas utiliser de webhook.',
     ],
 
     'categories' => [

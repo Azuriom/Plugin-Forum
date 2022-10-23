@@ -35,7 +35,6 @@ class Tag extends Model
         'color' => Color::class,
     ];
 
-
     /**
      * The table prefix associated with the model.
      *

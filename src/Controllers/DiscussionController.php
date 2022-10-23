@@ -38,11 +38,10 @@ class DiscussionController extends Controller
 
         $posts = $discussion->posts()
             ->with([
-                'likes.author' => function ($query) {
-                    $query->without('role');
-                }, 'author' => function ($query) {
-                    $query->withCount(['likes', 'posts', 'discussions']);
-                }
+                'likes.author' => fn ($query) => $query->without('role'),
+                'author' => fn ($query) => $query->withCount([
+                    'likes', 'posts', 'discussions',
+                ]),
             ])
             ->oldest()
             ->paginate();

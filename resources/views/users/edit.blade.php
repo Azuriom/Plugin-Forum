@@ -1,12 +1,8 @@
-@extends('layouts.app')
+@extends('forum::layouts.forum')
 
 @section('title', trans('forum::messages.profile.edit'))
 
-@section('content')
-    @include('forum::elements.nav')
-
-    <h1>{{ trans('forum::messages.discussions.edit') }}</h1>
-
+@section('forum')
     <div class="card">
         <div class="card-body">
             <form action="{{ route('forum.profile.update', $user) }}" method="POST">

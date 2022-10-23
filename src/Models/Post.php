@@ -10,8 +10,11 @@ use Azuriom\Models\User as BaseUser;
 use Azuriom\Notifications\AlertNotification;
 use Azuriom\Plugin\Forum\Models\Traits\HasMarkdownOrBBCode;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
+use Azuriom\Support\Discord\DiscordWebhook;
+use Azuriom\Support\Discord\Embed;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -28,10 +31,10 @@ use Illuminate\Support\Facades\Auth;
 class Post extends Model
 {
     use Attachable;
-    use HasTablePrefix;
-    use HasUser;
     use HasMarkdownOrBBCode;
     use HasParentNavigation;
+    use HasTablePrefix;
+    use HasUser;
     use Loggable;
 
     /**
@@ -68,7 +71,7 @@ class Post extends Model
 
     protected static function booted()
     {
-        static::created(function (Post $post) {
+        static::created(function (self $post) {
             preg_match_all('/@(\w{3,25})/', $post->content, $matches);
 
             if (empty($matches[1])) {
@@ -83,7 +86,7 @@ class Post extends Model
             ])))->from($post->author);
 
             foreach ($users as $user) {
-                if (!$user->is($post->author)) {
+                if (! $user->is($post->author)) {
                     $user->notifications()->create($notification->toArray());
                 }
             }
@@ -138,6 +141,23 @@ class Post extends Model
         }
 
         return $lastPost->created_at->addSeconds(forum_post_delay())->longAbsoluteDiffForHumans();
+    }
+
+    public function createDiscordWebhook()
+    {
+        $description = $this->content_format === 'markdown'
+            ? $this->content
+            : strip_tags($this->parseContent());
+
+        $embed = Embed::create()
+            ->title($this->discussion->title)
+            ->description(Str::limit($description, 500))
+            ->author($this->author->name, null, $this->author->getAvatar())
+            ->color('#004de6')
+            ->url(route('forum.discussions.show', $this->discussion))
+            ->timestamp($this->created_at);
+
+        return DiscordWebhook::create()->addEmbed($embed);
     }
 
     public function parseContent()

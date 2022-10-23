@@ -2,8 +2,8 @@
 
 namespace Azuriom\Plugin\Forum\Policies;
 
-use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Models\User;
+use Azuriom\Plugin\Forum\Models\Discussion;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
 

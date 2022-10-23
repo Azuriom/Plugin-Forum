@@ -15,7 +15,10 @@ class SettingController extends Controller
      */
     public function show()
     {
-        return view('forum::admin.settings', ['editor' => setting('forum.editor')]);
+        return view('forum::admin.settings', [
+            'webhook' => setting('forum.webhook'),
+            'editor' => setting('forum.editor'),
+        ]);
     }
 
     /**
@@ -30,11 +33,13 @@ class SettingController extends Controller
     {
         $this->validate($request, [
             'post_delay' => ['nullable', 'integer', 'min:0'],
+            'webhook' => ['nullable', 'url'],
             'editor' => ['nullable', 'in:bbcode,markdown'],
         ]);
 
         Setting::updateSettings([
             'forum.post_delay' => $request->input('post_delay'),
+            'forum.webhook' => $request->input('webhook'),
             'forum.editor' => $request->input('editor'),
         ]);
 

@@ -53,6 +53,7 @@ trait HasMarkdownOrBBCode
         if ($this->getMarkdownFormat() === 'bbcode') {
             $internalHosts = [str_replace(['http://', 'https://'], '', config('app.url'))];
             $parser = (new BBCodeParser('https://images.weserv.nl/?url=%s', $internalHosts));
+
             return new HtmlString($parser->parse($content));
         }
 

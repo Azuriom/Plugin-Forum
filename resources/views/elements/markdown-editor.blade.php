@@ -30,6 +30,11 @@
                     azuriombbcode: '{{ plugin_asset('forum', 'js/bbcode.js') }}',
                 },
 
+                @if($dark ?? dark_theme())
+                skin: 'oxide-dark',
+                content_css: 'dark',
+                @endif
+
                 @isset($imagesUploadUrl)
                 automatic_uploads: true,
                 paste_data_images: true,
@@ -72,8 +77,15 @@
                     minHeight: '{{ $editorMinHeight ?? 300 }}px',
                     promptURLs: true,
                     spellChecker: false,
-                    showIcons: ['strikethrough', 'code', '{{ isset($imagesUploadUrl) ? 'upload-image' : 'image' }}', 'table', 'horizontal-rule', 'undo', 'redo'],
+                    showIcons: ['strikethrough', 'code', '{{ isset($imagesUploadUrl) ? 'upload-image' : 'image' }}', 'horizontal-rule', 'undo', 'redo'],
                     status: false,
+
+                    @isset($autosaveId)
+                    autosave: {
+                        enabled: true,
+                        uniqueId: '{{ $autosaveId }}',
+                    },
+                    @endisset
 
                     @isset($imagesUploadUrl)
                     hideIcons: ['image'],

@@ -18,13 +18,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
-    use HasTablePrefix;
     use HasParentNavigation;
+    use HasTablePrefix;
     use Loggable;
 
     /**
      * The table prefix associated with the model.
-     *-
+     *
      * @var string
      */
     protected $prefix = 'forum_';
@@ -35,7 +35,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description' ,'position',
+        'name', 'description', 'position',
     ];
 
     /**

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('forum::layouts.forum')
 
 @section('title', $discussion->title)
 
@@ -8,9 +8,7 @@
 <meta property="og:article:modified_time" content="{{ $discussion->updated_at->toIso8601String() }}">
 @endpush
 
-@section('content')
-    @include('forum::elements.nav')
-
+@section('forum')
     <div class="row mb-2">
         <div class="col-md-9">
             <h1 class="mb-1">

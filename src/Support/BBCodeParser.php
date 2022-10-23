@@ -203,7 +203,7 @@ class BBCodeParser
     }
 
     /**
-     * Parses the BBCode string
+     * Parses the BBCode string.
      *
      * @param      $source
      * @param  bool  $caseInsensitive
@@ -223,7 +223,7 @@ class BBCodeParser
     }
 
     /**
-     * Remove all BBCode
+     * Remove all BBCode.
      *
      * @param  string  $source
      * @return string Parsed text
@@ -240,7 +240,7 @@ class BBCodeParser
     }
 
     /**
-     * Searches after a specified pattern and replaces it with provided structure
+     * Searches after a specified pattern and replaces it with provided structure.
      *
      * @param  string  $pattern  Search pattern
      * @param  string  $replace  Replacement structure
@@ -262,7 +262,7 @@ class BBCodeParser
     }
 
     /**
-     * List of chosen parsers
+     * List of chosen parsers.
      *
      * @return array array of parsers
      */

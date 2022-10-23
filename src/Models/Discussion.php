@@ -24,9 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Discussion extends Model
 {
+    use HasParentNavigation;
     use HasTablePrefix;
     use HasUser;
-    use HasParentNavigation;
     use Loggable;
 
     /**

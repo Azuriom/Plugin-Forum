@@ -1,16 +1,13 @@
-@extends('layouts.app')
+@extends('forum::layouts.forum')
 
 @section('title', trans('forum::messages.discussions.create'))
 
 @include('forum::elements.markdown-editor', [
     'imagesUploadUrl' => route('forum.posts.attachments.pending', $pendingId),
+    'autosaveId' => 'forum_discussion',
 ])
 
-@section('content')
-    @include('forum::elements.nav')
-
-    <h1>{{ trans('forum::messages.discussions.create') }}</h1>
-
+@section('forum')
     <div class="card">
         <div class="card-body">
             <form action="{{ route('forum.forum.discussions.store', $forum->slug) }}" method="POST">

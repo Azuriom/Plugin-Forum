@@ -77,6 +77,10 @@ class ForumDiscussionController extends Controller
             $discussion->tags()->attach($forum->default_tags);
         }
 
+        if (($webhookUrl = setting('forum.webhook')) !== null) {
+            rescue(fn () => $post->createDiscordWebhook()->send($webhookUrl));
+        }
+
         return redirect()->route('forum.discussions.show', $discussion);
     }
 }

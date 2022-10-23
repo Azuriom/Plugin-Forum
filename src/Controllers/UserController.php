@@ -23,9 +23,7 @@ class UserController extends Controller
             ->with('discussion')
             ->take(15)
             ->get()
-            ->filter(function (Post $post) {
-                return Gate::allows('view', $post);
-            });
+            ->filter(fn (Post $post) => Gate::allows('view', $post));
 
         return view('forum::users.show', [
             'user' => $user,
