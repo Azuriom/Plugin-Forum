@@ -4,8 +4,8 @@ namespace Azuriom\Plugin\Forum\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Models\ActionLog;
+use Azuriom\Plugin\Forum\Models\Category;
 use Azuriom\Plugin\Forum\Models\Discussion;
-use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
 use Illuminate\Http\Request;
@@ -78,7 +78,7 @@ class DiscussionController extends Controller
             'discussionContent' => $post->content ?? null,
             'editor' => $post->content_format ?? null,
             'current' => $discussion,
-            'forums' => Forum::all(),
+            'categories' => Category::with('forums')->get(),
             'tags' => Tag::all(),
         ]);
     }

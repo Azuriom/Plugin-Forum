@@ -1,8 +1,8 @@
 {
     "id": "forum",
     "name": "Forum",
-    "description": "A nice and simple forum for Azuriom",
-    "version": "1.0.7",
+    "description": "A complete forum plugin for Azuriom.",
+    "version": "1.0.8",
     "url": "https://market.azuriom.com/resources/16",
     "authors": [
         "Azuriom"

@@ -63,10 +63,14 @@
 
         <select class="form-select" id="parentSelect" name="parent_id">
             <option value="">{{ trans('messages.none') }}</option>
-            @foreach($forums as $sub)
-                <option value="{{ $sub->id }}" @selected((int) old('parent_id', $forum->parent_id ?? 0) === $sub->id)>
-                    {{ $sub->name }}
-                </option>
+            @foreach($categories as $category)
+                <optgroup label="{{ $category->name }}">
+                    @foreach($category->forums->except($forum->id ?? null) as $sub)
+                        <option value="{{ $sub->id }}" @selected((int) old('parent_id', $forum->parent_id ?? 0) === $sub->id)>
+                            {{ $sub->name }}
+                        </option>
+                    @endforeach
+                </optgroup>
             @endforeach
         </select>
 

@@ -19,10 +19,14 @@
                         <label class="form-label" for="forumSelect">{{ trans('forum::messages.fields.forum') }}</label>
 
                         <select class="form-select" id="forumSelect" name="forum_id">
-                            @foreach($forums as $forum)
-                                <option value="{{ $forum->id }}" @selected($forum->id === (int) old('forum_id', $discussion->forum_id))>
-                                    {{ $forum->name }}
-                                </option>
+                            @foreach($categories as $category)
+                                <optgroup label="{{ $category->name }}">
+                                    @foreach($category->forums as $forum)
+                                        <option value="{{ $forum->id }}" @selected($forum->id === (int) old('forum_id', $discussion->forum_id))>
+                                            {{ $forum->name }}
+                                        </option>
+                                    @endforeach
+                                </optgroup>
                             @endforeach
                         </select>
 

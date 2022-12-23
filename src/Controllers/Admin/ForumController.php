@@ -89,10 +89,9 @@ class ForumController extends Controller
     public function create()
     {
         return view('forum::admin.forums.create', [
-            'categories' => Category::all(),
+            'categories' => Category::with('forums')->get(),
             'roles' => Role::all(),
             'tags' => Tag::all(),
-            'forums' => Forum::all(),
         ]);
     }
 
@@ -118,14 +117,11 @@ class ForumController extends Controller
      */
     public function edit(Forum $forum)
     {
-        $forums = Forum::all()->except($forum->id);
-
         return view('forum::admin.forums.edit', [
-            'categories' => Category::all(),
+            'categories' => Category::with('forums')->get(),
             'roles' => Role::all(),
             'tags' => Tag::all(),
             'forum' => $forum,
-            'forums' => $forums,
         ]);
     }
 
