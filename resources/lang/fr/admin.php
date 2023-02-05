@@ -10,6 +10,7 @@ return [
 
     'settings' => [
         'title' => 'Paramètres du forum',
+        'home_message' => 'Message de la page d\'accueil',
         'webhook' => 'URL de webhook Discord',
         'webhook_info' => 'Une notification sur ce webhook sera envoyée lorsqu\'un nouveau message est posté. Laissez vide pour ne pas utiliser de webhook.',
     ],
@@ -36,7 +37,7 @@ return [
         'lock' => 'Verrouiller ce forum',
         'lock_info' => 'Les utilisateurs qui ne sont pas admin ne pourront pas créer de discussions.',
         'private' => 'Forum privé',
-        'private_info' => 'Les utilisateurs ne peuvent voir que leurs propres discussions.',
+        'private_info' => 'Les utilisateurs ne peuvent voir que leurs propres discussions et celles épinglées.',
 
         'updated' => 'Ordre des forums mis à jour.',
         'delete_error' => 'Un forum qui contient des discussions ou des sous-forums ne peut pas être supprimé',
@@ -49,6 +50,7 @@ return [
     'posts' => [
         'card' => 'Messages sur le forum',
 
+        'recent' => 'Messages récents à l\'accueil',
         'delay' => 'Délai entre chaque messages',
         'seconds' => 'secondes',
     ],

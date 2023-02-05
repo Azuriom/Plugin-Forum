@@ -10,11 +10,12 @@
         <script>
             tinymce.init({
                 selector: 'textarea',
+                promotion: false,
                 height: {{ ($editorMinHeight ?? 300) * 1.5 }},
                 min_height: 200,
                 entity_encoding: 'raw',
                 menubar: false,
-                plugins: 'emoticons autolink code image link lists codesample paste',
+                plugins: 'emoticons autolink code image link lists codesample',
                 toolbar: 'formatselect | bold italic underline strikethrough forecolor | link image emoticons | alignleft aligncenter alignright | bullist numlist | codesample blockquote | removeformat code | undo redo',
                 relative_urls: false,
                 convert_fonts_to_spans: false,

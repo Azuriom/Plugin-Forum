@@ -112,7 +112,7 @@
     <div class="card card-body mb-2 pb-0">
         @foreach($roles as $role)
             <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="role{{ $role->id }}" name="roles[]" value="{{ $role->id }}" @checked(isset($forum) && $forum->roles !== null && $forum->hasRole($role))">
+                <input type="checkbox" class="form-check-input" id="role{{ $role->id }}" name="roles[]" value="{{ $role->id }}" @checked(isset($forum) && $forum->roles !== null && $forum->hasRole($role))>
                 <label class="form-check-label" for="role{{ $role->id }}">
                     <span class="badge" style="{{ $role->getBadgeStyle() }}">{{ $role->name }}</span>
                 </label>
@@ -127,7 +127,7 @@
     <div class="card card-body mb-2 pb-0">
         @foreach($tags as $tag)
             <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="tag{{ $tag->id }}" name="default_tags[]" value="{{ $tag->id }}" @checked(isset($forum) && in_array($tag->id, $forum->default_tags ?? [], true))">
+                <input type="checkbox" class="form-check-input" id="tag{{ $tag->id }}" name="default_tags[]" value="{{ $tag->id }}" @checked(isset($forum) && in_array($tag->id, $forum->default_tags ?? [], true))>
                 <label class="form-check-label" for="tag{{ $tag->id }}">
                     <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
                 </label>

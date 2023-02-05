@@ -22,6 +22,7 @@ class DiscussionController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('verified')->except('show');
         $this->authorizeResource(Discussion::class);
     }
 

@@ -1,4 +1,4 @@
-@extends('forum::layouts.forum')
+@extends('forum::layouts.forum', ['includeTitle' => false])
 
 @section('title', $discussion->title)
 

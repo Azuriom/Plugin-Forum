@@ -10,6 +10,7 @@ return [
 
     'settings' => [
         'title' => 'Forum settings',
+        'home_message' => 'Home message',
         'webhook' => 'Discord Webhook URL',
         'webhook_info' => 'A notification will be sent on this webhook when a new message is posted. Leave empty to disable',
     ],
@@ -36,7 +37,7 @@ return [
         'lock' => 'Lock this forum',
         'lock_info' => 'Users who are not admin will not be able to create discussions.',
         'private' => 'Private forum',
-        'private_info' => 'Users can only see their own discussions.',
+        'private_info' => 'Users can only see their own discussions and pinnedones.',
 
         'updated' => 'Forums order updated.',
         'delete_error' => 'A forum with discussions or sub-forums can\'t be deleted.',
@@ -49,6 +50,7 @@ return [
     'posts' => [
         'card' => 'Forum posts',
 
+        'recent' => 'Recent posts in home',
         'delay' => 'Delay between posts',
         'seconds' => 'seconds',
     ],

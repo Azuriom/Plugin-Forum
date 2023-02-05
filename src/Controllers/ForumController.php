@@ -12,6 +12,7 @@ use Azuriom\Plugin\Forum\Models\User;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\HtmlString;
 
 class ForumController extends Controller
 {
@@ -44,14 +45,18 @@ class ForumController extends Controller
             ];
         });
 
+        $maxPosts = (int) setting('forum.recent_posts', 3);
+        $homeMessage = setting('forum.home_message');
+
         $latestPosts = Post::with(['author', 'discussion'])
             ->latest()
-            ->take(5)
+            ->take($maxPosts * 2)
             ->get()
             ->filter(fn (Post $post) => Gate::allows('view', $post))
-            ->take(3);
+            ->take($maxPosts);
 
         return view('forum::home', [
+            'homeMessage' => $homeMessage ? new HtmlString($homeMessage) : null,
             'categories' => $categories,
             'latestPosts' => $latestPosts,
             'user' => auth()->user(),
@@ -70,11 +75,17 @@ class ForumController extends Controller
     {
         $this->authorize('view', $forum);
 
+        $search = request()?->input('search');
         $hideDiscussions = $forum->is_private && ! Gate::allows('forum.private.view');
 
         $discussions = $forum->discussions()
             ->when($hideDiscussions, function (Builder $query) {
-                $query->where('author_id', auth()->id() ?? 0);
+                $query->where(function (Builder $query) {
+                    $query->where('author_id', auth()->id() ?? 0)->orWhere('is_pinned', true);
+                });
+            })
+            ->when($search, function (Builder $query, string $search) {
+                $query->scopes(['search' => $search]);
             })
             ->with([
                 'author', 'tags',
@@ -97,6 +108,7 @@ class ForumController extends Controller
         return view('forum::show', [
             'forum' => $forum,
             'current' => $forum,
+            'search' => $search,
         ]);
     }
 }

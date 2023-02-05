@@ -3,6 +3,7 @@
 @section('title', trans('forum::messages.posts.edit'))
 
 @include('forum::elements.markdown-editor', [
+    'editor' => $post->content_format ?? null,
     'imagesUploadUrl' => route('forum.posts.attachments.store', $post),
 ])
 
@@ -12,8 +13,6 @@
             <form action="{{ route('forum.discussions.posts.update', [$post->discussion, $post]) }}" method="POST">
                 @csrf
                 @method('PUT')
-
-                @include('forum::elements.markdown-editor', ['editor' => $post->content_format ?? null])
 
                 <div class="mb-3">
                     <label class="form-label" for="content">{{ trans('messages.comments.content') }}</label>

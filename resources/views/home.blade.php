@@ -5,6 +5,14 @@
 @section('forum')
     <div class="row" id="forum">
         <div class="col-md-9">
+            @if($homeMessage !== null)
+                <div class="card mb-3">
+                    <div class="card-body pb-0">
+                        {{ $homeMessage }}
+                    </div>
+                </div>
+            @endif
+
             @foreach($categories as $category)
                 <div class="card mb-3">
                     <div class="card-header">

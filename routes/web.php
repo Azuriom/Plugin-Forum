@@ -52,7 +52,7 @@ Route::prefix('posts/{post}')->name('posts.')->middleware('auth')->group(functio
 
 Route::resource('users', UserController::class)->only('show');
 
-Route::prefix('profile')->name('profile.')->middleware('auth')->group(function () {
+Route::prefix('profile')->name('profile.')->middleware('verified')->group(function () {
     Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
     Route::post('/', [ProfileController::class, 'update'])->name('update');
 });

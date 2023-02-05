@@ -5,6 +5,7 @@ namespace Azuriom\Plugin\Forum\Models;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\HasUser;
 use Azuriom\Models\Traits\Loggable;
+use Azuriom\Models\Traits\Searchable;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,7 @@ class Discussion extends Model
     use HasTablePrefix;
     use HasUser;
     use Loggable;
+    use Searchable;
 
     /**
      * The actions to automatically log.
@@ -62,6 +64,15 @@ class Discussion extends Model
     protected $casts = [
         'is_pinned' => 'boolean',
         'is_locked' => 'boolean',
+    ];
+
+    /**
+     * The attributes that can be search for.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'title',
     ];
 
     /**

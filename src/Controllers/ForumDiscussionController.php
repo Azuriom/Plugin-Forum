@@ -16,6 +16,7 @@ class ForumDiscussionController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('verified');
         $this->authorizeResource(Discussion::class);
     }
 

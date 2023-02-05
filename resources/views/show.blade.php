@@ -1,4 +1,4 @@
-@extends('forum::layouts.forum')
+@extends('forum::layouts.forum', ['withSearch' => true])
 
 @section('title', $forum->name)
 

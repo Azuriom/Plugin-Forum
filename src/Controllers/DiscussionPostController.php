@@ -20,8 +20,7 @@ class DiscussionPostController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-
+        $this->middleware('verified');
         $this->authorizeResource(Post::class);
     }
 

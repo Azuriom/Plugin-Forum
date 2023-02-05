@@ -2,6 +2,8 @@
 
 @section('title', trans('forum::admin.settings.title'))
 
+@include('admin.elements.editor')
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -10,7 +12,7 @@
                 @csrf
 
                 <div class="row g-3">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="form-label" for="delayInput">{{ trans('forum::admin.posts.delay') }}</label>
 
                         <div class="input-group @error('post_delay') has-validation @enderror">
@@ -23,7 +25,16 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label" for="recentPosts">{{ trans('forum::admin.posts.recent') }}</label>
+                        <input type="number" min="0" class="form-control @error('recent_posts') is-invalid @enderror" id="recentPosts" name="recent_posts" value="{{ old('recent_posts', $recentPosts) }}" required>
+
+                        @error('recent_posts')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
                         <label class="form-label" for="editorSelect">{{ trans('forum::messages.fields.editor') }}</label>
                         <select class="form-select @error('editor') is-invalid @enderror" id="editorSelect" name="editor">
                             <option value="bbcode" @selected($editor === 'bbcode')>BBCode</option>
@@ -45,6 +56,15 @@
                     @enderror
 
                     <small id="webhookInfo" class="form-text">{{ trans('forum::admin.settings.webhook_info') }}</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="homeMessage">{{ trans('forum::admin.settings.home_message') }}</label>
+                    <textarea class="form-control html-editor @error('home_message') is-invalid @enderror" id="homeMessage" name="home_message" rows="5">{{ old('home_message', $homeMessage) }}</textarea>
+
+                    @error('home_message')
+                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                    @enderror
                 </div>
 
                 <button type="submit" class="btn btn-primary">

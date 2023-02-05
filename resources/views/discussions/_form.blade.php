@@ -23,7 +23,7 @@
 
     <div class="row mb-3">
         @foreach($tags as $tag)
-            <div class="col-md-1 col-sm-3 col-4">
+            <div class="col-auto">
                 <div class="mb-1 form-check">
                     <input type="checkbox" class="form-check-input" id="tag{{ $tag->id }}" name="tags[{{ $tag->id }}]" @checked(isset($discussion) && $discussion->tags->contains($tag->id))>
                     <label class="form-check-label" for="tag{{ $tag->id }}">
