@@ -91,5 +91,6 @@ return [
         'discussions' => 'Gérer les discussions du forum',
         'private' => 'Voir les discussions des autres utilisateurs dans les forums privés',
         'delete_own_posts' => 'Supprimer ses propres messages du forum',
+        'locked' => 'Créer une discussion dans un forum verrouillé'
     ],
 ];

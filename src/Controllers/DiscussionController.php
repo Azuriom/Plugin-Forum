@@ -53,7 +53,7 @@ class DiscussionController extends Controller
         $views = Cache::get($key, []);
         if (! in_array($request->ip(), $views, true)) {
             $discussion->increment('views');
-            Cache::put($key, array_merge($views, [$request->ip()]), now()->endOfDay());
+            Cache::put($key, [...$views, $request->ip()], now()->endOfDay());
         }
 
         return view('forum::discussions.show', [

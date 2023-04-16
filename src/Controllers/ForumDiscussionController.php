@@ -11,6 +11,7 @@ use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class ForumDiscussionController extends Controller
 {
@@ -28,6 +29,8 @@ class ForumDiscussionController extends Controller
      */
     public function create(Forum $forum)
     {
+        Gate::authorize('create', [Discussion::class, $forum]);
+
         return view('forum::discussions.create', [
             'forum' => $forum,
             'current' => $forum,
@@ -47,9 +50,7 @@ class ForumDiscussionController extends Controller
      */
     public function store(DiscussionRequest $request, Forum $forum)
     {
-        if ($forum->is_locked && ! $request->user()->isAdmin()) {
-            throw new AuthorizationException();
-        }
+        Gate::authorize('create', [Discussion::class, $forum]);
 
         $nextPostTime = Post::nextPostTime($request->user());
 
@@ -83,5 +84,10 @@ class ForumDiscussionController extends Controller
         }
 
         return redirect()->route('forum.discussions.show', $discussion);
+    }
+
+    protected function resourceAbilityMap()
+    {
+        return Arr::except(parent::resourceAbilityMap(), ['create', 'store']);
     }
 }

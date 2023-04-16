@@ -72,6 +72,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
         Permission::registerPermissions([
             'forum.forums' => 'forum::admin.permissions.forums',
             'forum.discussions' => 'forum::admin.permissions.discussions',
+            'forum.locked.post' => 'forum::admin.permissions.locked',
             'forum.private.view' => 'forum::admin.permissions.private',
             'forum.posts.delete.self' => 'forum::admin.permissions.delete_own_posts',
         ]);
@@ -94,19 +95,19 @@ class ForumServiceProvider extends BasePluginServiceProvider
                 'model' => Discussion::class,
             ],
             'forum-discussions.unlocked' => [
-                'icon' => 'lock-open',
+                'icon' => 'unlock',
                 'color' => 'info',
                 'message' => 'forum::admin.logs.forum-discussions.unlocked',
                 'model' => Discussion::class,
             ],
             'forum-discussions.pinned' => [
-                'icon' => 'thumbtack rotate-45',
+                'icon' => 'pin',
                 'color' => 'info',
                 'message' => 'forum::admin.logs.forum-discussions.pinned',
                 'model' => Discussion::class,
             ],
             'forum-discussions.unpinned' => [
-                'icon' => 'thumbtack rotate-45',
+                'icon' => 'pin-angle',
                 'color' => 'info',
                 'message' => 'forum::admin.logs.forum-discussions.unpinned',
                 'model' => Discussion::class,

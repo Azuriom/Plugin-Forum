@@ -4,6 +4,7 @@ namespace Azuriom\Plugin\Forum\Policies;
 
 use Azuriom\Models\User;
 use Azuriom\Plugin\Forum\Models\Discussion;
+use Azuriom\Plugin\Forum\Models\Forum;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
 
@@ -35,22 +36,31 @@ class DiscussionPolicy
             return false;
         }
 
-        if (! $discussion->forum->is_private || $discussion->author->is($user)) {
+        if (! $discussion->forum->is_private || $discussion->is_pinned) {
             return true;
         }
 
-        return $user !== null && $user->can('forum.private.view');
+        if ($user === null) {
+            return false;
+        }
+
+        return $user->is($discussion->author) || $user->can('forum.private.view');
     }
 
     /**
      * Determine whether the user can create discussions.
      *
      * @param  \Azuriom\Models\User  $user
+     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Forum $forum = null)
     {
-        return true;
+        if ($forum === null) {
+            return true;
+        }
+
+        return ! $forum->is_locked || $user->can('forum.locked.post');
     }
 
     /**

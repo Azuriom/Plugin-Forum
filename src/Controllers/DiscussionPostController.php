@@ -72,6 +72,7 @@ class DiscussionPostController extends Controller
                 'user' => $request->user()->name,
                 'discussion' => $discussion->title,
             ])))
+                ->link(route('forum.discussions.show', $discussion, false))
                 ->from($request->user())
                 ->send($discussion->author);
         }

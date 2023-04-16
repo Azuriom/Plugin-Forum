@@ -37,7 +37,7 @@ return [
         'lock' => 'Lock this forum',
         'lock_info' => 'Users who are not admin will not be able to create discussions.',
         'private' => 'Private forum',
-        'private_info' => 'Users can only see their own discussions and pinnedones.',
+        'private_info' => 'Users can only see their own discussions and pinned ones.',
 
         'updated' => 'Forums order updated.',
         'delete_error' => 'A forum with discussions or sub-forums can\'t be deleted.',
@@ -91,5 +91,6 @@ return [
         'discussions' => 'Manage forum discussions (move, edit, delete, pin, lock)',
         'private' => 'View discussions from others users in private forums',
         'delete_own_posts' => 'Delete own forum posts',
+        'locked' => 'Create a discussion in a locked forum'
     ],
 ];

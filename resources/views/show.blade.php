@@ -99,11 +99,9 @@
         </div>
     @endif
 
-    @if(! $forum->is_locked || auth()->user()?->isAdmin())
-        @can('create', \Azuriom\Plugin\Forum\Models\Discussion::class)
-            <a href="{{ route('forum.forum.discussions.create', $forum->slug) }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> {{ trans('messages.actions.create') }}
-            </a>
-        @endcan
-    @endif
+    @can('create', [\Azuriom\Plugin\Forum\Models\Discussion::class, $forum])
+        <a href="{{ route('forum.forum.discussions.create', $forum->slug) }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> {{ trans('messages.actions.create') }}
+        </a>
+    @endcan
 @endsection

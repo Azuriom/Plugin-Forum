@@ -83,7 +83,9 @@ class Post extends Model
             $notification = (new AlertNotification(trans('forum::messages.notifications.mention', [
                 'user' => $post->author->name,
                 'discussion' => $post->discussion->title,
-            ])))->from($post->author);
+            ])))
+                ->link(route('forum.discussions.show', $post->discussion, false))
+                ->from($post->author);
 
             foreach ($users as $user) {
                 if (! $user->is($post->author)) {

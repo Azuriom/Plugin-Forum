@@ -27,7 +27,14 @@ class ForumController extends Controller
             'forums' => function ($query) {
                 $query->scopes('parents')->withCount(['discussions', 'posts']);
             },
-        ])->orderBy('position')->get();
+        ])
+            ->orderBy('position')
+            ->get()
+            ->filter(function (Category $category) {
+                return ! $category->forums
+                    ->filter(fn(Forum $forum) => Gate::allows('view', $forum))
+                    ->isEmpty();
+            });
 
         $stats = Cache::remember('forum.stats', now()->addMinutes(5), function () {
             $onlineUsers = ForumUser::online()
