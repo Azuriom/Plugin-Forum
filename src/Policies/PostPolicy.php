@@ -31,7 +31,7 @@ class PostPolicy
      */
     public function view(?User $user, Post $post)
     {
-        return Gate::allows('view', $post->discussion->forum);
+        return Gate::allows('view', $post->discussion);
     }
 
     /**

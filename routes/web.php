@@ -31,7 +31,11 @@ Route::prefix('{forum:slug}/discussions')->name('forum.discussions.')->group(fun
     Route::post('/', [ForumDiscussionController::class, 'store'])->name('store');
 });
 
-Route::resource('discussions', DiscussionController::class)->only(['show', 'edit', 'update', 'destroy']);
+Route::get('/discussions/{discussion}/{slug?}', [DiscussionController::class, 'show'])->name('discussions.show')->setBindingFields([
+    'discussion' => 'routePath',
+]);
+
+Route::resource('discussions', DiscussionController::class)->only(['edit', 'update', 'destroy']);
 Route::resource('discussions.posts', DiscussionPostController::class)->only(['store', 'edit', 'update', 'destroy']);
 
 Route::prefix('discussions/{discussion}')->name('discussions.')->group(function () {

@@ -60,7 +60,7 @@
 
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="discordInput">Discord</label>
-                        <input type="text" class="form-control @error('discord') is-invalid @enderror" id="discordInput" name="discord" value="{{ old('discord', $user->discord ?? '') }}" placeholder="User#0000">
+                        <input type="text" class="form-control @error('discord') is-invalid @enderror" id="discordInput" name="discord" value="{{ old('discord', $user->discord ?? '') }}" placeholder="@hello">
 
                         @error('discord')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>

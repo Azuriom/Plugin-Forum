@@ -8,6 +8,7 @@ use Azuriom\Models\Traits\Loggable;
 use Azuriom\Models\Traits\Searchable;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -114,6 +115,27 @@ class Discussion extends Model
     public function getParentNavigation()
     {
         return $this->forum;
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        if ($field === 'routePath') {
+            $field = 'id';
+        }
+
+        return parent::resolveRouteBinding($value, $field);
+    }
+
+    public function getRoutePathAttribute()
+    {
+        return $this->id.'/'.Str::slug($this->title);
     }
 
     public function getNavigationLink()
