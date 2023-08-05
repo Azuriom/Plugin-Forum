@@ -2,19 +2,21 @@
 
 namespace Azuriom\Plugin\Forum\Models\Traits;
 
+use Illuminate\Database\Eloquent\Model;
+
 trait HasParentNavigation
 {
-    public function getParentNavigation()
+    public function getParentNavigation(): ?Model
     {
         return null;
     }
 
-    public function getNavigationLink()
+    public function getNavigationLink(): array
     {
-        return null;
+        return [];
     }
 
-    public function getNavigationStack()
+    public function getNavigationStack(): array
     {
         $stack = [];
 

@@ -11,8 +11,6 @@ class SettingController extends Controller
 {
     /**
      * Display the settings.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show()
     {
@@ -26,9 +24,6 @@ class SettingController extends Controller
 
     /**
      * Update the settings.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -44,7 +39,7 @@ class SettingController extends Controller
 
         Setting::updateSettings(Arr::prependKeysWith($settings, 'forum.'));
 
-        return redirect()->route('forum.admin.settings')
+        return to_route('forum.admin.settings')
             ->with('success', trans('admin.settings.updated'));
     }
 }

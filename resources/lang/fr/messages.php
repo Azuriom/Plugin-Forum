@@ -106,6 +106,6 @@ return [
         'signature' => 'Signature',
         'registered' => 'Membre depuis le',
         'last_seen' => 'Dernière visite',
-        'display_last_seen' => 'Afficher la date de la dernière visite'
+        'display_last_seen' => 'Afficher la date de la dernière visite',
     ],
 ];

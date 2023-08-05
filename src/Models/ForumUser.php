@@ -6,6 +6,7 @@ use Azuriom\Models\Traits\HasMarkdown;
 use Azuriom\Models\Traits\HasUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
 /**
  * @property int $id
@@ -28,6 +29,11 @@ class ForumUser extends Model
     use HasUser;
 
     /**
+     * The table associated with the model.
+     */
+    protected $table = 'forum_users';
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -35,16 +41,9 @@ class ForumUser extends Model
     public $timestamps = false;
 
     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'forum_users';
-
-    /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'last_seen_at', 'about', 'signature', 'website', 'location', 'discord',
@@ -54,7 +53,7 @@ class ForumUser extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'last_seen_at' => 'datetime',
@@ -66,24 +65,21 @@ class ForumUser extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function parseAbout()
+    public function parseAbout(): ?HtmlString
     {
         return $this->parseMarkdown('about');
     }
 
-    public function parseSignature()
+    public function parseSignature(): ?HtmlString
     {
         return $this->parseMarkdown('signature');
     }
 
     /**
      * Scope a query to only include online users.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOnline(Builder $query)
+    public function scopeOnline(Builder $query): void
     {
-        return $query->where('last_seen_at', '>', now()->subMinutes(10));
+        $query->where('last_seen_at', '>', now()->subMinutes(10));
     }
 }

@@ -8,7 +8,7 @@ use Azuriom\Plugin\Forum\Models\Post;
 
 class ForumAdminDashboardComposer extends AdminDashboardCardComposer
 {
-    public function getCards()
+    public function getCards(): array
     {
         return [
             'forum_discussions' => [

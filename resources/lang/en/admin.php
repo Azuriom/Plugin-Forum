@@ -91,6 +91,6 @@ return [
         'discussions' => 'Manage forum discussions (move, edit, delete, pin, lock)',
         'private' => 'View discussions from others users in private forums',
         'delete_own_posts' => 'Delete own forum posts',
-        'locked' => 'Create a discussion in a locked forum'
+        'locked' => 'Create a discussion in a locked forum',
     ],
 ];

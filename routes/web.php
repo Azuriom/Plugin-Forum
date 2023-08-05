@@ -31,10 +31,6 @@ Route::prefix('{forum:slug}/discussions')->name('forum.discussions.')->group(fun
     Route::post('/', [ForumDiscussionController::class, 'store'])->name('store');
 });
 
-Route::get('/discussions/{discussion}/{slug?}', [DiscussionController::class, 'show'])->name('discussions.show')->setBindingFields([
-    'discussion' => 'routePath',
-]);
-
 Route::resource('discussions', DiscussionController::class)->only(['edit', 'update', 'destroy']);
 Route::resource('discussions.posts', DiscussionPostController::class)->only(['store', 'edit', 'update', 'destroy']);
 
@@ -43,6 +39,10 @@ Route::prefix('discussions/{discussion}')->name('discussions.')->group(function 
     Route::post('/unlock', [DiscussionStatusController::class, 'unlock'])->name('unlock');
     Route::post('/pin', [DiscussionStatusController::class, 'pin'])->name('pin');
     Route::post('/unpin', [DiscussionStatusController::class, 'unpin'])->name('unpin');
+
+    Route::get('/{slug?}', [DiscussionController::class, 'show'])->name('show')->setBindingFields([
+        'discussion' => 'routePath',
+    ]);
 });
 
 Route::resource('posts.attachments', PostAttachmentController::class)->only('store');

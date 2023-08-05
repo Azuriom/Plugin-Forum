@@ -12,23 +12,16 @@ class ForumPolicy
 
     /**
      * Determine whether the user can view any forums.
-     *
-     * @param  \Azuriom\Models\User|null  $user
-     * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return true;
     }
 
     /**
      * Determine whether the user can view the forum.
-     *
-     * @param  \Azuriom\Models\User|null  $user
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return mixed
      */
-    public function view(?User $user, Forum $forum)
+    public function view(?User $user, Forum $forum): bool
     {
         if ($forum->roles === null) {
             return true;
@@ -39,35 +32,24 @@ class ForumPolicy
 
     /**
      * Determine whether the user can create forums.
-     *
-     * @param  \Azuriom\Models\User  $user
-     * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return true;
     }
 
     /**
      * Determine whether the user can update the forum.
-     *
-     * @param  \Azuriom\Models\User  $user
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return mixed
      */
-    public function update(User $user, Forum $forum)
+    public function update(User $user, Forum $forum): bool
     {
         return true;
     }
 
     /**
      * Determine whether the user can delete the forum.
-     *
-     * @param  \Azuriom\Models\User  $user
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return mixed
      */
-    public function delete(User $user, Forum $forum)
+    public function delete(User $user, Forum $forum): bool
     {
         return true;
     }

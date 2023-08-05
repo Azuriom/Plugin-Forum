@@ -10,8 +10,6 @@ class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,8 +18,6 @@ class TagController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -30,22 +26,16 @@ class TagController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\TagRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(TagRequest $request)
     {
         Tag::create($request->validated());
 
-        return redirect()->route('forum.admin.tags.index');
+        return to_route('forum.admin.tags.index');
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
      */
     public function edit(Tag $tag)
     {
@@ -54,30 +44,23 @@ class TagController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\TagRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
      */
     public function update(TagRequest $request, Tag $tag)
     {
         $tag->update($request->validated());
 
-        return redirect()->route('forum.admin.tags.index');
+        return to_route('forum.admin.tags.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Azuriom\Plugin\Forum\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Exception
+     * @throws \LogicException
      */
     public function destroy(Tag $tag)
     {
         $tag->delete();
 
-        return redirect()->route('forum.admin.tags.index');
+        return to_route('forum.admin.tags.index');
     }
 }

@@ -11,9 +11,6 @@ class UserController extends Controller
 {
     /**
      * Display the specified resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {

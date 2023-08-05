@@ -18,8 +18,6 @@ class ForumController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -32,7 +30,7 @@ class ForumController extends Controller
             ->get()
             ->filter(function (Category $category) {
                 return ! $category->forums
-                    ->filter(fn(Forum $forum) => Gate::allows('view', $forum))
+                    ->filter(fn (Forum $forum) => Gate::allows('view', $forum))
                     ->isEmpty();
             });
 
@@ -72,9 +70,6 @@ class ForumController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */

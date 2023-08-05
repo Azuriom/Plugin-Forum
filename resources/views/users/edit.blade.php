@@ -51,11 +51,14 @@
                 <div class="row g-3">
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="twitterInput">Twitter</label>
-                        <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="twitterInput" name="twitter" value="{{ old('twitter', $user->twitter ?? '') }}">
+                        <div class="input-group @error('twitter') has-validation @enderror">
+                            <span class="input-group-text">@</span>
+                            <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="twitterInput" name="twitter" value="{{ old('twitter', $user->twitter ?? '') }}">
 
-                        @error('twitter')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
+                            @error('twitter')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
                     </div>
 
                     <div class="mb-3 col-md-6">

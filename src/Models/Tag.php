@@ -18,9 +18,14 @@ class Tag extends Model
     use HasTablePrefix;
 
     /**
+     * The table prefix associated with the model.
+     */
+    protected string $prefix = 'forum_';
+
+    /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $fillable = [
         'name', 'color', 'position',
@@ -29,25 +34,18 @@ class Tag extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'color' => Color::class,
     ];
-
-    /**
-     * The table prefix associated with the model.
-     *
-     * @var string
-     */
-    protected $prefix = 'forum_';
 
     public function discussions()
     {
         return $this->belongsToMany(Discussion::class, 'forum_discussion_tag');
     }
 
-    public function getBadgeStyle()
+    public function getBadgeStyle(): string
     {
         $color = color_contrast($this->color);
 

@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Forum\Models;
 
 use Azuriom\Models\User as BaseUser;
+use Illuminate\Support\HtmlString;
 
 /**
  * @property \Azuriom\Plugin\Forum\Models\ForumUser $user
@@ -12,12 +13,12 @@ use Azuriom\Models\User as BaseUser;
  */
 class User extends BaseUser
 {
-    public function getSignatureAttribute()
+    public function getSignatureAttribute(): ?string
     {
         return $this->user->signature;
     }
 
-    public function parseSignature()
+    public function parseSignature(): ?HtmlString
     {
         return $this->user->parseSignature();
     }
@@ -38,6 +39,9 @@ class User extends BaseUser
         return $this->hasMany(Discussion::class, 'author_id');
     }
 
+    /**
+     * Get the posts of this user.
+     */
     public function posts()
     {
         return $this->hasMany(Post::class, 'author_id');

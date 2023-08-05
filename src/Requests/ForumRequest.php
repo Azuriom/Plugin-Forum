@@ -13,20 +13,20 @@ class ForumRequest extends FormRequest
     use ConvertCheckbox;
 
     /**
-     * The checkboxes attributes.
+     * The attributes represented by checkboxes.
      *
-     * @var array
+     * @var array<int, string>
      */
-    protected $checkboxes = [
+    protected array $checkboxes = [
         'is_locked', 'is_private',
     ];
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max:50'],
@@ -44,18 +44,19 @@ class ForumRequest extends FormRequest
         ];
     }
 
-    public function validated($key = null, $value = null)
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
     {
-        $validated = parent::validated();
+        $this->mergeCheckboxes();
 
-        if (! $this->filled('is_restricted') || ! array_key_exists('roles', $validated)) {
-            $validated['roles'] = null;
+        if (! $this->filled('is_restricted') || ! $this->has('roles')) {
+            $this->merge(['roles' => null]);
         }
 
-        if (! array_key_exists('default_tags', $validated)) {
-            $validated['default_tags'] = null;
+        if (! $this->has('default_tags')) {
+            $this->merge(['default_tags' => null]);
         }
-
-        return $validated;
     }
 }

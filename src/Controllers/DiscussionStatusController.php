@@ -10,8 +10,6 @@ class DiscussionStatusController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -24,7 +22,7 @@ class DiscussionStatusController extends Controller
 
         ActionLog::log('forum-discussions.locked', $discussion);
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.discussions.status.locked'));
     }
 
@@ -34,7 +32,7 @@ class DiscussionStatusController extends Controller
 
         ActionLog::log('forum-discussions.unlocked', $discussion);
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.discussions.status.unlocked'));
     }
 
@@ -44,7 +42,7 @@ class DiscussionStatusController extends Controller
 
         ActionLog::log('forum-discussions.pinned', $discussion);
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.discussions.status.pinned'));
     }
 
@@ -54,7 +52,7 @@ class DiscussionStatusController extends Controller
 
         ActionLog::log('forum-discussions.unpinned', $discussion);
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.discussions.status.unpinned'));
     }
 }

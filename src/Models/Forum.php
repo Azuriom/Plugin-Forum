@@ -38,15 +38,13 @@ class Forum extends Model
 
     /**
      * The table prefix associated with the model.
-     *
-     * @var string
      */
-    protected $prefix = 'forum_';
+    protected string $prefix = 'forum_';
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'name', 'icon', 'description', 'slug', 'position', 'roles', 'default_tags',
@@ -56,7 +54,7 @@ class Forum extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'roles' => 'array',
@@ -105,29 +103,29 @@ class Forum extends Model
         return $this->hasManyThrough(Post::class, Discussion::class)->latest();
     }
 
-    public function hasRole(Role $role)
+    public function hasRole(Role $role): bool
     {
         return in_array($role->id, $this->roles, true);
     }
 
-    public function getParentNavigation()
+    public function getParentNavigation(): ?Model
     {
         return $this->parent ?? $this->category;
     }
 
-    public function getNavigationLink()
+    public function getNavigationLink(): array
     {
         return [route('forum.show', $this->slug) => $this->name];
     }
 
-    public function setRolesAttribute(?array $roles)
+    public function setRolesAttribute(?array $roles): void
     {
         $ids = $roles === null ? $roles : array_map(fn ($val) => (int) $val, $roles);
 
         $this->attributes['roles'] = json_encode($ids);
     }
 
-    public function setDefaultTagsAttribute(?array $tags)
+    public function setDefaultTagsAttribute(?array $tags): void
     {
         $ids = $tags === null ? $tags : array_map(fn ($val) => (int) $val, $tags);
 
@@ -136,12 +134,9 @@ class Forum extends Model
 
     /**
      * Scope a query to only include parent forums.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeParents(Builder $query)
+    public function scopeParents(Builder $query): void
     {
-        return $query->whereNull('parent_id')->orderBy('position');
+        $query->whereNull('parent_id')->orderBy('position');
     }
 }

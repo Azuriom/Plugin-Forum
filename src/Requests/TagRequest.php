@@ -10,9 +10,9 @@ class TagRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max:50'],

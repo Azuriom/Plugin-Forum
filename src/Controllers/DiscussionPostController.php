@@ -9,14 +9,11 @@ use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Requests\PostRequest;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
 
 class DiscussionPostController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -26,10 +23,6 @@ class DiscussionPostController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @param  \Azuriom\Plugin\Forum\Models\Post  $post
-     * @return \Illuminate\Http\Response
      */
     public function edit(Discussion $discussion, Post $post)
     {
@@ -41,10 +34,6 @@ class DiscussionPostController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\PostRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return \Illuminate\Http\Response
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -81,43 +70,33 @@ class DiscussionPostController extends Controller
             rescue(fn () => $post->createDiscordWebhook()->send($webhookUrl));
         }
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.posts.status.created'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\PostRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @param  \Azuriom\Plugin\Forum\Models\Post  $post
-     * @return \Illuminate\Http\Response
      */
     public function update(PostRequest $request, Discussion $discussion, Post $post)
     {
         $post->update($request->validated());
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.posts.status.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @param  \Azuriom\Plugin\Forum\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Exception
+     * @throws \LogicException
      */
-    public function destroy(Request $request, Discussion $discussion, Post $post)
+    public function destroy(Discussion $discussion, Post $post)
     {
         $post->delete();
 
         ActionLog::log('forum-post.deleted', $post);
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.posts.status.deleted'));
     }
 }

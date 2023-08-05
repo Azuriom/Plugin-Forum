@@ -12,20 +12,20 @@ class DiscussionRequest extends FormRequest
     use ConvertCheckbox;
 
     /**
-     * The checkboxes attributes.
+     * The attributes represented by checkboxes.
      *
-     * @var array
+     * @var array<int, string>
      */
-    protected $checkboxes = [
+    protected array $checkboxes = [
         'is_pinned', 'is_locked',
     ];
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => ['required', 'string', 'max:150'],

@@ -34,24 +34,25 @@ class Discussion extends Model
 
     /**
      * The actions to automatically log.
-     *
-     * @var array
      */
-    protected static $logEvents = [
+    protected static array $logEvents = [
         'deleted',
     ];
 
     /**
      * The table prefix associated with the model.
-     *
-     * @var string
      */
-    protected $prefix = 'forum_';
+    protected string $prefix = 'forum_';
+
+    /**
+     * The user key associated with this model.
+     */
+    protected string $userKey = 'author_id';
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'title', 'views',
@@ -60,7 +61,7 @@ class Discussion extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'is_pinned' => 'boolean',
@@ -68,20 +69,13 @@ class Discussion extends Model
     ];
 
     /**
-     * The attributes that can be search for.
+     * The attributes that can be used for search.
      *
-     * @var array
+     * @var array<int, string>
      */
-    protected $searchable = [
+    protected array $searchable = [
         'title',
     ];
-
-    /**
-     * The user key associated with this model.
-     *
-     * @var string
-     */
-    protected $userKey = 'author_id';
 
     /**
      * Get the author of this discussion.
@@ -112,7 +106,7 @@ class Discussion extends Model
         return $this->belongsToMany(Tag::class, 'forum_discussion_tag');
     }
 
-    public function getParentNavigation()
+    public function getParentNavigation(): ?Forum
     {
         return $this->forum;
     }
@@ -133,12 +127,12 @@ class Discussion extends Model
         return parent::resolveRouteBinding($value, $field);
     }
 
-    public function getRoutePathAttribute()
+    public function getRoutePathAttribute(): string
     {
         return $this->id.'/'.Str::slug($this->title);
     }
 
-    public function getNavigationLink()
+    public function getNavigationLink(): array
     {
         return [route('forum.discussions.show', $this) => $this->title];
     }

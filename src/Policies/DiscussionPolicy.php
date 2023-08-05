@@ -14,23 +14,16 @@ class DiscussionPolicy
 
     /**
      * Determine whether the user can view any discussions.
-     *
-     * @param  \Azuriom\Models\User|null  $user
-     * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return true;
     }
 
     /**
      * Determine whether the user can view the discussion.
-     *
-     * @param  \Azuriom\Models\User|null  $user
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return mixed
      */
-    public function view(?User $user, Discussion $discussion)
+    public function view(?User $user, Discussion $discussion): bool
     {
         if (! Gate::allows('view', $discussion->forum)) {
             return false;
@@ -49,12 +42,8 @@ class DiscussionPolicy
 
     /**
      * Determine whether the user can create discussions.
-     *
-     * @param  \Azuriom\Models\User  $user
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return mixed
      */
-    public function create(User $user, Forum $forum = null)
+    public function create(User $user, Forum $forum = null): bool
     {
         if ($forum === null) {
             return true;
@@ -65,24 +54,16 @@ class DiscussionPolicy
 
     /**
      * Determine whether the user can update the discussion.
-     *
-     * @param  \Azuriom\Models\User  $user
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return mixed
      */
-    public function update(User $user, Discussion $discussion)
+    public function update(User $user, Discussion $discussion): bool
     {
         return $user->is($discussion->author) || $user->can('forum.discussions');
     }
 
     /**
      * Determine whether the user can delete the discussion.
-     *
-     * @param  \Azuriom\Models\User  $user
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return mixed
      */
-    public function delete(User $user, Discussion $discussion)
+    public function delete(User $user, Discussion $discussion): bool
     {
         return $user->can('forum.discussions');
     }

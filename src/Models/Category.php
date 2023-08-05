@@ -24,15 +24,13 @@ class Category extends Model
 
     /**
      * The table prefix associated with the model.
-     *
-     * @var string
      */
-    protected $prefix = 'forum_';
+    protected string $prefix = 'forum_';
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'name', 'description', 'position',
@@ -46,7 +44,7 @@ class Category extends Model
         return $this->hasMany(Forum::class)->orderBy('position');
     }
 
-    public function getNavigationLink()
+    public function getNavigationLink(): array
     {
         return [route('forum.home') => $this->name];
     }

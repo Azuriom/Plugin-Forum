@@ -178,6 +178,7 @@ class BBCodeParser
     ];
 
     protected ?string $imageProxy;
+
     protected array $internalHosts;
 
     public function __construct(string $imageProxy = null, array $internalHosts = [])
@@ -204,12 +205,8 @@ class BBCodeParser
 
     /**
      * Parses the BBCode string.
-     *
-     * @param      $source
-     * @param  bool  $caseInsensitive
-     * @return string
      */
-    public function parse($source, bool $caseInsensitive = false)
+    public function parse(string $source, bool $caseInsensitive = false): string
     {
         $source = e(str_replace("\r\n", "\n", $source));
 
@@ -223,12 +220,9 @@ class BBCodeParser
     }
 
     /**
-     * Remove all BBCode.
-     *
-     * @param  string  $source
-     * @return string Parsed text
+     * Remove all BBCode tags.
      */
-    public function stripBBCodeTags(string $source)
+    public function stripBBCodeTags(string $source): string
     {
         $source = e(str_replace("\r\n", "\n", $source));
 
@@ -241,13 +235,8 @@ class BBCodeParser
 
     /**
      * Searches after a specified pattern and replaces it with provided structure.
-     *
-     * @param  string  $pattern  Search pattern
-     * @param  string  $replace  Replacement structure
-     * @param  string  $source  Text to search in
-     * @return string Parsed text
      */
-    protected function searchAndReplace(string $pattern, string $replace, string $source, callable $callback = null)
+    protected function searchAndReplace(string $pattern, string $replace, string $source, callable $callback = null): string
     {
         if ($callback !== null) {
             return preg_replace_callback($pattern, $callback, $source);
@@ -263,10 +252,8 @@ class BBCodeParser
 
     /**
      * List of chosen parsers.
-     *
-     * @return array array of parsers
      */
-    public function getParsers()
+    public function getParsers(): array
     {
         return $this->parsers;
     }
@@ -274,12 +261,6 @@ class BBCodeParser
     /**
      * Sets the parser pattern and replace.
      * This can be used for new parsers or overwriting existing ones.
-     *
-     * @param  string  $name  Parser name
-     * @param  string  $pattern  Pattern
-     * @param  string  $replace  Replace pattern
-     * @param  string  $content  Parsed text pattern
-     * @return void
      */
     public function addParser(
         string $name,
@@ -287,7 +268,7 @@ class BBCodeParser
         string $replace,
         string $content,
         callable $callback = null
-    ) {
+    ): void {
         $this->parsers[$name] = [
             'pattern' => $pattern,
             'replace' => $replace,
@@ -296,7 +277,7 @@ class BBCodeParser
         ];
     }
 
-    private function handleLink(string $href, string $content)
+    private function handleLink(string $href, string $content): string
     {
         if (RegexHelper::isLinkPotentiallyUnsafe($href) || Str::contains($href, '"')) {
             return $content;
@@ -305,7 +286,7 @@ class BBCodeParser
         return '<a href="'.$href.'" target="_blank" rel="noopener noreferrer">'.$content.'</a>';
     }
 
-    private function handleImage(string $src, string $alt)
+    private function handleImage(string $src, string $alt): string
     {
         if ($this->isInternalHost($src)) {
             return '<img src="'.$src.'" alt="'.$alt.'">';
@@ -316,14 +297,14 @@ class BBCodeParser
         return '<img src="'.$safeSrc.'" alt="'.e($alt).'" data-original-src="'.e($src).'">';
     }
 
-    private function isInternalHost(string $host)
+    private function isInternalHost(string $host): bool
     {
         if (Str::startsWith($host, '/')) {
             return true;
         }
 
         foreach ($this->internalHosts as $c) {
-            if (strncmp($c, '/', 1) === 0) {
+            if (Str::startsWith($c, '/')) {
                 if (preg_match($c, $host)) {
                     return true;
                 }

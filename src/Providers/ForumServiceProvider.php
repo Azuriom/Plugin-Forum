@@ -21,7 +21,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
     /**
      * The policy mappings for this plugin.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected array $policies = [
         Post::class => PostPolicy::class,
@@ -31,10 +31,8 @@ class ForumServiceProvider extends BasePluginServiceProvider
 
     /**
      * Register any plugin services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         Relation::morphMap([
             'forum.posts' => Post::class,
@@ -43,10 +41,8 @@ class ForumServiceProvider extends BasePluginServiceProvider
 
     /**
      * Bootstrap any plugin services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
@@ -67,7 +63,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
         View::composer('admin.dashboard', ForumAdminDashboardComposer::class);
     }
 
-    protected function registerPermissions()
+    protected function registerPermissions(): void
     {
         Permission::registerPermissions([
             'forum.forums' => 'forum::admin.permissions.forums',
@@ -78,7 +74,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
         ]);
     }
 
-    protected function registerLogActions()
+    protected function registerLogActions(): void
     {
         ActionLog::registerLogModels([
             Category::class,
@@ -118,9 +114,9 @@ class ForumServiceProvider extends BasePluginServiceProvider
     /**
      * Returns the routes that should be able to be added to the navbar.
      *
-     * @return array
+     * @return array<string, string>
      */
-    protected function routeDescriptions()
+    protected function routeDescriptions(): array
     {
         return [
             'forum.home' => trans('forum::messages.title'),
@@ -130,9 +126,9 @@ class ForumServiceProvider extends BasePluginServiceProvider
     /**
      * Return the admin navigations routes to register in the dashboard.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
-    protected function adminNavigation()
+    protected function adminNavigation(): array
     {
         return [
             'forum' => [

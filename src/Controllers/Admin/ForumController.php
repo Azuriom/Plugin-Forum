@@ -14,8 +14,6 @@ class ForumController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -32,9 +30,6 @@ class ForumController extends Controller
 
     /**
      * Update the order of the resources.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -83,8 +78,6 @@ class ForumController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -97,23 +90,17 @@ class ForumController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\ForumRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(ForumRequest $request)
     {
         Forum::create($request->validated());
 
-        return redirect()->route('forum.admin.forums.index')
+        return to_route('forum.admin.forums.index')
             ->with('success', trans('messages.status.success'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
      */
     public function edit(Forum $forum)
     {
@@ -127,26 +114,19 @@ class ForumController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\ForumRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
      */
     public function update(ForumRequest $request, Forum $forum)
     {
         $forum->update($request->validated());
 
-        return redirect()->route('forum.admin.forums.index')
+        return to_route('forum.admin.forums.index')
             ->with('success', trans('messages.status.success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Exception
+     * @throws \LogicException
      */
     public function destroy(Forum $forum)
     {
@@ -157,7 +137,7 @@ class ForumController extends Controller
 
         $forum->delete();
 
-        return redirect()->route('forum.admin.forums.index')
+        return to_route('forum.admin.forums.index')
             ->with('success', trans('messages.status.success'));
     }
 }

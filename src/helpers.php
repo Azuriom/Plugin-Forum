@@ -15,7 +15,10 @@
 use Azuriom\Plugin\Forum\Models\Post;
 
 if (! function_exists('forum_post_delay')) {
-    function forum_post_delay()
+    /**
+     * Return the delay in seconds before the user can post a second message.
+     */
+    function forum_post_delay(): int
     {
         return (int) setting('forum.post_delay', 60);
     }

@@ -12,8 +12,10 @@ use Azuriom\Plugin\Forum\Models\Traits\HasMarkdownOrBBCode;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
 use Azuriom\Support\Discord\DiscordWebhook;
 use Azuriom\Support\Discord\Embed;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 /**
@@ -39,37 +41,31 @@ class Post extends Model
 
     /**
      * The actions to automatically log.
-     *
-     * @var array
      */
-    protected static $logEvents = [
+    protected static array $logEvents = [
         'deleted',
     ];
 
     /**
      * The table prefix associated with the model.
-     *
-     * @var string
      */
-    protected $prefix = 'forum_';
+    protected string $prefix = 'forum_';
+
+    /**
+     * The user key associated with this model.
+     */
+    protected string $userKey = 'author_id';
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'content', 'content_format',
     ];
 
-    /**
-     * The user key associated with this model.
-     *
-     * @var string
-     */
-    protected $userKey = 'author_id';
-
-    protected static function booted()
+    protected static function booted(): void
     {
         static::created(function (self $post) {
             preg_match_all('/@(\w{3,25})/', $post->content, $matches);
@@ -103,6 +99,9 @@ class Post extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    /**
+     * Get the discussion where this post is.
+     */
     public function discussion()
     {
         return $this->belongsTo(Discussion::class);
@@ -116,7 +115,7 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function isLiked(BaseUser $user = null)
+    public function isLiked(BaseUser $user = null): bool
     {
         if ($user === null && Auth::guest()) {
             return false;
@@ -131,7 +130,7 @@ class Post extends Model
         return $this->likes()->where('author_id', $userId)->exists();
     }
 
-    public static function nextPostTime(BaseUser $user)
+    public static function nextPostTime(BaseUser $user): ?Carbon
     {
         $lastPost = self::where('author_id', $user->id)
             ->where('created_at', '>', now()->subSeconds(forum_post_delay()))
@@ -145,7 +144,7 @@ class Post extends Model
         return $lastPost->created_at->addSeconds(forum_post_delay())->longAbsoluteDiffForHumans();
     }
 
-    public function createDiscordWebhook()
+    public function createDiscordWebhook(): DiscordWebhook
     {
         $description = $this->content_format === 'markdown'
             ? $this->content
@@ -162,18 +161,18 @@ class Post extends Model
         return DiscordWebhook::create()->addEmbed($embed);
     }
 
-    public function parseContent()
+    public function parseContent(): ?HtmlString
     {
         return $this->parseMarkdown('content');
     }
 
-    public function getParentNavigation()
+    public function getParentNavigation(): Discussion
     {
         return $this->discussion;
     }
 
-    public function getNavigationLink()
+    public function getNavigationLink(): array
     {
-        return route('forum.discussions.show', $this->discussion);
+        return [route('forum.discussions.show', $this->discussion)];
     }
 }

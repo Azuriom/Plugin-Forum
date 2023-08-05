@@ -22,6 +22,6 @@ class ProfileController extends Controller
             'user_id' => $request->user()->id,
         ], $request->validated());
 
-        return redirect()->route('forum.users.show', $request->user());
+        return to_route('forum.users.show', $request->user());
     }
 }

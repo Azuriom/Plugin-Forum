@@ -17,8 +17,6 @@ class DiscussionController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -28,10 +26,6 @@ class DiscussionController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Discussion $discussion)
     {
@@ -65,9 +59,6 @@ class DiscussionController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return \Illuminate\Http\Response
      */
     public function edit(Discussion $discussion)
     {
@@ -86,10 +77,6 @@ class DiscussionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\DiscussionRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return \Illuminate\Http\Response
      */
     public function update(DiscussionRequest $request, Discussion $discussion)
     {
@@ -105,17 +92,14 @@ class DiscussionController extends Controller
 
         $post->update(['content' => $request->input('content')]);
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.discussions.status.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Azuriom\Plugin\Forum\Models\Discussion  $discussion
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Exception
+     * @throws \LogicException
      */
     public function destroy(Discussion $discussion)
     {
@@ -125,7 +109,7 @@ class DiscussionController extends Controller
 
         ActionLog::log('forum-discussions.deleted', $discussion);
 
-        return redirect()->route('forum.home')
+        return to_route('forum.home')
             ->with('success', trans('forum::messages.discussions.status.deleted'));
     }
 }

@@ -10,8 +10,6 @@ class CategoryController extends Controller
 {
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -20,23 +18,17 @@ class CategoryController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\CategoryRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request)
     {
         Category::create($request->validated());
 
-        return redirect()->route('forum.admin.forums.index')
+        return to_route('forum.admin.forums.index')
             ->with('success', trans('messages.status.success'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\Category  $category
-     * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
     {
@@ -45,26 +37,19 @@ class CategoryController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\CategoryRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Category  $category
-     * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
 
-        return redirect()->route('forum.admin.forums.index')
+        return to_route('forum.admin.forums.index')
             ->with('success', trans('messages.status.success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Azuriom\Plugin\Forum\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Exception
+     * @throws \LogicException
      */
     public function destroy(Category $category)
     {
@@ -74,7 +59,7 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('forum.admin.forums.index')
+        return to_route('forum.admin.forums.index')
             ->with('success', trans('messages.status.success'));
     }
 }

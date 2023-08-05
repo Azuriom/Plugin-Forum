@@ -10,8 +10,6 @@ class PostAttachmentController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -20,10 +18,6 @@ class PostAttachmentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Azuriom\Http\Requests\AttachmentRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Post  $post
-     * @return \Illuminate\Http\Response
      */
     public function store(AttachmentRequest $request, Post $post)
     {
@@ -36,10 +30,6 @@ class PostAttachmentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Azuriom\Http\Requests\AttachmentRequest  $request
-     * @param  string  $pendingId
-     * @return \Illuminate\Http\Response
      */
     public function pending(AttachmentRequest $request, string $pendingId)
     {

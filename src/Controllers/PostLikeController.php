@@ -10,10 +10,6 @@ class PostLikeController extends Controller
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Post  $post
-     * @return \Illuminate\Http\Response
      */
     public function addLike(Request $request, Post $post)
     {
@@ -29,10 +25,6 @@ class PostLikeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Post  $post
-     * @return \Illuminate\Http\Response
      */
     public function removeLike(Request $request, Post $post)
     {

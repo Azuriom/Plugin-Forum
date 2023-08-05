@@ -8,10 +8,9 @@ use Azuriom\Plugin\Forum\Models\Forum;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 class ForumDiscussionController extends Controller
 {
@@ -23,9 +22,6 @@ class ForumDiscussionController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
      */
     public function create(Forum $forum)
     {
@@ -41,10 +37,6 @@ class ForumDiscussionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Azuriom\Plugin\Forum\Requests\DiscussionRequest  $request
-     * @param  \Azuriom\Plugin\Forum\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -83,10 +75,10 @@ class ForumDiscussionController extends Controller
             rescue(fn () => $post->createDiscordWebhook()->send($webhookUrl));
         }
 
-        return redirect()->route('forum.discussions.show', $discussion);
+        return to_route('forum.discussions.show', $discussion);
     }
 
-    protected function resourceAbilityMap()
+    protected function resourceAbilityMap(): array
     {
         return Arr::except(parent::resourceAbilityMap(), ['create', 'store']);
     }
