@@ -54,7 +54,7 @@ Route::prefix('posts/{post}')->name('posts.')->middleware('auth')->group(functio
     Route::delete('/like', [PostLikeController::class, 'removeLike'])->name('dislike');
 });
 
-Route::resource('users', UserController::class)->only('show');
+Route::resource('users', UserController::class)->only('show')->middleware('throttle:20,1');
 
 Route::prefix('profile')->name('profile.')->middleware('verified')->group(function () {
     Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');

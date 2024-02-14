@@ -18,7 +18,7 @@
     @enderror
 </div>
 
-@can('forum.discussions')
+@canany(['forum.discussions', 'forum.tags'])
     <label class="form-label">{{ trans('forum::messages.fields.tags') }}</label>
 
     <div class="row mb-3">

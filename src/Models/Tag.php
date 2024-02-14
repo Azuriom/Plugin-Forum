@@ -3,6 +3,8 @@
 namespace Azuriom\Plugin\Forum\Models;
 
 use Azuriom\Casts\Color;
+use Azuriom\Models\Role;
+use Azuriom\Models\User;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $color
  * @property int $position
+ * @property array|null $roles
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Discussion[] $discussions
  */
 class Tag extends Model
@@ -28,7 +31,7 @@ class Tag extends Model
      * @var array<string, string>
      */
     protected $fillable = [
-        'name', 'color', 'position',
+        'name', 'color', 'position', 'roles',
     ];
 
     /**
@@ -38,6 +41,7 @@ class Tag extends Model
      */
     protected $casts = [
         'color' => Color::class,
+        'roles' => 'array',
     ];
 
     public function discussions()
@@ -50,5 +54,36 @@ class Tag extends Model
         $color = color_contrast($this->color);
 
         return "color: {$color}; background: {$this->color};";
+    }
+
+    public function hasRole(Role $role): bool
+    {
+        if ($this->roles === null) {
+            return false;
+        }
+
+        return in_array($role->id, $this->roles, true);
+    }
+
+    public function userCanUse(User $user = null)
+    {
+        if ($this->roles === null) {
+            return true;
+        }
+
+        $user = $user ?? auth()->user();
+
+        if ($user === null) {
+            return false;
+        }
+
+        return $user->isAdmin() || $this->hasRole($user->role);
+    }
+
+    public function setRolesAttribute(?array $roles): void
+    {
+        $ids = $roles === null ? $roles : array_map(fn ($val) => (int) $val, $roles);
+
+        $this->attributes['roles'] = json_encode($ids);
     }
 }

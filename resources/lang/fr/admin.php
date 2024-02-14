@@ -58,6 +58,7 @@ return [
     'tags' => [
         'title' => 'Étiquettes',
         'create' => 'Créer une étiquette',
+        'restricted' => 'Restreindre l\'accès à certains grades seulement',
     ],
 
     'logs' => [
@@ -89,6 +90,7 @@ return [
     'permissions' => [
         'forums' => 'Gérer les forums et les catégories',
         'discussions' => 'Gérer les discussions du forum',
+        'tags' => 'Gérer les étiquettes sur ses discussions du forum',
         'private' => 'Voir les discussions des autres utilisateurs dans les forums privés',
         'delete_own_posts' => 'Supprimer ses propres messages du forum',
         'locked' => 'Créer une discussion dans un forum verrouillé',

@@ -105,6 +105,10 @@ class Forum extends Model
 
     public function hasRole(Role $role): bool
     {
+        if ($this->roles === null) {
+            return false;
+        }
+
         return in_array($role->id, $this->roles, true);
     }
 

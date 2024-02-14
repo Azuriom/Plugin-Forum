@@ -58,6 +58,7 @@ return [
     'tags' => [
         'title' => 'Tags',
         'create' => 'Create a tag',
+        'restricted' => 'Restrict usage to certain roles only.',
     ],
 
     'logs' => [
@@ -89,6 +90,7 @@ return [
     'permissions' => [
         'forums' => 'Manage forums and categories',
         'discussions' => 'Manage forum discussions (move, edit, delete, pin, lock)',
+        'tags' => 'Add or remove tags on their forum discussions',
         'private' => 'View discussions from others users in private forums',
         'delete_own_posts' => 'Delete own forum posts',
         'locked' => 'Create a discussion in a locked forum',

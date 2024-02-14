@@ -17,6 +17,17 @@ class TagRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:50'],
             'color' => ['required', new Color()],
+            'roles' => ['sometimes', 'nullable', 'array'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        if (! $this->filled('is_restricted') || ! $this->has('roles')) {
+            $this->merge(['roles' => null]);
+        }
     }
 }

@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Forum\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
+use Azuriom\Models\Role;
 use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\TagRequest;
 
@@ -13,15 +14,10 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('forum::admin.tags.index', ['tags' => Tag::all()]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('forum::admin.tags.create');
+        return view('forum::admin.tags.index', [
+            'tags' => Tag::all(),
+            'roles' => Role::all(),
+        ]);
     }
 
     /**
@@ -39,7 +35,10 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('forum::admin.tags.edit', ['tag' => $tag]);
+        return view('forum::admin.tags.edit', [
+            'tag' => $tag,
+            'roles' => Role::all()
+        ]);
     }
 
     /**

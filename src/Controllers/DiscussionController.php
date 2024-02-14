@@ -71,7 +71,7 @@ class DiscussionController extends Controller
             'editor' => $post->content_format ?? null,
             'current' => $discussion,
             'categories' => Category::with('forums')->get(),
-            'tags' => Tag::all(),
+            'tags' => Tag::all()->filter(fn (Tag $tag) => $tag->userCanUse()),
         ]);
     }
 
@@ -80,12 +80,16 @@ class DiscussionController extends Controller
      */
     public function update(DiscussionRequest $request, Discussion $discussion)
     {
-        if ($request->user()->can('forum.discussions')) {
-            $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();
+        $user = $request->user();
 
-            $discussion->tags()->sync(array_keys($request->input('tags', [])));
+        if ($user->can('forum.discussions')) {
+            $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();
         } else {
             $discussion->update(Arr::except($request->validated(), ['is_pinned', 'is_locked', 'forum_id']));
+        }
+
+        if ($user->can('forum.discussions') || $user->can('forum.tags')) {
+            $discussion->tags()->sync(array_keys($request->input('tags', [])));
         }
 
         $post = $discussion->posts()->oldest()->first();

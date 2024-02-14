@@ -30,7 +30,7 @@ class ForumDiscussionController extends Controller
         return view('forum::discussions.create', [
             'forum' => $forum,
             'current' => $forum,
-            'tags' => Tag::all(),
+            'tags' => Tag::all()->filter(fn (Tag $tag) => $tag->userCanUse()),
             'pendingId' => old('pending_id', Str::uuid()),
         ]);
     }
@@ -44,7 +44,8 @@ class ForumDiscussionController extends Controller
     {
         Gate::authorize('create', [Discussion::class, $forum]);
 
-        $nextPostTime = Post::nextPostTime($request->user());
+        $user = $request->user();
+        $nextPostTime = Post::nextPostTime($user);
 
         if ($nextPostTime !== null) {
             return redirect()->back()->withInput()
@@ -61,9 +62,11 @@ class ForumDiscussionController extends Controller
 
         $post->persistPendingAttachments($request->input('pending_id'));
 
-        if ($request->user()->can('forum.discussions')) {
+        if ($user->can('forum.discussions')) {
             $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();
+        }
 
+        if ($user->can('forum.discussions') || $user->can('forum.tags')) {
             $discussion->tags()->sync(array_keys($request->input('tags', [])));
         }
 
