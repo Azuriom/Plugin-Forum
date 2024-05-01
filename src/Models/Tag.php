@@ -6,6 +6,7 @@ use Azuriom\Casts\Color;
 use Azuriom\Models\Role;
 use Azuriom\Models\User;
 use Azuriom\Models\Traits\HasTablePrefix;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -82,8 +83,8 @@ class Tag extends Model
 
     public function setRolesAttribute(?array $roles): void
     {
-        $ids = $roles === null ? $roles : array_map(fn ($val) => (int) $val, $roles);
-
-        $this->attributes['roles'] = json_encode($ids);
+        $this->attributes['roles'] = optional($roles, function (array $roles) {
+            return Json::encode(array_map(fn ($val) => (int) $val, $roles));
+        });
     }
 }

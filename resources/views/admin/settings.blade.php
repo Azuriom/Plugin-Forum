@@ -11,7 +11,7 @@
             <form action="{{ route('forum.admin.settings.save') }}" method="POST">
                 @csrf
 
-                <div class="row g-3">
+                <div class="row gx-3">
                     <div class="col-md-4 mb-3">
                         <label class="form-label" for="delayInput">{{ trans('forum::admin.posts.delay') }}</label>
 

@@ -10,7 +10,7 @@
 
                 @include('forum::elements.markdown-editor', ['editor' => 'markdown'])
 
-                <div class="row g-3">
+                <div class="row gx-3">
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="locationInput">{{ trans('forum::messages.profile.location') }}</label>
                         <input type="text" class="form-control @error('location') is-invalid @enderror" id="locationInput" name="location" value="{{ old('location', $user->location ?? '') }}">
@@ -48,7 +48,7 @@
                     @enderror
                 </div>
 
-                <div class="row g-3">
+                <div class="row gx-3">
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="twitterInput">Twitter</label>
                         <div class="input-group @error('twitter') has-validation @enderror">

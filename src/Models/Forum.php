@@ -7,6 +7,7 @@ use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\Loggable;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -124,16 +125,16 @@ class Forum extends Model
 
     public function setRolesAttribute(?array $roles): void
     {
-        $ids = $roles === null ? $roles : array_map(fn ($val) => (int) $val, $roles);
-
-        $this->attributes['roles'] = json_encode($ids);
+        $this->attributes['roles'] = optional($roles, function (array $roles) {
+            return Json::encode(array_map(fn ($val) => (int) $val, $roles));
+        });
     }
 
     public function setDefaultTagsAttribute(?array $tags): void
     {
-        $ids = $tags === null ? $tags : array_map(fn ($val) => (int) $val, $tags);
-
-        $this->attributes['default_tags'] = json_encode($ids);
+        $this->attributes['default_tags'] = optional($tags, function (array $tags) {
+            return Json::encode(array_map(fn ($val) => (int) $val, $tags));
+        });
     }
 
     /**

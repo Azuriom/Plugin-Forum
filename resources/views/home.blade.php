@@ -68,6 +68,7 @@
                                 </h5>
 
                                 <span class="badge" style="{{ $user->role->getBadgeStyle() }}; vertical-align: middle">
+                                    @if($user->role->icon) <i class="{{ $user->role->icon }}"></i> @endif
                                     {{ $user->role->name }}
                                 </span>
                             </div>

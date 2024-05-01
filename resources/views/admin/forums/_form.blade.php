@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="row g-3">
+<div class="row gx-3">
     <div class="mb-3 col-md-6">
         <label class="form-label" for="categorySelect">{{ trans('messages.fields.category') }}</label>
 
@@ -57,7 +57,7 @@
     </div>
 </div>
 
-<div class="row g-3">
+<div class="row gx-3">
     <div class="mb-3 col-md-6">
         <label class="form-label" for="parentSelect">{{ trans('forum::admin.forums.parent') }}</label>
 
@@ -89,16 +89,20 @@
     </div>
 </div>
 
-<div class="mb-3 form-check form-switch">
-    <input type="checkbox" class="form-check-input" id="lockSwitch" name="is_locked" aria-describedby="lockLabel" @checked($forum->is_locked ?? false)>
-    <label class="form-check-label" for="lockSwitch">{{ trans('forum::admin.forums.lock') }}</label>
+<div class="mb-3">
+    <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="lockSwitch" name="is_locked" aria-describedby="lockLabel" @checked($forum->is_locked ?? false)>
+        <label class="form-check-label" for="lockSwitch">{{ trans('forum::admin.forums.lock') }}</label>
+    </div>
 
     <small id="lockLabel" class="form-text">{{ trans('forum::admin.forums.lock_info') }}</small>
 </div>
 
-<div class="mb-3 form-check form-switch">
-    <input type="checkbox" class="form-check-input" id="privateSwitch" name="is_private" aria-describedby="privateLabel" @checked($forum->is_private ?? false)>
-    <label class="form-check-label" for="privateSwitch">{{ trans('forum::admin.forums.private') }}</label>
+<div class="mb-3">
+    <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="privateSwitch" name="is_private" aria-describedby="privateLabel" @checked($forum->is_private ?? false)>
+        <label class="form-check-label" for="privateSwitch">{{ trans('forum::admin.forums.private') }}</label>
+    </div>
 
     <small id="privateLabel" class="form-text">{{ trans('forum::admin.forums.private_info') }}</small>
 </div>

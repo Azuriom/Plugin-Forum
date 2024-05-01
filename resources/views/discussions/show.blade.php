@@ -13,7 +13,9 @@
         <div class="col-md-9">
             <h1 class="mb-1">
                 @foreach($discussion->tags as $tag)
-                    <span class="small badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
+                    <span class="small badge" style="{{ $tag->getBadgeStyle() }}">
+                        {{ $tag->name }}
+                    </span>
                 @endforeach
                 {{ $discussion->title }}
             </h1>
@@ -80,6 +82,7 @@
                                 </h5>
 
                                 <span class="badge" style="{{ $post->author->role->getBadgeStyle() }};">
+                                    @if($post->author->role->icon) <i class="{{ $post->author->role->icon }}"></i> @endif
                                     {{ $post->author->role->name }}
                                 </span>
                             </div>

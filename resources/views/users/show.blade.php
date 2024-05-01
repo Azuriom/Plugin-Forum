@@ -14,7 +14,10 @@
                     <h1 class="mb-1">{{ $user->name }}</h1>
 
                     <h2 class="h4">
-                        <span class="badge" style="{{ $user->role->getBadgeStyle() }}; vertical-align: middle">{{ $user->role->name }}</span>
+                        <span class="badge" style="{{ $user->role->getBadgeStyle() }}; vertical-align: middle">
+                            @if($user->role->icon) <i class="{{ $user->role->icon }}"></i> @endif
+                            {{ $user->role->name }}
+                        </span>
                     </h2>
 
                     <ul class="list-unstyled mb-0">

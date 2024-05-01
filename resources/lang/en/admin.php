@@ -12,7 +12,7 @@ return [
         'title' => 'Forum settings',
         'home_message' => 'Home message',
         'webhook' => 'Discord Webhook URL',
-        'webhook_info' => 'A notification will be sent on this webhook when a new message is posted. Leave empty to disable',
+        'webhook_info' => 'A notification will be sent on this webhook when a new message is posted. Leave empty to disable.',
     ],
 
     'categories' => [

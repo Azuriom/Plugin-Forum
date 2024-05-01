@@ -27,7 +27,9 @@
                 <div class="mb-1 form-check">
                     <input type="checkbox" class="form-check-input" id="tag{{ $tag->id }}" name="tags[{{ $tag->id }}]" @checked(isset($discussion) && $discussion->tags->contains($tag->id))>
                     <label class="form-check-label" for="tag{{ $tag->id }}">
-                        <span class="badge" style="{{ $tag->getBadgeStyle() }}">{{ $tag->name }}</span>
+                        <span class="badge" style="{{ $tag->getBadgeStyle() }}">
+                            {{ $tag->name }}
+                        </span>
                     </label>
                 </div>
             </div>
