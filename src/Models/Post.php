@@ -130,18 +130,14 @@ class Post extends Model
         return $this->likes()->where('author_id', $userId)->exists();
     }
 
-    public static function nextPostTime(BaseUser $user): ?Carbon
+    public static function nextPostTime(BaseUser $user): ?string
     {
-        $lastPost = self::where('author_id', $user->id)
+        $last = self::where('author_id', $user->id)
             ->where('created_at', '>', now()->subSeconds(forum_post_delay()))
             ->latest()
             ->first();
 
-        if ($lastPost === null) {
-            return null;
-        }
-
-        return $lastPost->created_at->addSeconds(forum_post_delay())->longAbsoluteDiffForHumans();
+        return $last?->created_at->addSeconds(forum_post_delay())->longAbsoluteDiffForHumans();
     }
 
     public function createDiscordWebhook(): DiscordWebhook

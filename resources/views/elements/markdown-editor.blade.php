@@ -10,6 +10,7 @@
         <script>
             tinymce.init({
                 selector: 'textarea',
+                license_key: 'gpl',
                 promotion: false,
                 height: {{ ($editorMinHeight ?? 300) * 1.5 }},
                 min_height: 200,

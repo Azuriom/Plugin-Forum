@@ -8,6 +8,7 @@ use Azuriom\Plugin\Forum\Models\Category;
 use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Tag;
 use Azuriom\Plugin\Forum\Requests\DiscussionRequest;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -29,12 +30,16 @@ class DiscussionController extends Controller
      */
     public function show(Request $request, Discussion $discussion)
     {
-        $discussion->load(['author.user', 'forum.category']);
+        $discussion->load([
+            'author' => fn (Builder $query) => $query->without('role'),
+            'forum.category',
+            'tags',
+        ]);
 
         $posts = $discussion->posts()
             ->with([
-                'likes.author' => fn ($query) => $query->without('role'),
-                'author' => fn ($query) => $query->withCount([
+                'likes.author' => fn (Builder $query) => $query->without('role'),
+                'author' => fn ($query) => $query->with('user')->withCount([
                     'likes', 'posts', 'discussions',
                 ]),
             ])

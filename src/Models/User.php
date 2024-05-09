@@ -28,7 +28,7 @@ class User extends BaseUser
      */
     public function likes()
     {
-        return $this->hasMany(Like::class, 'author_id');
+        return $this->hasManyThrough(Like::class, Post::class, 'author_id');
     }
 
     /**
