@@ -53,7 +53,7 @@
             @enderror
         </div>
 
-        <small id="iconLabel" class="form-text">@lang('messages.icons')</small>
+        <div id="iconLabel" class="form-text">@lang('messages.icons')</div>
     </div>
 </div>
 
@@ -95,7 +95,7 @@
         <label class="form-check-label" for="lockSwitch">{{ trans('forum::admin.forums.lock') }}</label>
     </div>
 
-    <small id="lockLabel" class="form-text">{{ trans('forum::admin.forums.lock_info') }}</small>
+    <div id="lockLabel" class="form-text">{{ trans('forum::admin.forums.lock_info') }}</div>
 </div>
 
 <div class="mb-3">
@@ -104,7 +104,7 @@
         <label class="form-check-label" for="privateSwitch">{{ trans('forum::admin.forums.private') }}</label>
     </div>
 
-    <small id="privateLabel" class="form-text">{{ trans('forum::admin.forums.private_info') }}</small>
+    <div id="privateLabel" class="form-text">{{ trans('forum::admin.forums.private_info') }}</div>
 </div>
 
 <div class="mb-3 form-check form-switch">

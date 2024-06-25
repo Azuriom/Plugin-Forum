@@ -2,6 +2,7 @@
 
 namespace Azuriom\Plugin\Forum\Models;
 
+use Azuriom\Models\Traits\AttachableParent;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\Traits\HasUser;
 use Azuriom\Models\Traits\Loggable;
@@ -26,11 +27,17 @@ use Illuminate\Support\Str;
  */
 class Discussion extends Model
 {
+    use AttachableParent;
     use HasParentNavigation;
     use HasTablePrefix;
     use HasUser;
     use Loggable;
     use Searchable;
+
+    /**
+     * The relation name from this parent class to the class with attachments.
+     */
+    protected static string $attachableRelation = 'posts';
 
     /**
      * The actions to automatically log.

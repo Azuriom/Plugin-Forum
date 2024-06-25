@@ -181,7 +181,7 @@ class BBCodeParser
 
     protected array $internalHosts;
 
-    public function __construct(string $imageProxy = null, array $internalHosts = [])
+    public function __construct(?string $imageProxy = null, array $internalHosts = [])
     {
         $this->imageProxy = $imageProxy;
         $this->internalHosts = $internalHosts;
@@ -236,7 +236,7 @@ class BBCodeParser
     /**
      * Searches after a specified pattern and replaces it with provided structure.
      */
-    protected function searchAndReplace(string $pattern, string $replace, string $source, callable $callback = null): string
+    protected function searchAndReplace(string $pattern, string $replace, string $source, ?callable $callback = null): string
     {
         if ($callback !== null) {
             return preg_replace_callback($pattern, $callback, $source);
@@ -267,7 +267,7 @@ class BBCodeParser
         string $pattern,
         string $replace,
         string $content,
-        callable $callback = null
+        ?callable $callback = null
     ): void {
         $this->parsers[$name] = [
             'pattern' => $pattern,

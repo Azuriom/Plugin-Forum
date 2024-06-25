@@ -43,7 +43,7 @@ class DiscussionPolicy
     /**
      * Determine whether the user can create discussions.
      */
-    public function create(User $user, Forum $forum = null): bool
+    public function create(User $user, ?Forum $forum = null): bool
     {
         if ($forum === null) {
             return true;

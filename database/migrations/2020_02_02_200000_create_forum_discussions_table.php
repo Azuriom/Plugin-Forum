@@ -22,7 +22,7 @@ return new class() extends Migration
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('forum_id')->references('id')->on('forum_forums')->onDelete('cascade');
+            $table->foreign('forum_id')->references('id')->on('forum_forums')->cascadeOnDelete();
         });
     }
 

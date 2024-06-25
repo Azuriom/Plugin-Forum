@@ -12,7 +12,6 @@ use Azuriom\Plugin\Forum\Models\Traits\HasMarkdownOrBBCode;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
 use Azuriom\Support\Discord\DiscordWebhook;
 use Azuriom\Support\Discord\Embed;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HtmlString;
@@ -115,7 +114,7 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function isLiked(BaseUser $user = null): bool
+    public function isLiked(?BaseUser $user = null): bool
     {
         if ($user === null && Auth::guest()) {
             return false;

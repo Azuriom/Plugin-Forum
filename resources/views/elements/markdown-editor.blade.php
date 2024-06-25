@@ -17,7 +17,7 @@
                 entity_encoding: 'raw',
                 menubar: false,
                 plugins: 'emoticons autolink code image link lists codesample',
-                toolbar: 'formatselect | bold italic underline strikethrough forecolor | link image emoticons | alignleft aligncenter alignright | bullist numlist | codesample blockquote | removeformat code | undo redo',
+                toolbar: 'blocks bold italic underline strikethrough forecolor | link image emoticons | alignleft aligncenter alignright | bullist numlist | codesample blockquote | removeformat code | undo redo',
                 relative_urls: false,
                 convert_fonts_to_spans: false,
                 formats: {
@@ -86,7 +86,7 @@
                     @isset($imagesUploadUrl)
                     hideIcons: ['image'],
                     uploadImage: true,
-                    imageAccept: '.jpg,.jpeg,.jpe,.png,.gif,.bmp,.svg,.webp',
+                    imageAccept: '.jpg,.jpeg,.jpe,.png,.gif',
                     imageUploadFunction: function (file, onSuccess, onError) {
                         if (file.size > easyMde.options.imageMaxSize) {
                             onError(easyMde.options.errorMessages.fileTooLarge);

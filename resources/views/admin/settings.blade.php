@@ -55,7 +55,7 @@
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror
 
-                    <small id="webhookInfo" class="form-text">{{ trans('forum::admin.settings.webhook_info') }}</small>
+                    <div id="webhookInfo" class="form-text">{{ trans('forum::admin.settings.webhook_info') }}</div>
                 </div>
 
                 <div class="mb-3">

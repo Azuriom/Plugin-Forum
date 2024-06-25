@@ -112,8 +112,6 @@ class DiscussionController extends Controller
      */
     public function destroy(Discussion $discussion)
     {
-        $discussion->posts()->delete();
-
         $discussion->delete();
 
         ActionLog::log('forum-discussions.deleted', $discussion);

@@ -37,7 +37,7 @@ class TagController extends Controller
     {
         return view('forum::admin.tags.edit', [
             'tag' => $tag,
-            'roles' => Role::all()
+            'roles' => Role::all(),
         ]);
     }
 

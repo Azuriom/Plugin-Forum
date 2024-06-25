@@ -4,8 +4,8 @@ namespace Azuriom\Plugin\Forum\Models;
 
 use Azuriom\Casts\Color;
 use Azuriom\Models\Role;
-use Azuriom\Models\User;
 use Azuriom\Models\Traits\HasTablePrefix;
+use Azuriom\Models\User;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
 
@@ -66,7 +66,7 @@ class Tag extends Model
         return in_array($role->id, $this->roles, true);
     }
 
-    public function userCanUse(User $user = null)
+    public function userCanUse(?User $user = null)
     {
         if ($this->roles === null) {
             return true;

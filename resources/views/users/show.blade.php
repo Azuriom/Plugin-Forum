@@ -73,9 +73,9 @@
 
                         <p>{{ Str::limit(strip_tags($post->parseContent())) }}</p>
 
-                        <small class="text-muted d-block">
+                        <div class="text-muted small">
                             {{ format_date($post->created_at) }}
-                        </small>
+                        </div>
                     </div>
                 @endforeach
             </div>
