@@ -50,9 +50,10 @@ class DiscussionPostController extends Controller
                 ->with('error', trans('forum::messages.posts.delay', ['time' => $nextPostTime]));
         }
 
-        $post = $discussion->posts()->create(array_merge($request->validated(), [
+        $post = $discussion->posts()->create([
+            ...$request->validated(),
             'content_format' => setting('forum.editor', 'bbcode'),
-        ]));
+        ]);
 
         $post->persistPendingAttachments($request->input('pending_id'));
 

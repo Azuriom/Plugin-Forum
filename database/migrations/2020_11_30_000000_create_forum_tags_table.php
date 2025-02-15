@@ -23,6 +23,8 @@ return new class() extends Migration
             $table->unsignedInteger('tag_id');
             $table->unsignedInteger('discussion_id');
 
+            $table->primary(['tag_id', 'discussion_id']);
+
             $table->foreign('tag_id')->references('id')->on('forum_tags')->cascadeOnDelete();
             $table->foreign('discussion_id')->references('id')->on('forum_discussions')->cascadeOnDelete();
         });

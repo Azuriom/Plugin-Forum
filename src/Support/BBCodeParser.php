@@ -165,8 +165,8 @@ class BBCodeParser
         ],
 
         'youtube' => [
-            'pattern' => '/\n?\[youtube\](?:https?:\/\/www\.youtube\.com\/watch\?v\=|https:\/\/youtu\.be\/)?(\w*?)\[\/youtube\]/s',
-            'replace' => '<iframe width="560" height="315" src="//www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',
+            'pattern' => '/\n?\[youtube\](?:https?:\/\/www\.youtube\.com\/watch\?v\=|https:\/\/youtu\.be\/)?([\w-]+)[&?]?.*\[\/youtube\]/s',
+            'replace' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',
             'content' => '$1',
         ],
 

@@ -40,7 +40,8 @@ class ForumController extends Controller
                     'user' => fn ($query) => $query->without('role'),
                 ])
                 ->get()
-                ->pluck('user');
+                ->pluck('user')
+                ->toArray();
 
             return [
                 'discussionsCount' => Discussion::count(),
@@ -65,7 +66,8 @@ class ForumController extends Controller
             'categories' => $categories,
             'latestPosts' => $latestPosts,
             'user' => auth()->user(),
-        ] + $stats);
+            ...$stats,
+        ]);
     }
 
     /**

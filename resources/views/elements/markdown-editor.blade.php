@@ -8,6 +8,48 @@
     @if($editor !== 'markdown')
         <script src="{{ asset('vendor/tinymce/tinymce.min.js') }}"></script>
         <script>
+            function getYoutubePanel(editor) {
+                return {
+                    title: 'YouTube',
+                    body: {
+                        type: 'panel',
+                        items: [
+                            {
+                                type: 'urlinput',
+                                name: 'url',
+                                label: 'YouTube URL'
+                            },
+                        ],
+                    },
+                    buttons: [
+                        {
+                            type: 'cancel',
+                            name: 'closeButton',
+                            text: 'Cancel'
+                        },
+                        {
+                            type: 'submit',
+                            name: 'saveButton',
+                            text: 'Save',
+                            buttonType: 'primary'
+                        },
+                    ],
+                    onSubmit: (api) => {
+                        const data = api.getData();
+                        const url = data.url.value;
+
+                        if (!url || !url.match(/^(https?:\/\/)?((www\.)?youtube\.com\/watch\?v=|youtu\.be\/).+$/)) {
+                            api.close();
+                            editor.windowManager.alert('Invalid YouTube URL.');
+                            return;
+                        }
+
+                        editor.insertContent('[youtube]' + url + '[/youtube]');
+                        api.close();
+                    },
+                };
+            }
+
             tinymce.init({
                 selector: 'textarea',
                 license_key: 'gpl',
@@ -17,7 +59,7 @@
                 entity_encoding: 'raw',
                 menubar: false,
                 plugins: 'emoticons autolink code image link lists codesample',
-                toolbar: 'blocks bold italic underline strikethrough forecolor | link image emoticons | alignleft aligncenter alignright | bullist numlist | codesample blockquote | removeformat code | undo redo',
+                toolbar: 'blocks bold italic underline strikethrough forecolor | link image youtube emoticons | alignleft aligncenter alignright | bullist numlist | codesample blockquote | removeformat code | undo redo',
                 relative_urls: false,
                 convert_fonts_to_spans: false,
                 formats: {
@@ -61,6 +103,14 @@
                     });
                 },
                 @endisset
+
+                setup: (editor) => {
+                    editor.ui.registry.addButton('youtube', {
+                        tooltip: 'Insert YouTube video',
+                        icon: 'embed',
+                        onAction: () => editor.windowManager.open(getYoutubePanel(editor)),
+                    });
+                },
             });
         </script>
     @else
