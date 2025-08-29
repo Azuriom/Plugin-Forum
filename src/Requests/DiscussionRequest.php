@@ -17,7 +17,7 @@ class DiscussionRequest extends FormRequest
      * @var array<int, string>
      */
     protected array $checkboxes = [
-        'is_pinned', 'is_locked',
+        'is_pinned', 'is_locked', 'multiple_choice', 'results_before_vote', 'remove_vote',
     ];
 
     /**
@@ -33,6 +33,31 @@ class DiscussionRequest extends FormRequest
             'forum_id' => ['filled', 'nullable', Rule::exists(Forum::class, 'id')],
             'is_pinned' => ['filled', 'boolean'],
             'is_locked' => ['filled', 'boolean'],
+            'question' => ['required_with:poll', 'nullable', 'string', 'max:150'],
+            'options' => ['required_with:poll', 'nullable', 'array', 'min:2', 'max:10'],
+            'multiple_choice' => ['sometimes', 'boolean'],
+            'results_before_vote' => ['sometimes', 'boolean'],
+            'remove_vote' => ['sometimes', 'boolean'],
+            'closes_at' => ['nullable', 'date', 'after:now'],
         ];
+    }
+
+    public function prepareForValidation(): void
+    {
+        $this->mergeCheckboxes();
+
+        if (! $this->filled('poll')) {
+            $this->merge([
+                'question' => null,
+                'options' => null,
+                'closes_at' => null,
+            ]);
+
+            return;
+        }
+
+        if (is_array($options = $this->input('options'))) {
+            $this->merge(['options' => array_filter($options)]);
+        }
     }
 }

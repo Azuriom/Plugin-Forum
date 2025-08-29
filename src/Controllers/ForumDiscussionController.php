@@ -52,10 +52,11 @@ class ForumDiscussionController extends Controller
                 ->with('error', trans('forum::messages.posts.delay', ['time' => $nextPostTime]));
         }
 
+        $attributes = $user->can('forum.discussions')
+            ? ['title', 'is_pinned', 'is_locked'] : ['title'];
+
         /** @var \Azuriom\Plugin\Forum\Models\Discussion $discussion */
-        $discussion = $forum->discussions()->create(Arr::except($request->validated(), [
-            'content', 'is_pinned', 'is_locked',
-        ]));
+        $discussion = $forum->discussions()->create(Arr::only($request->validated(), $attributes));
 
         $post = $discussion->posts()->create([
             'content' => $request->input('content'),
@@ -64,16 +65,24 @@ class ForumDiscussionController extends Controller
 
         $post->persistPendingAttachments($request->input('pending_id'));
 
-        if ($user->can('forum.discussions')) {
-            $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();
-        }
-
         if ($user->can('forum.discussions') || $user->can('forum.tags')) {
             $discussion->tags()->sync(array_keys($request->input('tags', [])));
         }
 
         if (! empty($forum->default_tags)) {
             $discussion->tags()->attach($forum->default_tags);
+        }
+
+        if ($request->filled('poll') && $user->can('forum.polls.create')) {
+            $validated = Arr::only($request->validated(), [
+                'question', 'multiple_choice', 'results_before_vote', 'remove_vote', 'closes_at',
+            ]);
+
+            $poll = $discussion->poll()->create($validated);
+
+            foreach ($request->input('options') as $option) {
+                $poll->options()->create(['value' => $option]);
+            }
         }
 
         if (($webhookUrl = setting('forum.webhook')) !== null) {

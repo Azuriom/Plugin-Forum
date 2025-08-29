@@ -119,6 +119,10 @@
                                 {{ $post->author->parseSignature() }}
                             @endif
                         </div>
+
+                        @if($loop->first && $discussion->hasPoll())
+                            @include('forum::polls._show', ['poll' => $discussion->poll, 'user' => $user])
+                        @endif
                     </div>
                 </div>
             </div>

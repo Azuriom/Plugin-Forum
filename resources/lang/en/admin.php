@@ -94,5 +94,6 @@ return [
         'private' => 'View discussions from others users in private forums',
         'delete_own_posts' => 'Delete own forum posts',
         'locked' => 'Create a discussion in a locked forum',
+        'create_poll' => 'Create polls in own forum discussions',
     ],
 ];

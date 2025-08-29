@@ -94,5 +94,6 @@ return [
         'private' => 'Voir les discussions des autres utilisateurs dans les forums privés',
         'delete_own_posts' => 'Supprimer ses propres messages du forum',
         'locked' => 'Créer une discussion dans un forum verrouillé',
+        'create_poll' => 'Créer un sondage dans ses propres discussions du forum',
     ],
 ];

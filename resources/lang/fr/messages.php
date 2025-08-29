@@ -92,6 +92,33 @@ return [
         'mention' => ':user vous a mentionné dans :discussion',
     ],
 
+    'polls' => [
+        'create' => 'Ajouter un sondage',
+        'question' => 'Question du sondage',
+        'options' => 'Options du sondage',
+        'option' => 'Option',
+        'multiple_choice' => 'Permettre plusieurs réponses',
+        'results_before_vote' => 'Afficher les résultats avant de voter',
+        'remove_vote' => 'Permettre de modifier ou supprimer son vote',
+        'close' => 'Se termine le',
+        'close_info' => 'Laisser vide pour ne pas avoir d\'expiration.',
+
+        'vote' => 'Voter',
+        'remove' => 'Supprimer mon vote',
+        'votes' => ':count vote|:count votes',
+        'results' => 'Afficher les résultats',
+        'back' => 'Retour au vote',
+        'closed' => 'Sondage terminé',
+        'closes' => 'Se termine le :date',
+        'multiple' => 'Vous pouvez sélectionner plusieurs options.',
+
+        'created' => 'Le sondage a bien été créé.',
+        'voted' => 'Votre vote a bien été enregistré.',
+        'vote_removed' => 'Votre vote a été supprimé.',
+        'deleted' => 'Le sondage a bien été supprimé',
+        'delete_confirm' => 'Êtes-vous sûr de vouloir supprimer ce sondage ?',
+    ],
+
     'profile' => [
         'likes' => 'J\'aimes',
         'posts' => 'Messages',

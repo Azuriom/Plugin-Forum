@@ -34,6 +34,7 @@ class DiscussionController extends Controller
             'author' => fn (Builder $query) => $query->without('role'),
             'forum.category',
             'tags',
+            'poll.options' => fn (Builder $query) => $query->withCount('votes'),
         ]);
 
         $posts = $discussion->posts()
@@ -60,6 +61,7 @@ class DiscussionController extends Controller
             'discussion' => $discussion,
             'current' => $discussion,
             'pendingId' => old('pending_id', Str::uuid()),
+            'user' => $request->user(),
         ]);
     }
 
@@ -89,9 +91,13 @@ class DiscussionController extends Controller
         $user = $request->user();
 
         if ($user->can('forum.discussions')) {
-            $discussion->forceFill(Arr::except($request->validated(), 'content'))->save();
+            $validated = Arr::only($request->validated(), [
+                'title', 'forum_id', 'is_pinned', 'is_locked',
+            ]);
+
+            $discussion->forceFill($validated)->save();
         } else {
-            $discussion->update(Arr::except($request->validated(), ['is_pinned', 'is_locked', 'forum_id']));
+            $discussion->update(Arr::only($request->validated(), 'title'));
         }
 
         if ($user->can('forum.discussions') || $user->can('forum.tags')) {
@@ -101,6 +107,18 @@ class DiscussionController extends Controller
         $post = $discussion->posts()->oldest()->first();
 
         $post->update(['content' => $request->input('content')]);
+
+        if ($request->filled('poll') && ! $discussion->hasPoll() && $user->can('forum.polls.create')) {
+            $validated = Arr::only($request->validated(), [
+                'question', 'multiple_choice', 'results_before_vote', 'remove_vote', 'closes_at',
+            ]);
+
+            $poll = $discussion->poll()->create($validated);
+
+            foreach ($request->input('options') as $option) {
+                $poll->options()->create(['value' => $option]);
+            }
+        }
 
         return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.discussions.status.updated'));

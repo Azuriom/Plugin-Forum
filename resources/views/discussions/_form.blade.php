@@ -46,3 +46,5 @@
         <label class="form-check-label" for="lockSwitch">{{ trans('forum::messages.discussions.lock') }}</label>
     </div>
 @endcan
+
+@include('forum::polls._form')

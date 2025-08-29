@@ -92,6 +92,33 @@ return [
         'mention' => ':user mentioned you in :discussion',
     ],
 
+    'polls' => [
+        'create' => 'Add a poll',
+        'question' => 'Poll question',
+        'options' => 'Poll options',
+        'option' => 'Option',
+        'multiple_choice' => 'Allow multiple choices',
+        'results_before_vote' => 'Show results before voting',
+        'remove_vote' => 'Allow users to change or remove their vote',
+        'close' => 'Closes at',
+        'close_info' => 'Leave empty for no expiration.',
+
+        'vote' => 'Vote',
+        'remove' => 'Remove vote',
+        'votes' => ':count vote|:count votes',
+        'results' => 'Show results',
+        'back' => 'Back to vote',
+        'closed' => 'Poll closed',
+        'closes' => 'Closes in :time',
+        'multiple' => 'You can select multiple options.',
+
+        'created' => 'Poll has been created successfully.',
+        'voted' => 'Your vote has been recorded.',
+        'vote_removed' => 'Your vote has been removed.',
+        'deleted' => 'The poll has been deleted.',
+        'delete_confirm' => 'Are you sure you want to delete this poll?',
+    ],
+
     'profile' => [
         'likes' => 'Likes',
         'posts' => 'Posts',

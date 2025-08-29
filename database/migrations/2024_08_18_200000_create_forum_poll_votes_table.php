@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forum_users', function (Blueprint $table) {
+        Schema::create('forum_poll_votes', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('option_id');
             $table->unsignedInteger('user_id');
-            $table->text('about')->nullable();
-            $table->text('signature')->nullable();
-            $table->string('website')->nullable();
-            $table->string('location')->nullable();
-            $table->string('discord')->nullable();
-            $table->string('twitter')->nullable();
-            $table->timestamp('last_seen_at')->nullable();
+            $table->timestamps();
 
+            $table->foreign('option_id')->references('id')->on('forum_poll_options')->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+
+            $table->unique(['option_id', 'user_id']);
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forum_users');
+        Schema::dropIfExists('forum_poll_votes');
     }
 };

@@ -41,7 +41,7 @@ class ForumController extends Controller
                 ])
                 ->get()
                 ->pluck('user')
-                ->toArray();
+                ->all();
 
             return [
                 'discussionsCount' => Discussion::count(),
@@ -96,8 +96,9 @@ class ForumController extends Controller
                 'posts' => fn (Builder $query) => $query->latest()->with('author'),
             ])
             ->withCount('posts')
+            ->withMax('posts', 'created_at')
             ->orderByDesc('is_pinned')
-            ->latest()
+            ->latest('posts_max_created_at')
             ->paginate();
 
         $forum->setRelation('discussions', $discussions);

@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forum_posts', function (Blueprint $table) {
+        Schema::create('forum_polls', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('author_id');
             $table->unsignedInteger('discussion_id');
-            $table->text('content');
-            $table->string('content_format')->default('markdown');
+            $table->string('question');
+            $table->boolean('multiple_choice')->default(false);
+            $table->boolean('results_before_vote')->default(false);
+            $table->boolean('remove_vote')->default(false);
+            $table->timestamp('closes_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('discussion_id')->references('id')->on('forum_discussions')->cascadeOnDelete();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forum_posts');
+        Schema::dropIfExists('forum_polls');
     }
 };

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forum_likes', function (Blueprint $table) {
+        Schema::create('forum_poll_options', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('post_id');
-            $table->unsignedInteger('author_id');
+            $table->unsignedInteger('poll_id');
+            $table->string('value');
+            $table->timestamps();
 
-            $table->foreign('author_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('post_id')->references('id')->on('forum_posts')->cascadeOnDelete();
+            $table->foreign('poll_id')->references('id')->on('forum_polls')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forum_likes');
+        Schema::dropIfExists('forum_poll_options');
     }
 };

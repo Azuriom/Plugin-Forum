@@ -23,6 +23,7 @@ use Illuminate\Support\Str;
  * @property \Carbon\Carbon $updated_at
  * @property \Azuriom\Models\User $author
  * @property \Azuriom\Plugin\Forum\Models\Forum $forum
+ * @property \Azuriom\Plugin\Forum\Models\Poll|null $poll
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Post[] $posts
  */
 class Discussion extends Model
@@ -62,7 +63,7 @@ class Discussion extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title', 'views',
+        'title', 'views', 'is_pinned', 'is_locked',
     ];
 
     /**
@@ -111,6 +112,22 @@ class Discussion extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'forum_discussion_tag');
+    }
+
+    /**
+     * Get the poll associated with this discussion.
+     */
+    public function poll()
+    {
+        return $this->hasOne(Poll::class);
+    }
+
+    /**
+     * Check if this discussion has a poll.
+     */
+    public function hasPoll(): bool
+    {
+        return $this->poll !== null;
     }
 
     public function getParentNavigation(): ?Forum

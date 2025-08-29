@@ -58,6 +58,7 @@
                 min_height: 200,
                 entity_encoding: 'raw',
                 menubar: false,
+                paste_as_text: true,
                 plugins: 'emoticons autolink code image link lists codesample',
                 toolbar: 'blocks bold italic underline strikethrough forecolor | link image youtube emoticons | alignleft aligncenter alignright | bullist numlist | codesample blockquote | removeformat code | undo redo',
                 relative_urls: false,

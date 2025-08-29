@@ -8,9 +8,11 @@ use Azuriom\Models\Permission;
 use Azuriom\Plugin\Forum\Models\Category;
 use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Forum;
+use Azuriom\Plugin\Forum\Models\Poll;
 use Azuriom\Plugin\Forum\Models\Post;
 use Azuriom\Plugin\Forum\Policies\DiscussionPolicy;
 use Azuriom\Plugin\Forum\Policies\ForumPolicy;
+use Azuriom\Plugin\Forum\Policies\PollPolicy;
 use Azuriom\Plugin\Forum\Policies\PostPolicy;
 use Azuriom\Plugin\Forum\View\Composers\ForumAdminDashboardComposer;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -27,6 +29,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
         Post::class => PostPolicy::class,
         Discussion::class => DiscussionPolicy::class,
         Forum::class => ForumPolicy::class,
+        Poll::class => PollPolicy::class,
     ];
 
     /**
@@ -72,6 +75,7 @@ class ForumServiceProvider extends BasePluginServiceProvider
             'forum.locked.post' => 'forum::admin.permissions.locked',
             'forum.private.view' => 'forum::admin.permissions.private',
             'forum.posts.delete.self' => 'forum::admin.permissions.delete_own_posts',
+            'forum.polls.create' => 'forum::admin.permissions.create_poll',
         ]);
     }
 

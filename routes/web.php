@@ -1,6 +1,7 @@
 <?php
 
 use Azuriom\Plugin\Forum\Controllers\DiscussionController;
+use Azuriom\Plugin\Forum\Controllers\DiscussionPollController;
 use Azuriom\Plugin\Forum\Controllers\DiscussionPostController;
 use Azuriom\Plugin\Forum\Controllers\DiscussionStatusController;
 use Azuriom\Plugin\Forum\Controllers\ForumController;
@@ -52,6 +53,12 @@ Route::post('posts/attachments/{pendingId}', [PostAttachmentController::class, '
 Route::prefix('posts/{post}')->name('posts.')->middleware('auth')->group(function () {
     Route::post('/like', [PostLikeController::class, 'addLike'])->name('like');
     Route::delete('/like', [PostLikeController::class, 'removeLike'])->name('dislike');
+});
+
+Route::prefix('discussions/{discussion}/poll')->name('discussions.poll.')->group(function () {
+    Route::post('/vote', [DiscussionPollController::class, 'vote'])->name('vote');
+    Route::delete('/vote', [DiscussionPollController::class, 'removeVote'])->name('vote.remove');
+    Route::delete('/', [DiscussionPollController::class, 'destroy'])->name('destroy');
 });
 
 Route::resource('users', UserController::class)->only('show')->middleware('throttle:20,1');
