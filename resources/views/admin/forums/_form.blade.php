@@ -128,7 +128,7 @@
 @if(! $tags->isEmpty())
     <label class="form-label">{{ trans('forum::admin.forums.default_tags') }}</label>
 
-    <div class="card card-body mb-2 pb-0">
+    <div class="card card-body mb-3 pb-0">
         @foreach($tags as $tag)
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="tag{{ $tag->id }}" name="default_tags[]" value="{{ $tag->id }}" @checked(isset($forum) && in_array($tag->id, $forum->default_tags ?? [], true))>

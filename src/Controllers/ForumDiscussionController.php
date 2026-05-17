@@ -70,7 +70,7 @@ class ForumDiscussionController extends Controller
         }
 
         if (! empty($forum->default_tags)) {
-            $discussion->tags()->attach($forum->default_tags);
+            $discussion->tags()->syncWithoutDetaching($forum->default_tags);
         }
 
         if ($request->filled('poll') && $user->can('forum.polls.create')) {

@@ -32,7 +32,7 @@ class DiscussionPollController extends Controller
             ->when(! $discussion->poll->multiple_choice, fn (Collection $c) => $c->take(1))
             ->each(fn (PollOption $option) => $option->votes()->create());
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.polls.voted'));
     }
 
@@ -49,7 +49,7 @@ class DiscussionPollController extends Controller
 
         $discussion->poll->votes()->whereBelongsTo($request->user())->delete();
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.polls.vote_removed'));
     }
 
@@ -64,7 +64,7 @@ class DiscussionPollController extends Controller
 
         $discussion->poll->delete();
 
-        return redirect()->route('forum.discussions.show', $discussion)
+        return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.polls.deleted'));
     }
 }

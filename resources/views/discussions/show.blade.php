@@ -42,7 +42,7 @@
                     </form>
                 @endcan
 
-                @if(! $discussion->is_locked || auth()->user()?->isAdmin())
+                @if(! $discussion->is_locked || auth()->user()?->can('forum.discussions'))
                     @can('update', $discussion)
                         <a href="{{ route('forum.discussions.edit', $discussion) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip">
                             <i class="bi bi-pencil-square"></i>
@@ -134,7 +134,7 @@
                     <span class="d-none spinner-border spinner-border-sm load-spinner" role="status"></span>
                 </button>
 
-                @if(! $loop->first && (! $discussion->is_locked || auth()->user()?->isAdmin()))
+                @if(! $loop->first && (! $discussion->is_locked || auth()->user()?->can('forum.discussions')))
                     @can('edit', $post)
                         <a href="{{ route('forum.discussions.posts.edit', [$discussion, $post]) }}" class="btn btn-info btn-sm" title="{{ trans('messages.actions.edit') }}" data-bs-toggle="tooltip">
                             <i class="bi bi-pencil-square"></i>
@@ -164,7 +164,7 @@
         </div>
     @endif
 
-    @if(! $discussion->is_locked || auth()->user()?->isAdmin())
+    @if(! $discussion->is_locked || auth()->user()?->can('forum.discussions'))
         @can('create', \Azuriom\Plugin\Forum\Models\Post::class)
             <div class="card mb-3">
                 <div class="card-header">

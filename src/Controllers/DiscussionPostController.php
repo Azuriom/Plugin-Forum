@@ -39,7 +39,7 @@ class DiscussionPostController extends Controller
      */
     public function store(PostRequest $request, Discussion $discussion)
     {
-        if ($discussion->is_locked && ! $request->user()->isAdmin()) {
+        if ($discussion->is_locked && ! $request->user()->can('forum.discussions')) {
             throw new AuthorizationException();
         }
 
@@ -94,8 +94,6 @@ class DiscussionPostController extends Controller
     public function destroy(Discussion $discussion, Post $post)
     {
         $post->delete();
-
-        ActionLog::log('forum-post.deleted', $post);
 
         return to_route('forum.discussions.show', $discussion)
             ->with('success', trans('forum::messages.posts.status.deleted'));

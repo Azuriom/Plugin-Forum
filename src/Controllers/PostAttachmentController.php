@@ -21,7 +21,7 @@ class PostAttachmentController extends Controller
      */
     public function store(AttachmentRequest $request, Post $post)
     {
-        $this->validate($request, ['file' => 'mimes:jpg,jpeg,png,gif']);
+        $this->validate($request, ['file' => 'image']);
 
         $imageUrl = $post->storeAttachment($request->file('file'));
 
@@ -33,7 +33,7 @@ class PostAttachmentController extends Controller
      */
     public function pending(AttachmentRequest $request, string $pendingId)
     {
-        $this->validate($request, ['file' => 'mimes:jpg,jpeg,png,gif']);
+        $this->validate($request, ['file' => 'image']);
 
         $imageUrl = Post::storePendingAttachment($pendingId, $request->file('file'));
 
