@@ -27,20 +27,14 @@ trait HasMarkdownOrBBCode
 
     public function parseMarkdown(string $attribute, bool $inlineOnly = false): ?HtmlString
     {
-        $text = $this->getAttribute($attribute);
-
-        if ($text === null) {
-            return null;
-        }
-
         if (! app()->isProduction()) {
-            return new HtmlString($this->parseRawMarkdown($attribute, $text, $inlineOnly));
+            return new HtmlString($this->parseRawMarkdown($attribute, $inlineOnly));
         }
 
         $cached = Cache::get($this->getMarkdownCacheKey(), []);
 
         if (! Arr::has($cached, $attribute)) {
-            $cached[$attribute] = $this->parseRawMarkdown($attribute, $text, $inlineOnly);
+            $cached[$attribute] = $this->parseRawMarkdown($attribute, $inlineOnly);
 
             Cache::put($this->getMarkdownCacheKey(), $cached, now()->addMinutes(15));
         }
@@ -48,8 +42,14 @@ trait HasMarkdownOrBBCode
         return new HtmlString(Arr::get($cached, $attribute));
     }
 
-    public function parseRawMarkdown(string $attribute, string $content, bool $inlineOnly = false): string
+    public function parseRawMarkdown(string $attribute, bool $inlineOnly = false): ?string
     {
+        $content = $this->getAttribute($attribute);
+
+        if ($this->content === null) {
+            return null;
+        }
+
         if ($this->getMarkdownFormat() === 'bbcode') {
             $internalHosts = [str_replace(['http://', 'https://'], '', config('app.url'))];
             $parser = (new BBCodeParser('https://images.weserv.nl/?url=%s', $internalHosts));

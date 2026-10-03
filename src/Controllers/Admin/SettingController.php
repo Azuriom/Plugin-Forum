@@ -32,7 +32,7 @@ class SettingController extends Controller
         $settings = $this->validate($request, [
             'post_delay' => ['nullable', 'integer', 'min:0'],
             'recent_posts' => ['nullable', 'integer', 'min:0'],
-            'webhook' => ['nullable', 'url'],
+            'webhook' => ['nullable', 'url:http,https'],
             'home_message' => ['nullable', 'string'],
             'editor' => ['nullable', 'in:bbcode,markdown'],
         ]);

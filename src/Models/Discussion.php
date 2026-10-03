@@ -8,6 +8,7 @@ use Azuriom\Models\Traits\HasUser;
 use Azuriom\Models\Traits\Loggable;
 use Azuriom\Models\Traits\Searchable;
 use Azuriom\Plugin\Forum\Models\Traits\HasParentNavigation;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -23,8 +24,10 @@ use Illuminate\Support\Str;
  * @property \Carbon\Carbon $updated_at
  * @property \Azuriom\Models\User $author
  * @property \Azuriom\Plugin\Forum\Models\Forum $forum
+ * @property \Azuriom\Plugin\Forum\Models\Discussion $firstPost
  * @property \Azuriom\Plugin\Forum\Models\Poll|null $poll
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Post[] $posts
+ * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Post[] $tags
  */
 class Discussion extends Model
 {
@@ -123,6 +126,14 @@ class Discussion extends Model
     }
 
     /**
+     * Get the first post of this discussion.
+     */
+    public function firstPost()
+    {
+        return $this->hasOne(Post::class)->oldestOfMany();
+    }
+
+    /**
      * Check if this discussion has a poll.
      */
     public function hasPoll(): bool
@@ -133,6 +144,14 @@ class Discussion extends Model
     public function getParentNavigation(): ?Forum
     {
         return $this->forum;
+    }
+
+    public function scopePubliclyVisible(Builder $query): void
+    {
+        $query->where(fn (Builder $q) => $q
+            ->where('is_pinned', true)
+            ->orWhereHas('forum', fn (Builder $q) => $q->where('is_private', false))
+        );
     }
 
     /**

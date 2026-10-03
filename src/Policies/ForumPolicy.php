@@ -23,7 +23,7 @@ class ForumPolicy
      */
     public function view(?User $user, Forum $forum): bool
     {
-        if ($forum->roles === null) {
+        if (! $forum->isRoleRestricted()) {
             return true;
         }
 

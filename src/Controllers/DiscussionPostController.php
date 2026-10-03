@@ -3,7 +3,6 @@
 namespace Azuriom\Plugin\Forum\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
-use Azuriom\Models\ActionLog;
 use Azuriom\Notifications\AlertNotification;
 use Azuriom\Plugin\Forum\Models\Discussion;
 use Azuriom\Plugin\Forum\Models\Post;

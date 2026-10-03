@@ -161,6 +161,11 @@ class Post extends Model
         return $this->parseMarkdown('content');
     }
 
+    public function parseContentRaw(): ?string
+    {
+        return $this->parseRawMarkdown('content');
+    }
+
     public function getParentNavigation(): Discussion
     {
         return $this->discussion;

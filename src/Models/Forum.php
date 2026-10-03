@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Azuriom\Plugin\Forum\Models\Category $category
  * @property \Azuriom\Plugin\Forum\Models\Forum|null $parent
  * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Discussion[] $discussions
+ * @property \Illuminate\Support\Collection|\Azuriom\Plugin\Forum\Models\Forum[] $forums
  *
  * @method static \Illuminate\Database\Eloquent\Builder parents()
  */
@@ -102,6 +103,11 @@ class Forum extends Model
     public function posts()
     {
         return $this->hasManyThrough(Post::class, Discussion::class)->latest();
+    }
+
+    public function isRoleRestricted()
+    {
+        return $this->roles !== null;
     }
 
     public function hasRole(Role $role): bool

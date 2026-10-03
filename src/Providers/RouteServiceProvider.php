@@ -13,6 +13,11 @@ class RouteServiceProvider extends BaseRouteServiceProvider
      */
     public function loadRoutes(): void
     {
+        Route::middleware('api')
+            ->prefix('api/'.$this->plugin->id)
+            ->name($this->plugin->id.'.')
+            ->group(plugin_path($this->plugin->id.'/routes/api.php'));
+
         Route::middleware(['web', UpdateLastActivity::class])
             ->prefix($this->plugin->id)
             ->name("{$this->plugin->id}.")
